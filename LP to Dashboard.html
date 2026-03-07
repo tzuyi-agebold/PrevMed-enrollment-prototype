@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Health — Healthy-aging care clinicians, covered by Medicare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: { brand: '#5200D4', dark: '#29006A', mid: '#3E009F', light: '#EBF0FF', pale: '#F3E8FF' },
+                        yellow: { brand: '#FFCC1A' },
+                        ink: '#140D26',
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .carousel-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .step-icon-bg {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 999px;
+            display: flex; align-items: center; justify-content: center;
+            width: 100px; height: 100px;
+            box-shadow: 0 20px 24px -4px rgba(16,24,40,0.08), 0 8px 8px -4px rgba(16,24,40,0.03);
+        }
+        .grid-lines {
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 52px, rgba(0,0,0,0.04) 52px, rgba(0,0,0,0.04) 53px),
+                repeating-linear-gradient(90deg, transparent, transparent 52px, rgba(0,0,0,0.04) 52px, rgba(0,0,0,0.04) 53px);
+        }
+    </style>
+</head>
+<body class="bg-[#e5e7eb] text-ink antialiased flex justify-center pb-12 sm:py-12">
+
+<div class="w-full max-w-[400px] bg-white overflow-x-hidden relative border-x sm:border border-gray-200 sm:rounded-[2.5rem] sm:shadow-2xl">
+
+<!-- Sticky Nav -->
+<nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between shadow-sm">
+    <div class="text-2xl font-extrabold italic tracking-widest text-[#5200D4] uppercase">Bold</div>
+    <div class="flex items-center gap-2">
+        <button class="px-4 py-2 text-[14px] font-semibold text-gray-700 hover:text-gray-900 transition-colors">Sign in</button>
+        <a href="EC to Dashboard.html" class="px-4 py-2 bg-[#5200D4] text-white text-[14px] font-semibold rounded-xl hover:bg-purple-800 transition-colors active:scale-95">Check coverage</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="bg-[#EBF0FF] px-4 py-10">
+    <div class="bg-[#EBF0FF] rounded-3xl p-4 flex flex-col gap-6">
+        <!-- Title -->
+        <h1 class="text-[32px] font-bold text-[#29006A] leading-[40px]">
+            Healthy-aging care clinicians, covered by Medicare
+        </h1>
+
+        <!-- Form card -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <div class="px-4 py-4 flex flex-col gap-3">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[16px] font-semibold text-black">First name <span class="font-normal text-[14px] text-gray-500">(as it appears on your ID)</span></label>
+                    <input type="text" id="firstName" placeholder="First name" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[16px] font-semibold text-black">Last name</label>
+                    <input type="text" id="lastName" placeholder="Last name" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[16px] font-semibold text-black">Email</label>
+                    <input type="email" placeholder="Email address" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#5200D4" stroke-width="1.5"/><path d="M10 9v5" stroke="#5200D4" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="6.5" r="0.75" fill="#5200D4"/></svg>
+                    <button class="text-[16px] font-semibold text-[#5200D4] underline underline-offset-2">Why are we asking this?</button>
+                </div>
+            </div>
+            <div class="px-4 py-4 border-t border-gray-50">
+                <a href="EC to Dashboard.html" onclick="localStorage.setItem('boldFirstName', document.getElementById('firstName').value.trim()); localStorage.setItem('boldLastName', document.getElementById('lastName').value.trim());" class="block w-full bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+                    Check coverage
+                </a>
+            </div>
+        </div>
+
+        <!-- Coverage blurb -->
+        <p class="text-[16px] text-[#3E009F] leading-[24px]">
+            Covered for all Medicare and eligible Aetna, Anthem, Blue Cross, Blue Shield, UnitedHealthcare plans and more!
+        </p>
+
+        <!-- Hero image -->
+        <div class="relative rounded-2xl overflow-hidden border border-[#d8ddeb]">
+            <img src="https://www.figma.com/api/mcp/asset/92ce5207-400d-4aed-8698-4e3bff3770d0"
+                 alt="Patient doing telehealth visit"
+                 class="w-full object-cover" />
+            <!-- Doctor video call inset -->
+            <img src="screens/doc.png" alt="Doctor on video call" class="absolute" style="bottom:8px;left:8px;width:25.5%;" />
+        </div>
+    </div>
+
+    <!-- Terms -->
+    <p class="mt-4 text-[14px] text-gray-400 leading-[22px]">
+        By signing up, you agree to Bold's <span class="underline">Terms of service</span> and <span class="underline">Privacy policy</span>.
+    </p>
+</section>
+
+<!-- VALUE PROPS 1 — Insurance coverage -->
+<section class="bg-[#FAFAFA] px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+    <div class="flex flex-col gap-10 items-center">
+        <div class="text-center flex flex-col gap-3">
+            <h2 class="text-[28px] font-bold text-gray-900 leading-[34px]">Personalized healthy-aging Care Plan, covered by your insurance</h2>
+            <p class="text-[16px] text-gray-800 leading-[24px]"><strong>Most members pay little to no cost.</strong> We'll help you understand your insurance coverage *before* your appointment.</p>
+        </div>
+        <a href="EC to Dashboard.html" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+            Check coverage
+        </a>
+        <div class="rounded-2xl overflow-hidden w-full">
+            <img src="https://www.figma.com/api/mcp/asset/dfbe8367-2568-4559-90b7-2d12e33248aa"
+                 alt="Older adults exercising outdoors"
+                 class="w-full object-cover rounded-2xl" />
+        </div>
+    </div>
+</section>
+
+<!-- VALUE PROPS 2 — Feel Better. Live Bolder. Carousel -->
+<section class="bg-[#EBF0FF] px-4 py-18 overflow-hidden" style="padding-top:72px;padding-bottom:72px;">
+    <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+            <h2 class="text-[32px] font-bold text-[#29006A] leading-[40px]">Feel better. Live bolder.</h2>
+            <p class="text-[16px] text-[#29006A] opacity-90 leading-[24px]">Improve your health with daily lifestyle changes, guided by our expert clinicians.</p>
+        </div>
+
+        <!-- Carousel -->
+        <div class="relative overflow-hidden" id="pillarCarousel">
+            <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2" id="pillarTrack">
+                <!-- Card: General healthy aging -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/4b9cdeb2-e8c5-49ee-bb4b-ae66c4aa4780" class="absolute inset-0 w-full h-full object-cover" alt="General healthy aging" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">General healthy aging</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Bold offers a personalized longevity plan that includes lifestyle coaching and proactive steps to support your health.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Energy & fatigue -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/d51509b0-5391-4054-8482-c2e9920938d5" class="absolute inset-0 w-full h-full object-cover" alt="Energy and fatigue" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Energy & fatigue</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Improve your energy levels through nutrition, exercise, and other lifestyle changes with the help of your Bold care team.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Weight management -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/7bd0d01d-6c52-47f8-b8a5-44eeac0d3dcf" class="absolute inset-0 w-full h-full object-cover" alt="Weight management" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Weight management</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Get support reaching and maintaining a healthy weight.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Nutrition -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/7c07782f-0e7d-4658-98bb-0f571d57b15d" class="absolute inset-0 w-full h-full object-cover" alt="Nutrition" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Nutrition & healthy eating</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Discover how diet affects chronic conditions and get nutrition support from Bold's care team.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Sleep -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/7f290388-601a-4ba8-adfa-d28bca52c9b1" class="absolute inset-0 w-full h-full object-cover" alt="Sleep and recovery" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Sleep & recovery</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Learn how to address sleep challenges and improve your sleep.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Physical activity -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/b9238951-0cf0-4647-b5f1-071280cd362d" class="absolute inset-0 w-full h-full object-cover" alt="Physical activity" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Physical activity</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Boost your well-being through physical activity guidance with insights from physician-led care teams.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+                <!-- Card: Stress management -->
+                <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="window.location='EC to Dashboard.html'">
+                    <img src="https://www.figma.com/api/mcp/asset/58573b90-8d1c-4c29-8965-a0df4b9170c3" class="absolute inset-0 w-full h-full object-cover" alt="Stress management" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                        <div>
+                            <h3 class="text-[28px] font-bold text-white leading-[1.2]">Stress management & mood</h3>
+                            <p class="text-[16px] text-white leading-[24px] mt-1">Focus on mental health through personalized support and guidance.</p>
+                        </div>
+                        <a href="EC to Dashboard.html" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nav arrows -->
+        <div class="flex items-center justify-center gap-3">
+            <button onclick="scrollCarousel(-1)" class="w-10 h-10 rounded-full bg-[#29006A]/10 text-[#29006A] flex items-center justify-center hover:bg-[#29006A]/20 transition-all active:scale-95">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button onclick="scrollCarousel(1)" class="w-10 h-10 rounded-full bg-[#29006A]/10 text-[#29006A] flex items-center justify-center hover:bg-[#29006A]/20 transition-all active:scale-95">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- PROVIDER SECTION -->
+<section class="bg-[#FAFAFA] py-18 overflow-hidden" style="padding-top:72px;padding-bottom:72px;">
+    <div class="px-4 flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+            <h2 class="text-[32px] font-bold text-gray-900 leading-[40px]">Your personal healthy aging expert</h2>
+            <p class="text-[16px] text-gray-700 leading-[24px] opacity-90">Bold's board-certified doctors and nurse practitioners are experts in healthy aging <strong>who take a root cause approach to care.</strong> You can check in with your clinician as often as you want.</p>
+        </div>
+        <a href="EC to Dashboard.html" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+            Match with a clinician
+        </a>
+    </div>
+    <!-- Provider grid — horizontally scrollable -->
+    <div class="mt-8 overflow-x-auto hide-scrollbar">
+        <div class="flex flex-wrap gap-4 justify-center px-4" style="width: max-content; max-width: none;">
+            <!-- Row 1 -->
+            <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                <img src="https://www.figma.com/api/mcp/asset/f39ea653-deeb-4558-8d65-b17c01643961" class="w-full h-full object-cover" alt="Janessa Webster" />
+                <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-bold text-[13px] leading-tight">Janessa Webster</p>
+                    <p class="text-white text-[11px]">MSN, APRN, 5 yrs</p>
+                </div>
+            </div>
+            <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                <img src="https://www.figma.com/api/mcp/asset/a0a7eff8-48f0-4458-b8f8-8f00e5a54596" class="w-full h-full object-cover" alt="Sloane Fowkes" />
+                <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-bold text-[13px] leading-tight">Sloane Fowkes</p>
+                    <p class="text-white text-[11px]">LCSW, 13 yrs</p>
+                </div>
+            </div>
+            <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                <img src="https://www.figma.com/api/mcp/asset/98ada013-0a48-478c-8f42-9d2a667bd45d" class="w-full h-full object-cover" alt="your clinician" />
+                <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-bold text-[13px] leading-tight">your clinician</p>
+                    <p class="text-white text-[11px]">MSN, FNP-C, 7 yrs</p>
+                </div>
+            </div>
+            <!-- Row 2 -->
+            <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                <img src="https://www.figma.com/api/mcp/asset/48f14847-2927-49cb-94b8-9c9ca7e2370d" class="w-full h-full object-cover" alt="Afua Agyarko" />
+                <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-bold text-[13px] leading-tight">Afua Agyarko</p>
+                    <p class="text-white text-[11px]">Medical Doctor, 17 yrs</p>
+                </div>
+            </div>
+            <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                <img src="https://www.figma.com/api/mcp/asset/346cf821-a723-4da5-a311-4cd7638794e2" class="w-full h-full object-cover" alt="Dr. Mitul S. Desai" />
+                <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-bold text-[13px] leading-tight">Dr. Mitul S. Desai</p>
+                    <p class="text-white text-[11px]">MD, 21 yrs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="bg-white border-b border-gray-200 px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+    <div class="flex flex-col gap-8">
+        <!-- Header -->
+        <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#5200D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#5200D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-[16px] font-bold text-[#5200D4] tracking-[1px] uppercase">Getting started</span>
+            </div>
+            <h2 class="text-[32px] font-bold text-gray-900 leading-[40px]">How Bold works</h2>
+            <p class="text-[16px] text-gray-700 leading-[24px] opacity-90">Verify your insurance coverage with a Bold Care Coordinator and get matched with your healthy aging clinician. You can meet as often as you want to check in on your progress.</p>
+        </div>
+
+        <!-- Steps -->
+        <div class="flex flex-col gap-12 pt-6">
+
+            <!-- Step 1 -->
+            <div class="relative">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                    <span class="text-[17px] font-bold text-ink">Step 1</span>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                    <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                        <div class="step-icon-bg border border-[#d5aeff]">
+                            <img src="https://www.figma.com/api/mcp/asset/4cf112a8-d450-4b52-ba83-9ac5f9420186" class="w-14 h-14 object-contain" alt="Check coverage" />
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200 p-4">
+                        <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Check your coverage</h3>
+                        <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Enter a few details to confirm eligibility. <strong>Bold is HIPAA-certified, so your information is always secure.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                    <span class="text-[17px] font-bold text-ink">Step 2</span>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                    <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                        <div class="step-icon-bg border border-[#d5aeff]">
+                            <img src="https://www.figma.com/api/mcp/asset/971775dd-c48a-4655-ac92-ce68a402d28d" class="w-14 h-14 object-contain" alt="Schedule session" />
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200 p-4">
+                        <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Schedule a virtual session</h3>
+                        <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Choose a convenient time — often within days — to meet virtually with a physician trained in lifestyle medicine.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                    <span class="text-[17px] font-bold text-ink">Step 3</span>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                    <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                        <div class="step-icon-bg border border-[#d5aeff]">
+                            <img src="https://www.figma.com/api/mcp/asset/501243c7-6b51-40ee-bcd5-8d2a06901b6f" class="w-14 h-14 object-contain" alt="Care plan" />
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200 p-4">
+                        <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Personalized care plan</h3>
+                        <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Together you'll build long-term healthy habits, supported by ongoing follow-up and guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="EC to Dashboard.html" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+            Book your first appointment
+        </a>
+    </div>
+</section>
+
+<!-- FEATURED / PRESS -->
+<section class="bg-[#EBF0FF] border-b border-gray-200 px-4 py-10 flex flex-col items-center gap-8">
+    <p class="text-[16px] font-bold text-[#3E009F] text-center">Bold has been featured in:</p>
+
+    <!-- Press logos -->
+    <div class="flex flex-col items-center gap-4 w-full">
+        <img src="https://www.figma.com/api/mcp/asset/9172565a-7d62-485b-a236-45bde6c7161d" class="h-9 object-contain" alt="MedCity News + Forbes" />
+        <div class="flex items-center gap-8 opacity-80">
+            <img src="https://www.figma.com/api/mcp/asset/f2c0671a-44e2-4767-b2b9-787594b67616" class="h-5 object-contain" alt="TechCrunch" />
+            <img src="https://www.figma.com/api/mcp/asset/5324095b-0475-47ca-b52f-d943e168933e" class="h-6 object-contain" alt="The New York Times" />
+        </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="flex flex-col items-center gap-3">
+        <div class="flex">
+            <img src="https://www.figma.com/api/mcp/asset/2f824d0e-e1df-4a1d-94db-32e30c98c986" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover -mr-3 z-10" style="width:60px;height:60px;" alt="Member" />
+            <img src="https://www.figma.com/api/mcp/asset/9a355257-463d-4ba7-89ce-e7402f7fcec2" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover -mr-3 z-20" style="width:60px;height:60px;" alt="Member" />
+            <img src="https://www.figma.com/api/mcp/asset/c544b245-7a82-4d67-8198-39c8b8930337" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover z-30" style="width:60px;height:60px;" alt="Member" />
+        </div>
+        <p class="text-[18px] text-gray-600 text-center leading-[24px]">
+            Tens of thousands of adults 65 and older are building healthy habits with <strong>Bold</strong> from the comfort of their home, and that number is growing. <strong>Join them today!</strong>
+        </p>
+    </div>
+
+    <a href="EC to Dashboard.html" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+        Book your first appointment
+    </a>
+</section>
+
+<!-- FAQ -->
+<section class="bg-white px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+    <div class="flex flex-col gap-4">
+        <h2 class="text-[32px] font-bold text-gray-900 text-center leading-[40px] mb-2">Frequently asked questions</h2>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">What conditions does Bold Care help with?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care can help with the following conditions: Diabetes, Heart disease or high blood pressure, Obesity and weight management, Arthritis, Emotional support, Cognitive health, and General healthy aging support.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Who is eligible for Bold Care?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">You are eligible for Bold if you live in California, Texas, Pennsylvania or Illinois and are an <strong>Original Medicare</strong> member or a member of one of our supported <strong>Medicare Advantage partners</strong> such as Aetna, Anthem, Blue Cross, Blue Shield, and UnitedHealthcare. <strong>UnitedHealthcare offers $0 copay</strong> for in-network telehealth providers, which includes Bold Care Clinicians.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Will I have any co-pay or co-insurance fees associated with my appointments?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care directly bills Medicare and other insurance plans — no surprise bills. During sign-up, we confirm your eligibility before your first appointment. Most Bold Care patients pay little to nothing out of pocket. Questions? Call us at <strong class="text-[#5200D4]">(424) 577-5266</strong>.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Is Bold available where I live?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care is currently available to members who reside in California, Texas, Pennsylvania or Illinois. Additional states will be added in the coming months.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Does Bold Care offer primary care?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">No, Bold is a complement to your primary care provider, not a replacement. Members use Bold Care to receive support in establishing and maintaining lifestyle changes between doctor visits.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Does Bold Care provide prescriptions?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">No, Bold Care Clinicians do not prescribe prescriptions. Our members appreciate our <strong>root cause approach</strong>, which takes a holistic view of who you are and what you need, <strong>beyond additional medication.</strong></p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">What is included in my personalized Care Plan?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">Your Care Plan includes: activities to manage stress, ways to increase physical activity, strategies to maintain a healthy weight, nutritional guidance, and behaviors to promote restful sleep. <strong>Bold Care Plans are grounded in evidence and the latest healthy aging research.</strong></p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Who are Bold Care Clinicians?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care Clinicians are board-certified doctors and nurse practitioners who are experts in healthy aging.</p>
+        </div>
+
+        <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+            <h3 class="text-[20px] font-bold text-ink leading-[24px]">Any further questions?</h3>
+            <p class="text-[16px] text-gray-600 leading-[24px]">You can reach Bold Monday–Friday, 5am–5pm PT by phone at <strong class="text-[#5200D4]">(855) 528-0851 (TTY: 711)</strong> or email us at <strong class="text-[#5200D4]">hello@agebold.com</strong>.</p>
+        </div>
+
+        <a href="EC to Dashboard.html" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm mt-2">
+            Book your first appointment
+        </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-white border-t border-gray-200 px-4 py-12 flex flex-col gap-12">
+    <!-- Logo + tagline -->
+    <div class="flex flex-col gap-4">
+        <div class="text-2xl font-extrabold italic tracking-widest text-[#5200D4] uppercase">Bold</div>
+        <p class="text-[16px] text-gray-500 leading-[24px]">Find better balance, build strength, and reduce pain with easy-to-follow online video workouts personalized for you.</p>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+            <p class="text-[16px] font-bold text-ink">Stay up to date</p>
+            <p class="text-[16px] text-gray-500">Receive exercise tips, product updates, event invites, and more!</p>
+        </div>
+        <input type="email" placeholder="Enter your email" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm" />
+        <button class="w-full bg-[#5200D4] text-white font-bold text-[16px] py-3 rounded-lg hover:bg-purple-800 transition-all">Subscribe</button>
+    </div>
+
+    <!-- Links -->
+    <div class="flex gap-12">
+        <div class="flex flex-col gap-4">
+            <p class="text-[16px] font-bold text-ink">Company</p>
+            <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+                <span>About Bold</span><span>Science</span><span>Careers</span><span>Trainers</span><span>Blog</span><span>Press</span>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4">
+            <p class="text-[16px] font-bold text-ink">Product</p>
+            <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+                <span>Sign up</span><span>How's my health?</span><span>Partnerships</span><span>FAQ</span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-4">
+        <p class="text-[16px] font-bold text-ink">Connect</p>
+        <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+            <span>Contact us</span><span>Facebook</span><span>Instagram</span>
+        </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="border-t border-gray-200 pt-8 flex flex-col gap-4">
+        <div class="flex gap-4 text-[16px] text-gray-500">
+            <span>Terms</span><span>Privacy</span><span>Disclaimers</span>
+        </div>
+        <p class="text-[16px] text-gray-500">© 2025 Age Bold Inc.</p>
+    </div>
+</footer>
+
+<script>
+    function scrollCarousel(dir) {
+        const track = document.getElementById('pillarTrack');
+        track.scrollBy({ left: dir * 296, behavior: 'smooth' });
+    }
+</script>
+
+</div><!-- /phone-frame -->
+
+</body>
+</html>

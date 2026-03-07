@@ -1,0 +1,16 @@
+# Claude Code local settings
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Large video files (share separately)
+screens/*.mp4
+screens/*.mov
+screens/*.avi
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,835 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplified Bold Zoom Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.5;
+        }
+        .step-container {
+            margin-bottom: 48px;
+        }
+        .ui-image-container {
+            background-color: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.08);
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+        }
+        .step-number {
+            background-color: #000000;
+            color: #ffffff;
+            border-radius: 9999px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        .btn-lavender {
+            background-color: #C8A2E8; /* Brand lavender */
+            color: #1a1a1a;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            display: block;
+            text-align: center;
+            width: 100%;
+            font-size: 18px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .email-mockup {
+            background-color: #f3f4f6;
+            color: #1a1a1a;
+            padding: 32px 24px;
+            font-size: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .zoom-screenshot {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            padding: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+        .zoom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .zoom-logo {
+            color: #2D8CFF;
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: -1.5px;
+            font-style: italic;
+        }
+        .zoom-content {
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .zoom-h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #232333;
+        }
+        .btn-zoom-blue {
+            background-color: #0B5FFF;
+            color: white;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 17px;
+            display: block;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        .btn-zoom-outline {
+            background-color: #ffffff;
+            color: #232333;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 17px;
+            display: block;
+            width: 100%;
+            border: 1px solid #d1d5db;
+        }
+        .warning-box {
+            background-color: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        /* Permission Mockup Styles */
+        .permission-mockup {
+            background-color: #1a1a1a;
+            color: white;
+            position: relative;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .request-header {
+            background-color: #f0f0f0;
+            color: #333;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .system-alert {
+            background-color: rgba(255,255,255,0.95);
+            color: black;
+            border-radius: 14px;
+            width: 72%;
+            max-width: 280px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .alert-body {
+            padding: 20px;
+            text-align: center;
+        }
+        .alert-footer {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .alert-btn {
+            flex: 1;
+            padding: 12px;
+            color: #007aff;
+            font-weight: 600;
+            text-align: center;
+        }
+        .alert-btn:first-child {
+            border-right: 1px solid #ccc;
+            font-weight: 400;
+        }
+        /* Step Navigation */
+        .step-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            padding: 10px 16px;
+        }
+        .step-track {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: #e5e7eb;
+            transition: background 0.2s;
+        }
+        .step-line.done {
+            background: #000000;
+        }
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            color: #374151;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+        .nav-arrow:hover:not([disabled]) {
+            border-color: #5200D4;
+            color: #5200D4;
+        }
+        .nav-arrow[disabled] {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .step-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .step-dot:hover {
+            border-color: #5200D4;
+            color: #5200D4;
+        }
+        .step-dot.active {
+            background: #000000;
+            border-color: #000000;
+            color: white;
+        }
+        .step-dot.done {
+            background: #555555;
+            border-color: #555555;
+            color: white;
+        }
+        #nav-prev:hover:not([disabled]),
+        #nav-next:hover:not([disabled]) {
+            background: #3E009F !important;
+            border-color: #3E009F !important;
+            color: white !important;
+        }
+        #nav-prev[disabled],
+        #nav-next[disabled] {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="p-6 max-w-md mx-auto">
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+        <div class="flex justify-center items-center gap-3 mb-6">
+            <img src="data:image/png;base64,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" alt="BOLD Logo" class="h-10 w-auto">
+        </div>
+        <h1 class="text-2xl font-bold tracking-tight">How to Join Your Bold Care Appointment</h1>
+        <p class="text-base text-gray-500 mt-2">Simple 4-Step Guide</p>
+    </header>
+
+
+    <!-- Step Navigation -->
+    <nav id="step-navigation" class="step-nav" aria-label="Step navigation">
+        <div class="step-track">
+            <button id="nav-dot-1" class="step-dot active" onclick="goToStep(1)" aria-label="Step 1">1</button>
+            <span class="step-line" id="step-line-1"></span>
+            <button id="nav-dot-2" class="step-dot" onclick="goToStep(2)" aria-label="Step 2">2</button>
+            <span class="step-line" id="step-line-2"></span>
+            <button id="nav-dot-3" class="step-dot" onclick="goToStep(3)" aria-label="Step 3">3</button>
+            <span class="step-line" id="step-line-3"></span>
+            <button id="nav-dot-4" class="step-dot" onclick="goToStep(4)" aria-label="Step 4">4</button>
+            <span class="step-line" id="step-line-4"></span>
+            <button id="nav-dot-5" class="step-dot" onclick="goToStep(5)" aria-label="Step 5">5</button>
+        </div>
+    </nav>
+
+    <!-- Floating side arrows -->
+    <button id="nav-prev" onclick="changeStep(-1)" aria-label="Previous step" disabled
+        style="position:fixed; left:calc(50% - 72px); bottom:32px; width:64px; height:64px; border-radius:50%; border:none; background:#5200D4; font-size:36px; line-height:1; cursor:pointer; color:white; box-shadow:0 4px 12px rgba(82,0,212,0.35); transition:all 0.15s; display:flex; align-items:center; justify-content:center; z-index:100;">&#8249;</button>
+    <button id="nav-next" onclick="changeStep(1)" aria-label="Next step"
+        style="position:fixed; left:calc(50% + 8px); bottom:32px; width:64px; height:64px; border-radius:50%; border:none; background:#5200D4; font-size:36px; line-height:1; cursor:pointer; color:white; box-shadow:0 4px 12px rgba(82,0,212,0.35); transition:all 0.15s; display:flex; align-items:center; justify-content:center; z-index:100;">&#8250;</button>
+
+    <!-- Step 1 -->
+    <section id="step-panel-1" class="step-container">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">1</div>
+            <div>
+                <h2 class="text-xl font-bold">Open Your Appointment Link</h2>
+                <p class="text-base text-gray-600 mt-1">Check your email or text message from Bold. Tap the <strong>"Join appointment"</strong> button to open the link.</p>
+            </div>
+        </div>
+        
+        <div class="ui-image-container">
+            <div class="email-mockup">
+                <div class="flex justify-center mb-8">
+                    <img src="data:image/png;base64,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" alt="BOLD" class="h-8 w-auto">
+                </div>
+                <p class="text-base font-semibold mb-6">Hi [Your Name],</p>
+                <p class="mb-4 text-sm font-bold text-gray-800 leading-relaxed">
+                    Your Provider Virtual Visit with your clinician is confirmed for: [Your Appointment Time]
+                </p>
+                <p class="text-sm text-gray-500 mb-6 leading-relaxed">At the time of your visit, click below to join:</p>
+                <div class="btn-lavender mb-8 shadow-sm">Join appointment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section id="step-panel-2" class="step-container" style="display:none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">2</div>
+            <div>
+                <h2 class="text-xl font-bold">Join from Browser</h2>
+                <p class="text-base text-gray-600 mt-1">After you open the Zoom link, tap <strong>"Join from browser"</strong> — no app needed. This is the easiest way to join.</p>
+            </div>
+        </div>
+
+        <div class="ui-image-container">
+            <!-- Zoom page mockup matching actual Zoom UI -->
+            <div class="bg-white" style="flex:1; display:flex; flex-direction:column;">
+                <!-- Top nav -->
+                <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+                    <span style="color:#2D8CFF; font-weight:900; font-size:22px; letter-spacing:-1px; font-style:italic;">zoom</span>
+                    <div class="flex items-center gap-4">
+                        <span class="text-[#2D8CFF] text-sm font-medium">Support</span>
+                        <span class="text-[#2D8CFF] text-sm font-medium">English ▾</span>
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="px-8 py-10 text-center" style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+                    <h1 class="text-[26px] font-extrabold text-[#1a1a2e] mb-8 tracking-tight">Join meeting</h1>
+                    <!-- Join from App (dimmed) -->
+                    <div class="bg-[#2D6CF0] text-white text-[17px] font-semibold rounded-full py-4 px-6 mb-4 shadow-sm opacity-40">Join from App</div>
+                    <!-- Join from browser (highlighted) -->
+                    <div class="relative mb-1">
+                        <div class="border-2 border-green-500 bg-green-50 text-[#1a1a2e] text-[17px] font-bold rounded-full py-4 px-6 shadow-md">Join from browser</div>
+                        <div class="absolute -right-2 -top-3 bg-green-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">👈 Tap this</div>
+                    </div>
+                    <!-- Or divider -->
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                        <span class="text-[13px] text-gray-400 font-medium">Or</span>
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                    </div>
+                    <!-- Download from App Store -->
+                    <div class="border border-gray-300 text-[#1a1a2e] text-[17px] font-normal rounded-full py-4 px-6">Download from App Store</div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="border border-amber-200 rounded-2xl overflow-hidden mt-4">
+            <button onclick="toggleAccordion('note-app-users')"
+                aria-expanded="false" aria-controls="note-app-users"
+                class="w-full flex items-center justify-between px-4 py-4 text-left bg-amber-50 hover:bg-amber-100 transition-colors">
+                <span class="text-amber-900 font-bold text-sm">💡 Note for App Users</span>
+                <svg id="note-app-users-icon" class="w-5 h-5 text-amber-600 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="note-app-users" class="hidden px-4 pb-4 bg-amber-50">
+                <p class="text-amber-800 text-sm mb-3">
+                    If you download the app, <strong>do not log in or sign up</strong>. Just close the app once it's installed and go back to the original join link you just clicked on.
+                </p>
+                <!-- Mini email mockup -->
+                <div class="bg-white rounded-xl overflow-hidden shadow border border-amber-200 px-4 py-4 text-sm">
+                    <div class="flex justify-center mb-3">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAAkCAYAAACt6pVgAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAACHhJREFUeAHtWk9vHMUSr5rZ8PxwHA3C1uPdlkMSS3lP2SCQuGXyCbwRcLYjgcQt9ifw+hNg30Acsr5xQLD+BJ7ckACxCCIRc8hyAmEjhthLDNnponr2X3fP7GzPZtaJov1FdjS73T3V/euq+nW1EZ4B1H4mHx24TgQ+ILRq/8FbMENhKMFTgiSWCV3hnzUg8JjgPuowQ6E4M5JrD8iDOagCeyw/ViWx8RcEM0wZUyVZEkv/hjUE9ljgUCwxI/XMUTjJWn5lYhFmeNoohOSM/DrDM4CJSJ5afkUIQcBdmKFQWEfT1PxaDALeHJLYoPZfDGw6lL2ydwJzFZu2CG54GN5rwhNgybtSgSiqEIqyfHYcaDrgNH8Jf2jBBJD2n8KcN66/7TzHzdGKZA7HZW75AIpDwE6/h4+gXnsVQ8iJpYXlNQJxx7Y9T7JFCPWjhwdbtn1e8ZbLkYhuE+EaP3ojRg4QxO7h8Y/1ceNJwtrRXJWAVjnkVdioHbanltUn7zxH2XM2JMswDNCIQ/EpNCYh1sTiwuV9Xiw/Tx9E3D58eH8jq03sPeLcJhCuQ4HjLi5c+hxkauvBceHmr+FBA8Zg8cKlbzjSWUWtgT28qV3XudGPFNM7QkliI9jl/xu1V5Jh+M33qdzhNf3qQ7sQnQDhFmA+kolo3fOWd8IRYVJ6b1vQPjcsQw7IcZcuXIZMohHKqmYhONcCGwhnA1DsQw7wa8qdSHyzNH/lxmH7XrNoT87Mr6+/T74QsViTuV2OWf/6o8lLmLywD0ghhCd3E8kJh89Rlb3sttoHgW6lhddueKZ9ShIcItIukBvnPJmXEXA1pd3IsSXYk1VZGh4dH7wEluC+v4OSMtR5sj2eE292Z8W0SXr0vPv3tSI8eWR+9dfJOznlUEOwQgLW+Mcr6tzscVilSJtU+NtxIvwFL1+4yA4/JBrdZKoYQTArfdw6at/fhiRqi/OX18GhD/SPcRNSyrJL8xcr+sEDrYWgnCdHRFUTpM1TPq8vnr9UY2Y3+x9Kjz4R/1rLT/KY/CqJfdiGKhdEVo/bIAWG1+tXKEqx6hSqYVYLlxYmo0hsygUZjNTPacej1a8kn4kGlWg5xuL5Zf/o5IdAbSscLKvTZ49vgSXyzPPo5KDGWuW6plXYwexInmNiH8FOVn79u8PEurBy/CdXuRC6Z+ZplrsEaWIEUXxrNul56Ar1kiHb1TSPGovesk+RWBuMY4iWLEiiOWXc1iKAE9sVaA1lOKXhYhDit2ALi3mq4LnuoHLE5Q1VtiK59lLsrZraVPPrYwFl9twzrUvz0ULmRuUThyRh/SeMgAkWTMDQQ13HuZkYKKJNY+StPOdfAWKP7RikAyb8qtmG8+dVbXGEfbjmAa9rYznZQvWc6zRZdA27c3SxDtfTzK+TwFw4qXCZsMFGpMGvGCGQc9MkT3o6L4g/GJO92ObMq8JhQUZaOE2D7o3nS6fNI7AFeto8bVW5gkySp5hfWzzGHm+4OkwMynF2xKBU4ncaiKJE5S6AvFYgl3gVJ2Wl+4f6fZpwavE/sH+Drz6Nq95FjyOPjRg8yxSVSvJr79J60fmVx4mPVyUH6l98iC14AvQ80LPvQdUoogr303KtwKiCk+bKHpDDs5alCDQSJhWIEqYql4SN62OKPK7YhQmSKyyiUMAHBeTXUBolCPbEi1Bvbj95lauPjqKEu8Cg4+rn7VJHnsPptiRYPncLBCRLhDf6bRwOhdoikshvIyKLquEorusG2vc5hZPWNUnYT+P6sDRa0ebEZc6iK14hR4oGO8duZw6aRRKrwVg4ZuduGN5vGa3kc6AXEsjnild5VMWLVyRX+TCuLVP30qI3QGDmfVMgjhNOmjkYayDlA8r05F6Eq6qfyU1XBMlxfmWDGmklynfgXiWKb67oj8/gf9tQBAzFKW+FRjeW4TG9/CmAQpUAisWcHXrHs02VBOk1ibcbAlF0HPuNT6DZkz1PjnB8odIVan17oC433UQkj8uvb8N3vgBkYrEaQfcMiV1RUwzJuerAutd7cBr2VxmF2+BfStmT/JcXLq1yRWkXMpBWIZMLmq7Mn0BZ55gnX2TIDacdc/m8H9+62ZKcmV+r8MBz4ZHP+1Tmg6oYhkeYCoxbmVGKszfx4c7mOajKtsMLXopekM/q7t9eWriII2vQfBZngu8YBLf6C6qiJ5xGvn8s9Hmm3hkPb810gllVbvQrdlkkZ+ZXSawDbXnRwMS2tclME8k6MIQyN6of9I41Kxx/fa0l0Y7WkRecS5NbRg2axRje4fLgqkxDjkMtihyPqytXOZxXgM/V5vtHVchM4RTbb9g6MM2F1lE4LIfGhR2lqIHGPPtzPIniSKGvPYFWc0+Q3OTw+8Z7dO3Lj5NSv59fuVTGE2373fHOFikL5yUu1lONwsbh8UHd/DSuQXfrvVX9G1mKBF9E8VuhW5Y0rhnGlEBN4USxZ6b/EQCKeAMGg7Z8RNSUdXyiUPqOWnj2YPNSJdWTVYLT8utZE6sioTht+gDszrt/rY/KhR33r1tu59xP5rXkmDHrfI23kRl+DeGUOZ6puo16t8UIAYrShrw/Nr9JkHzm+TUvLBeOCWsJooDV7e4h3wodZrQNu0Stczhs8uJu0ug/GghjtU64NW7MrhG6cMqCKaoS9e604VGKXrFHLCDNmy/dDDDzKyRj/ITg8biuS3t8QA8+hf8HUACk0AhhLtM+qaDzlQ51LM1fqZDb8XmRe+9BebfclMo4z7g2tvZhnt3H9Q1zXKLgW/D9PhX415fY+yOCF+Bx4xO41oIZnjpKBRDMBQViYp09AS82GvDqdKpcM0yMSSteIYfhXReg0YHzzRmxzzasSZ5Gfp3hbJBJ8iy/Ph8wSZ7l1+cQJRmG+Tbm7iy/Pr/4B3FJh+g8ITi1AAAAAElFTkSuQmCC" alt="BOLD" class="h-6 w-auto">
+                    </div>
+                    <p class="text-gray-700 text-xs mb-3">Your Provider Virtual Visit is confirmed. At the time of your visit, click below to join:</p>
+                    <div class="btn-lavender text-xs py-2 px-4 text-center rounded-lg shadow-sm" style="font-size:13px; background:#b39ddb; color:#1a1a2e; border-radius:8px; padding: 8px; text-align:center; font-weight:600;">Join appointment</div>
+                </div>
+                <p class="text-amber-800 text-sm mt-2 font-semibold">👆 Go back to your Bold email and tap "Join appointment" again.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="step-container" style="display:none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">3</div>
+            <div>
+                <h2 class="text-xl font-bold">Allow Zoom to Open</h2>
+                <p class="text-base text-gray-600 mt-1">If you tapped <strong>"Join from App"</strong>, your phone will ask if it's okay to open Zoom. Tap <strong>"Allow"</strong>.</p>
+            </div>
+        </div>
+
+        <div class="ui-image-container">
+            <!-- Zoom background (dimmed) -->
+            <div class="bg-white relative" style="flex:1;">
+                <!-- Zoom top nav -->
+                <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 opacity-40">
+                    <span style="color:#2D8CFF; font-weight:900; font-size:22px; letter-spacing:-1px; font-style:italic;">zoom</span>
+                    <div class="flex items-center gap-4">
+                        <span class="text-[#2D8CFF] text-sm font-medium">Support</span>
+                        <span class="text-[#2D8CFF] text-sm font-medium">English ▾</span>
+                    </div>
+                </div>
+                <!-- Dimmed Zoom content -->
+                <div class="px-8 py-6 text-center opacity-30">
+                    <h1 class="text-[22px] font-extrabold text-[#1a1a2e] mb-4 tracking-tight">Join meeting</h1>
+                    <div class="bg-[#2D6CF0] text-white text-[15px] font-semibold rounded-full py-3 px-6 mb-3">Join from App</div>
+                </div>
+                <!-- System dialog overlay -->
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center px-6">
+                    <div class="bg-white/95 rounded-2xl overflow-hidden w-full max-w-xs shadow-2xl">
+                        <div class="px-5 pt-5 pb-4">
+                            <p class="text-[15px] text-gray-800 leading-snug">This site is trying to open another application.</p>
+                        </div>
+                        <div class="border-t border-gray-200">
+                            <div class="py-4 text-center text-[17px] font-semibold text-[#1a1a2e] border-b border-gray-200 bg-gray-100 rounded-b-none">Allow</div>
+                            <div class="py-4 text-center text-[17px] text-[#1a1a2e] bg-gray-100">Don't allow</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom banner -->
+                <div class="bg-gray-100 border-t border-gray-200 px-4 py-3 flex items-center justify-between opacity-40">
+                    <div class="flex items-center gap-2">
+                        <span class="text-yellow-500 text-lg">⚠️</span>
+                        <div>
+                            <p class="text-[13px] font-bold text-gray-800">Installed Zoom?</p>
+                            <p class="text-[13px] text-[#2D8CFF] font-medium">Tap to join meeting now</p>
+                        </div>
+                    </div>
+                    <span class="text-gray-400 text-xl font-light">✕</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section id="step-panel-3" class="step-container" style="display:none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">3</div>
+            <div>
+                <h2 class="text-xl font-bold">Allow Access</h2>
+                <p class="text-base text-gray-600 mt-1">If it's your first time, it may ask for access to your microphone and camera. Tap <strong>"Allow"</strong> for your camera and mic so your provider can see and hear you.</p>
+            </div>
+        </div>
+
+        <div class="ui-image-container">
+            <div class="permission-mockup">
+                <div class="system-alert">
+                    <div class="alert-body">
+                        <div class="flex justify-center mb-2">
+                            <div class="bg-orange-400 p-2 rounded-lg text-white">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                            </div>
+                        </div>
+                        <p class="font-bold text-base leading-tight">"Browser" would like to access the Camera & Microphone.</p>
+                    </div>
+                    <div class="alert-footer">
+                        <div class="alert-btn">Don't Allow</div>
+                        <div class="alert-btn">Allow</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="warning-box mt-4">
+            <p class="text-amber-900 font-bold mb-1">⚠️ Accidentally tapped "Don't Allow"?</p>
+            <p class="text-amber-800 text-sm">
+                No problem. Go to your phone's <strong>Settings → Privacy → Camera &amp; Microphone</strong> and turn them on for Zoom or your browser. Then tap the join link again.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- Step 5 -->
+    <section id="step-panel-4" class="step-container" style="display:none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">4</div>
+            <div>
+                <h2 class="text-xl font-bold">Enter Your Name & Join</h2>
+                <p class="text-base text-gray-600 mt-1">Type your name in the field, then tap the blue <strong>"Join"</strong> button. You may also see a preview screen — turn on your <strong>camera</strong> and <strong>microphone</strong> before joining.</p>
+            </div>
+        </div>
+
+        <!-- Combined mockup: black camera area + Enter Meeting Info form -->
+        <div class="ui-image-container">
+            <div class="bg-white" style="flex:1; display:flex; flex-direction:column;">
+                <!-- Black camera area with avatar -->
+                <div class="bg-black relative" style="height: 190px;">
+                    <!-- Avatar centered -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="flex flex-col items-center">
+                            <div class="w-20 h-20 rounded-full bg-gray-400 mb-1"></div>
+                            <div class="w-32 h-12 rounded-t-full bg-gray-400"></div>
+                        </div>
+                    </div>
+                    <!-- Mic + Camera buttons -->
+                    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-4">
+                        <!-- Mic button (on) -->
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#3a3a3a;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="2" width="6" height="11" rx="3"/>
+                                <path d="M5 10a7 7 0 0014 0"/>
+                                <line x1="12" y1="19" x2="12" y2="22"/>
+                                <line x1="9" y1="22" x2="15" y2="22"/>
+                            </svg>
+                        </div>
+                        <!-- Camera button (off — red slash) -->
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center relative" style="background:#3a3a3a;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 7l-7 5 7 5V7z"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2"/>
+                            </svg>
+                            <!-- Red diagonal slash -->
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div style="width:2px; height:46px; background:#ff3b30; transform:rotate(45deg); border-radius:2px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Enter Meeting Info form -->
+                <div class="px-5 py-5">
+                    <p class="text-[18px] font-bold text-gray-900 text-center mb-4">Enter Meeting Info</p>
+                    <p class="text-[14px] font-bold text-gray-900 mb-2">Your Name</p>
+                    <div class="border border-gray-300 rounded-lg px-4 py-3 mb-4">
+                        <span class="text-[16px] text-gray-400">Your Name</span>
+                    </div>
+                    <div class="bg-[#4A7CF0] text-white text-[17px] font-semibold rounded-xl py-4 text-center shadow-sm">Join</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box mt-4">
+            <p class="text-amber-900 font-bold mb-1">💡 Tip: Turn on camera & mic first</p>
+            <p class="text-amber-800 text-sm">Before tapping <strong>"Join"</strong>, tap the <strong>microphone</strong> and <strong>camera</strong> icons so your provider can see and hear you. If they have a red line through them, tap once to turn them on.</p>
+        </div>
+    </section>
+
+    <!-- Step 5 -->
+    <section id="step-panel-5" class="step-container" style="display:none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div class="step-number">5</div>
+            <div>
+                <h2 class="text-xl font-bold">You're All Set!</h2>
+                <p class="text-base text-gray-600 mt-1">You'll see a <strong>Waiting Room</strong> screen. Stay on this screen — your provider will let you in shortly.</p>
+            </div>
+        </div>
+
+        <div class="ui-image-container">
+            <div class="bg-white" style="flex:1; display:flex; flex-direction:column;">
+                <!-- Blue waiting room area -->
+                <div class="relative" style="background: linear-gradient(160deg, #3b5ff0 60%, #2d4fd4 100%); flex:1;">
+                    <!-- zoom Workplace text -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <p class="text-white font-extrabold text-[28px] tracking-tight mb-2" style="font-style:italic;">zoom</p>
+                        <!-- Simple icon row -->
+                        <div class="flex gap-4 opacity-70">
+                            <svg class="w-5 h-5 text-white" fill="white" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>
+                            <svg class="w-5 h-5 text-white" fill="white" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                            <svg class="w-5 h-5 text-white" fill="white" viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>
+                        </div>
+                    </div>
+                    <!-- Small self-preview bottom left -->
+                    <div class="absolute bottom-3 left-3 rounded-xl overflow-hidden border border-white/30 shadow-lg" style="width:30%; aspect-ratio:4/3; background:#222;">
+                        <!-- Avatar in preview -->
+                        <div class="w-full h-full flex items-center justify-center">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-500 mb-0.5"></div>
+                                <div class="w-12 h-5 rounded-t-full bg-gray-500"></div>
+                            </div>
+                        </div>
+                        <!-- Mic + camera icons overlay -->
+                        <div class="absolute bottom-1.5 left-1.5 flex gap-1.5">
+                            <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(0,0,0,0.6);">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="2" width="6" height="11" rx="3"/>
+                                    <path d="M5 10a7 7 0 0014 0"/>
+                                    <line x1="12" y1="19" x2="12" y2="22"/>
+                                </svg>
+                            </div>
+                            <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background:rgba(0,0,0,0.6);">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M23 7l-7 5 7 5V7z"/>
+                                    <rect x="1" y="5" width="15" height="14" rx="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Meeting info below -->
+                <div class="px-5 py-4 text-center">
+                    <p class="text-base font-bold text-gray-900">Provider Appointment</p>
+                    <p class="text-sm text-gray-400 mt-1">Waiting for host to admit you…</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Troubleshooting Section -->
+    <section class="mb-10" style="margin-top:100px;">
+        <hr class="border-t border-gray-200 mb-8">
+        <h2 class="text-xl font-bold mb-2">Having trouble?</h2>
+        <p class="text-base text-gray-500 mb-5">Find your problem below and tap to see what to do.</p>
+
+        <div class="space-y-3" id="troubleshoot-list">
+
+            <!-- Problem 1 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts1')"
+                    aria-expanded="false" aria-controls="ts1"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">🔇 I can't hear anything</span>
+                    <svg id="ts1-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts1" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p>Check that your device volume is turned up using the buttons on the side of your phone or the volume keys on your computer.</p>
+                </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts2')"
+                    aria-expanded="false" aria-controls="ts2"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">⏳ I'm stuck on a "Please wait" screen</span>
+                    <svg id="ts2-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts2" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p class="mb-2">Don't close the app — you're in the <strong>Waiting Room</strong>. This is normal.</p>
+                    <p>Your provider will let you in shortly, usually within 1–2 minutes. Stay on this screen and wait.</p>
+                </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts3')"
+                    aria-expanded="false" aria-controls="ts3"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">🎤 My provider can't hear me</span>
+                    <svg id="ts3-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts3" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p class="mb-2">Look at the bottom of the Zoom screen. If the microphone icon has a <strong>red line through it</strong>, you're on mute.</p>
+                    <p>Tap the microphone icon once. The red line should disappear and your provider can now hear you.</p>
+                </div>
+            </div>
+
+            <!-- Problem 4 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts4')"
+                    aria-expanded="false" aria-controls="ts4"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">📷 My camera is black or turned off</span>
+                    <svg id="ts4-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts4" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p class="mb-2">Look at the bottom of the Zoom screen for a camera icon. If it has a red line through it, tap it once to turn the camera on.</p>
+                    <p>If it still doesn't work, check that nothing is covering the camera lens on your device.</p>
+                </div>
+            </div>
+
+            <!-- Problem 5 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts5')"
+                    aria-expanded="false" aria-controls="ts5"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">🚫 I accidentally tapped "Don't Allow" for camera or mic</span>
+                    <svg id="ts5-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts5" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p class="mb-2">No problem — you can fix this in your phone's Settings:</p>
+                    <ol class="list-decimal list-inside space-y-1 ml-1">
+                        <li>Open your phone's <strong>Settings</strong> app</li>
+                        <li>Tap <strong>Privacy &amp; Security</strong> (or just "Privacy")</li>
+                        <li>Tap <strong>Camera</strong> — turn it on for Zoom or your browser</li>
+                        <li>Go back and tap <strong>Microphone</strong> — do the same</li>
+                        <li>Return to your Bold email and tap the join link again</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Problem 6 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts6')"
+                    aria-expanded="false" aria-controls="ts6"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">🔄 Zoom is asking me to update before I can join</span>
+                    <svg id="ts6-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts6" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <!-- App Store mockup -->
+                    <div class="bg-black rounded-xl overflow-hidden mb-3 px-4 py-4 flex items-center gap-4">
+                        <!-- Zoom app icon -->
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg" style="background: linear-gradient(145deg, #4a90e2, #2D6CF0);">
+                            <span class="text-white font-black text-[18px]" style="font-style:italic;">zoom</span>
+                        </div>
+                        <!-- App info + Update button -->
+                        <div class="flex-1 min-w-0">
+                            <p class="text-white font-bold text-[15px] leading-tight">Zoom Workplace</p>
+                            <p class="text-gray-400 text-[12px] mb-2">AI-first collaboration</p>
+                            <div class="inline-block bg-[#2D6CF0] text-white text-[13px] font-semibold rounded-full px-5 py-1.5">Update</div>
+                        </div>
+                    </div>
+                    <p class="mb-2">Once you are on the Zoom page in the App Store, tap <strong>Update</strong> and wait 1–2 minutes for it to finish.</p>
+                    <p class="mb-3">Once the update is complete, go back to your Bold email and tap the join link again.</p>
+                    <!-- Bold email mockup -->
+                    <div class="border border-yellow-200 rounded-xl bg-white px-4 py-4">
+                        <div class="flex justify-center mb-2">
+                            <img src="data:image/png;base64,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" alt="BOLD" class="h-6 w-auto">
+                        </div>
+                        <p class="text-[12px] text-gray-600 mb-3">Your Provider Virtual Visit is confirmed. At the time of your visit, click below to join:</p>
+                        <div style="background:#b39ddb; color:#1a1a2e; border-radius:8px; padding:8px; text-align:center; font-weight:600; font-size:13px;">Join appointment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Problem 7 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden">
+                <button onclick="toggleAccordion('ts7')"
+                    aria-expanded="false" aria-controls="ts7"
+                    class="w-full flex items-center justify-between px-4 py-4 text-left bg-white hover:bg-gray-50 transition-colors">
+                    <span class="font-semibold text-base text-gray-900">🔗 My link isn't working or shows an error</span>
+                    <svg id="ts7-icon" class="w-5 h-5 text-gray-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="ts7" class="hidden px-4 pb-4 bg-gray-50 text-sm text-gray-700 leading-relaxed">
+                    <p class="mb-2">Meeting links expire. Always use the link from your <strong>most recent Bold email or text</strong>.</p>
+                    <p>If you saved or printed an older link, find your newest confirmation email and use that link instead.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        function toggleAccordion(id) {
+            var panel = document.getElementById(id);
+            var icon = document.getElementById(id + '-icon');
+            var btn = panel.previousElementSibling;
+            var isOpen = !panel.classList.contains('hidden');
+            panel.classList.toggle('hidden');
+            icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+            btn.setAttribute('aria-expanded', String(!isOpen));
+        }
+
+        var currentStep = 1;
+        var totalSteps = 5;
+
+        function goToStep(n) {
+            if (n < 1 || n > totalSteps) return;
+            document.getElementById('step-panel-' + currentStep).style.display = 'none';
+            currentStep = n;
+            document.getElementById('step-panel-' + currentStep).style.display = '';
+            updateNav();
+            // Scroll to navigation bar so user sees the step from the top
+            document.getElementById('step-navigation').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function changeStep(delta) {
+            goToStep(currentStep + delta);
+        }
+
+        function updateNav() {
+            for (var i = 1; i <= totalSteps; i++) {
+                var dot = document.getElementById('nav-dot-' + i);
+                dot.classList.remove('active', 'done');
+                if (i === currentStep)    dot.classList.add('active');
+                else if (i < currentStep) dot.classList.add('done');
+
+                if (i < totalSteps) {
+                    var line = document.getElementById('step-line-' + i);
+                    if (line) line.classList.toggle('done', i < currentStep);
+                }
+            }
+            document.getElementById('nav-prev').disabled = currentStep === 1;
+            document.getElementById('nav-next').disabled = currentStep === totalSteps;
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-8 border-t border-gray-200">
+        <p class="text-xl font-bold mb-4 text-gray-900">Need help?</p>
+        <div class="rounded-2xl overflow-hidden shadow-sm" style="background:#eee6fb;">
+            <!-- Badge -->
+            <div class="flex items-center gap-2 px-4 py-2">
+                <img src="https://www.figma.com/api/mcp/asset/c23a39b8-9288-4849-8dcf-31feb3be9874" alt="" class="w-4 h-4">
+                <span class="text-sm font-semibold uppercase tracking-[0.25px]" style="color:#3e009f;">We are here to help</span>
+            </div>
+            <!-- White card -->
+            <div class="bg-white rounded-2xl px-4 pt-4 pb-4">
+                <!-- Avatars + title -->
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="flex items-center flex-shrink-0" style="width:72px; height:48px; position:relative;">
+                        <div class="rounded-full overflow-hidden border-2 border-white shadow absolute" style="width:44px; height:44px; left:0; top:2px;">
+                            <img src="https://www.figma.com/api/mcp/asset/61872a4d-e046-4244-8750-aca5f39824ef" alt="" class="w-full h-full object-cover">
+                        </div>
+                        <div class="rounded-full overflow-hidden border-2 border-white shadow absolute" style="width:44px; height:44px; left:22px; top:2px;">
+                            <img src="https://www.figma.com/api/mcp/asset/fa2cb67c-cdbf-4d19-b0e8-3e7d70cf1b5e" alt="" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <p class="text-base font-semibold text-black leading-tight">Bold Care Coordinator</p>
+                </div>
+                <p class="text-base text-[#140d26] mb-3 leading-relaxed">Care coordinators are here to help you make sure you attend your appointment confidently and address any issues you encounter.</p>
+                <a href="tel:4245775266" class="block w-full border border-[#e5e5e5] rounded-xl py-3 text-center text-base font-semibold text-[#140d26] bg-white shadow-sm">Call (424) 577-5266</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- System Calling Modal (App Store Prompt) -->
+    <div id="system-modal" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+        <div class="bg-[#f2f2f2] w-[270px] rounded-[14px] text-center overflow-hidden shadow-2xl">
+            <div class="p-4 pt-5 pb-4">
+                <p class="font-semibold text-[17px] text-black leading-snug">Open in "App Store"?</p>
+            </div>
+            <div class="flex border-t border-[#3c3c4359]">
+                <button class="flex-1 py-2.5 text-[#007aff] text-[17px] border-r border-[#3c3c4359] active:bg-gray-200 transition-colors" onclick="document.getElementById('system-modal').classList.add('hidden')">Cancel</button>
+                <button class="flex-1 py-2.5 text-[#007aff] font-semibold text-[17px] active:bg-gray-200 transition-colors" onclick="document.getElementById('system-modal').classList.add('hidden')">Open</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Health — Healthy-aging care clinicians, covered by Medicare</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,800&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Landing Page Colors
+                        purple: { brand: '#5200D4', dark: '#29006A', mid: '#3E009F', light: '#EBF0FF', pale: '#F3E8FF' },
+                        yellow: { brand: '#FFCC1A' },
+                        ink: '#140D26',
+                        // Enrollment Flow Colors
+                        brand: {
+                            purple: '#7C3AED', 
+                            lightPurple: '#F3E8FF',
+                            yellow: '#FEF3C7',
+                            yellowBorder: '#FDE68A',
+                            green: '#E6FFFA',
+                            text: '#111827',
+                            muted: '#6B7280'
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    boxShadow: {
+                        'card': '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.02)',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
+                        revealIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    },
+                    animation: {
+                        slideUp: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                        revealIn: 'revealIn 0.6s ease-out forwards'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #e5e7eb; }
+        
+        /* Landing Page Styles */
+        .carousel-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .step-icon-bg {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 999px;
+            display: flex; align-items: center; justify-content: center;
+            width: 100px; height: 100px;
+            box-shadow: 0 20px 24px -4px rgba(16,24,40,0.08), 0 8px 8px -4px rgba(16,24,40,0.03);
+        }
+        .grid-lines {
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 52px, rgba(0,0,0,0.04) 52px, rgba(0,0,0,0.04) 53px),
+                repeating-linear-gradient(90deg, transparent, transparent 52px, rgba(0,0,0,0.04) 52px, rgba(0,0,0,0.04) 53px);
+        }
+
+        /* Enrollment Flow Styles */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+        .doc-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .doc-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .doc-scroll::-webkit-scrollbar-thumb {
+            background-color: #E5E7EB;
+            border-radius: 10px;
+        }
+    </style>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-[#e5e7eb] text-ink antialiased flex justify-center pb-12 sm:py-12">
+
+<!-- === LANDING PAGE === -->
+<div id="landing-page" class="w-full max-w-[400px] bg-white overflow-x-hidden relative border-x sm:border border-gray-200 sm:rounded-[2.5rem] sm:shadow-2xl" style="display: block;">
+
+    <!-- Sticky Nav -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between shadow-sm">
+        <div class="text-2xl font-extrabold italic tracking-widest text-[#5200D4] uppercase">Bold</div>
+        <div class="flex items-center gap-2">
+            <button class="px-4 py-2 text-[14px] font-semibold text-gray-700 hover:text-gray-900 transition-colors">Sign in</button>
+            <a href="#" onclick="goToFlow(event)" class="px-4 py-2 bg-[#5200D4] text-white text-[14px] font-semibold rounded-xl hover:bg-purple-800 transition-colors active:scale-95">Check coverage</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="bg-[#EBF0FF] px-4 py-10">
+        <div class="bg-[#EBF0FF] rounded-3xl p-4 flex flex-col gap-6">
+            <!-- Title -->
+            <h1 class="text-[32px] font-bold text-[#29006A] leading-[40px]">
+                Healthy-aging care clinicians, covered by Medicare
+            </h1>
+
+            <!-- Form card -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div class="px-4 py-4 flex flex-col gap-3">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[16px] font-semibold text-black">First name <span class="font-normal text-[14px] text-gray-500">(as it appears on your ID)</span></label>
+                        <input type="text" id="firstName" placeholder="First name" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[16px] font-semibold text-black">Last name</label>
+                        <input type="text" id="lastName" placeholder="Last name" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[16px] font-semibold text-black">Email</label>
+                        <input type="email" placeholder="Email address" class="w-full border border-gray-200 rounded-lg px-4 h-11 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm transition" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#5200D4" stroke-width="1.5"/><path d="M10 9v5" stroke="#5200D4" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="6.5" r="0.75" fill="#5200D4"/></svg>
+                        <button class="text-[16px] font-semibold text-[#5200D4] underline underline-offset-2">Why are we asking this?</button>
+                    </div>
+                </div>
+                <div class="px-4 py-4 border-t border-gray-50">
+                    <a href="#" onclick="localStorage.setItem('boldFirstName', document.getElementById('firstName').value.trim()); localStorage.setItem('boldLastName', document.getElementById('lastName').value.trim()); goToFlow(event);" class="block w-full bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+                        Check coverage
+                    </a>
+                </div>
+            </div>
+
+            <!-- Coverage blurb -->
+            <p class="text-[16px] text-[#3E009F] leading-[24px]">
+                Covered for all Medicare and eligible Aetna, Anthem, Blue Cross, Blue Shield, UnitedHealthcare plans and more!
+            </p>
+
+            <!-- Hero image -->
+            <div class="relative rounded-2xl overflow-hidden border border-[#d8ddeb]">
+                <img src="https://www.figma.com/api/mcp/asset/92ce5207-400d-4aed-8698-4e3bff3770d0"
+                     alt="Patient doing telehealth visit"
+                     class="w-full object-cover" />
+                <!-- Doctor video call inset -->
+                <div class="absolute bg-white shadow-lg rounded-xl flex items-center justify-center border border-gray-100" style="bottom:8px;left:8px;width:25.5%;aspect-ratio:1;">
+                    <span class="material-symbols-outlined text-[#5200D4]" style="font-size: 32px;">videocam</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms -->
+        <p class="mt-4 text-[14px] text-gray-400 leading-[22px]">
+            By signing up, you agree to Bold's <span class="underline">Terms of service</span> and <span class="underline">Privacy policy</span>.
+        </p>
+    </section>
+
+    <!-- VALUE PROPS 1 — Insurance coverage -->
+    <section class="bg-[#FAFAFA] px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+        <div class="flex flex-col gap-10 items-center">
+            <div class="text-center flex flex-col gap-3">
+                <h2 class="text-[28px] font-bold text-gray-900 leading-[34px]">Personalized healthy-aging Care Plan, covered by your insurance</h2>
+                <p class="text-[16px] text-gray-800 leading-[24px]"><strong>Most members pay little to no cost.</strong> We'll help you understand your insurance coverage *before* your appointment.</p>
+            </div>
+            <a href="#" onclick="goToFlow(event)" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+                Check coverage
+            </a>
+            <div class="rounded-2xl overflow-hidden w-full">
+                <img src="https://www.figma.com/api/mcp/asset/dfbe8367-2568-4559-90b7-2d12e33248aa"
+                     alt="Older adults exercising outdoors"
+                     class="w-full object-cover rounded-2xl" />
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUE PROPS 2 — Feel Better. Live Bolder. Carousel -->
+    <section class="bg-[#EBF0FF] px-4 py-18 overflow-hidden" style="padding-top:72px;padding-bottom:72px;">
+        <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-3">
+                <h2 class="text-[32px] font-bold text-[#29006A] leading-[40px]">Feel better. Live bolder.</h2>
+                <p class="text-[16px] text-[#29006A] opacity-90 leading-[24px]">Improve your health with daily lifestyle changes, guided by our expert clinicians.</p>
+            </div>
+
+            <!-- Carousel -->
+            <div class="relative overflow-hidden" id="pillarCarousel">
+                <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2" id="pillarTrack">
+                    <!-- Card: General healthy aging -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/4b9cdeb2-e8c5-49ee-bb4b-ae66c4aa4780" class="absolute inset-0 w-full h-full object-cover" alt="General healthy aging" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">General healthy aging</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Bold offers a personalized longevity plan that includes lifestyle coaching and proactive steps to support your health.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Energy & fatigue -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/d51509b0-5391-4054-8482-c2e9920938d5" class="absolute inset-0 w-full h-full object-cover" alt="Energy and fatigue" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Energy & fatigue</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Improve your energy levels through nutrition, exercise, and other lifestyle changes with the help of your Bold care team.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Weight management -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/7bd0d01d-6c52-47f8-b8a5-44eeac0d3dcf" class="absolute inset-0 w-full h-full object-cover" alt="Weight management" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Weight management</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Get support reaching and maintaining a healthy weight.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Nutrition -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/7c07782f-0e7d-4658-98bb-0f571d57b15d" class="absolute inset-0 w-full h-full object-cover" alt="Nutrition" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Nutrition & healthy eating</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Discover how diet affects chronic conditions and get nutrition support from Bold's care team.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Sleep -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/7f290388-601a-4ba8-adfa-d28bca52c9b1" class="absolute inset-0 w-full h-full object-cover" alt="Sleep and recovery" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Sleep & recovery</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Learn how to address sleep challenges and improve your sleep.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Physical activity -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/b9238951-0cf0-4647-b5f1-071280cd362d" class="absolute inset-0 w-full h-full object-cover" alt="Physical activity" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Physical activity</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Boost your well-being through physical activity guidance with insights from physician-led care teams.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                    <!-- Card: Stress management -->
+                    <div class="shrink-0 w-[280px] h-[420px] rounded-3xl overflow-hidden relative cursor-pointer" onclick="goToFlow(event)">
+                        <img src="https://www.figma.com/api/mcp/asset/58573b90-8d1c-4c29-8965-a0df4b9170c3" class="absolute inset-0 w-full h-full object-cover" alt="Stress management" />
+                        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 55%,rgba(0,0,0,1) 100%)"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3">
+                            <div>
+                                <h3 class="text-[28px] font-bold text-white leading-[1.2]">Stress management & mood</h3>
+                                <p class="text-[16px] text-white leading-[24px] mt-1">Focus on mental health through personalized support and guidance.</p>
+                            </div>
+                            <a href="#" onclick="goToFlow(event)" class="inline-block bg-[#FFCC1A] text-[#140D26] text-[16px] font-bold px-4 py-3 rounded-xl text-center active:scale-95 transition-all">Check coverage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav arrows -->
+            <div class="flex items-center justify-center gap-3">
+                <button onclick="scrollCarousel(-1)" class="w-10 h-10 rounded-full bg-[#29006A]/10 text-[#29006A] flex items-center justify-center hover:bg-[#29006A]/20 transition-all active:scale-95">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button onclick="scrollCarousel(1)" class="w-10 h-10 rounded-full bg-[#29006A]/10 text-[#29006A] flex items-center justify-center hover:bg-[#29006A]/20 transition-all active:scale-95">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROVIDER SECTION -->
+    <section class="bg-[#FAFAFA] py-18 overflow-hidden" style="padding-top:72px;padding-bottom:72px;">
+        <div class="px-4 flex flex-col gap-10">
+            <div class="flex flex-col gap-3">
+                <h2 class="text-[32px] font-bold text-gray-900 leading-[40px]">Your personal healthy aging expert</h2>
+                <p class="text-[16px] text-gray-700 leading-[24px] opacity-90">Bold's board-certified doctors and nurse practitioners are experts in healthy aging <strong>who take a root cause approach to care.</strong> You can check in with your clinician as often as you want.</p>
+            </div>
+            <a href="#" onclick="goToFlow(event)" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+                Match with a clinician
+            </a>
+        </div>
+        <!-- Provider grid — horizontally scrollable -->
+        <div class="mt-8 overflow-x-auto hide-scrollbar">
+            <div class="flex flex-wrap gap-4 justify-center px-4" style="width: max-content; max-width: none;">
+                <!-- Row 1 -->
+                <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                    <img src="https://www.figma.com/api/mcp/asset/f39ea653-deeb-4558-8d65-b17c01643961" class="w-full h-full object-cover" alt="Janessa Webster" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white font-bold text-[13px] leading-tight">Janessa Webster</p>
+                        <p class="text-white text-[11px]">MSN, APRN, 5 yrs</p>
+                    </div>
+                </div>
+                <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                    <img src="https://www.figma.com/api/mcp/asset/a0a7eff8-48f0-4458-b8f8-8f00e5a54596" class="w-full h-full object-cover" alt="Sloane Fowkes" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white font-bold text-[13px] leading-tight">Sloane Fowkes</p>
+                        <p class="text-white text-[11px]">LCSW, 13 yrs</p>
+                    </div>
+                </div>
+                <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                    <img src="https://www.figma.com/api/mcp/asset/98ada013-0a48-478c-8f42-9d2a667bd45d" class="w-full h-full object-cover" alt="your clinician" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white font-bold text-[13px] leading-tight">your clinician</p>
+                        <p class="text-white text-[11px]">MSN, FNP-C, 7 yrs</p>
+                    </div>
+                </div>
+                <!-- Row 2 -->
+                <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                    <img src="https://www.figma.com/api/mcp/asset/48f14847-2927-49cb-94b8-9c9ca7e2370d" class="w-full h-full object-cover" alt="Afua Agyarko" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white font-bold text-[13px] leading-tight">Afua Agyarko</p>
+                        <p class="text-white text-[11px]">Medical Doctor, 17 yrs</p>
+                    </div>
+                </div>
+                <div class="w-[160px] h-[160px] rounded-2xl overflow-hidden relative shrink-0">
+                    <img src="https://www.figma.com/api/mcp/asset/346cf821-a723-4da5-a311-4cd7638794e2" class="w-full h-full object-cover" alt="Dr. Mitul S. Desai" />
+                    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.85) 100%)"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-3">
+                        <p class="text-white font-bold text-[13px] leading-tight">Dr. Mitul S. Desai</p>
+                        <p class="text-white text-[11px]">MD, 21 yrs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="bg-white border-b border-gray-200 px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+        <div class="flex flex-col gap-8">
+            <!-- Header -->
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#5200D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#5200D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="text-[16px] font-bold text-[#5200D4] tracking-[1px] uppercase">Getting started</span>
+                </div>
+                <h2 class="text-[32px] font-bold text-gray-900 leading-[40px]">How Bold works</h2>
+                <p class="text-[16px] text-gray-700 leading-[24px] opacity-90">Verify your insurance coverage with a Bold Care Coordinator and get matched with your healthy aging clinician. You can meet as often as you want to check in on your progress.</p>
+            </div>
+
+            <!-- Steps -->
+            <div class="flex flex-col gap-12 pt-6">
+
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                        <span class="text-[17px] font-bold text-ink">Step 1</span>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                        <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                            <div class="step-icon-bg border border-[#d5aeff]">
+                                <img src="https://www.figma.com/api/mcp/asset/4cf112a8-d450-4b52-ba83-9ac5f9420186" class="w-14 h-14 object-contain" alt="Check coverage" />
+                            </div>
+                        </div>
+                        <div class="bg-white border-t border-gray-200 p-4">
+                            <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Check your coverage</h3>
+                            <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Enter a few details to confirm eligibility. <strong>Bold is HIPAA-certified, so your information is always secure.</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                        <span class="text-[17px] font-bold text-ink">Step 2</span>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                        <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                            <div class="step-icon-bg border border-[#d5aeff]">
+                                <img src="https://www.figma.com/api/mcp/asset/971775dd-c48a-4655-ac92-ce68a402d28d" class="w-14 h-14 object-contain" alt="Schedule session" />
+                            </div>
+                        </div>
+                        <div class="bg-white border-t border-gray-200 p-4">
+                            <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Schedule a virtual session</h3>
+                            <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Choose a convenient time — often within days — to meet virtually with a physician trained in lifestyle medicine.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-sm z-10">
+                        <span class="text-[17px] font-bold text-ink">Step 3</span>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                        <div class="h-[280px] bg-white grid-lines flex items-center justify-center">
+                            <div class="step-icon-bg border border-[#d5aeff]">
+                                <img src="https://www.figma.com/api/mcp/asset/501243c7-6b51-40ee-bcd5-8d2a06901b6f" class="w-14 h-14 object-contain" alt="Care plan" />
+                            </div>
+                        </div>
+                        <div class="bg-white border-t border-gray-200 p-4">
+                            <h3 class="text-[24px] font-bold text-[#5200D4] leading-[32px]">Personalized care plan</h3>
+                            <p class="text-[16px] text-gray-600 leading-[24px] mt-1">Together you'll build long-term healthy habits, supported by ongoing follow-up and guidance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" onclick="goToFlow(event)" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+                Book your first appointment
+            </a>
+        </div>
+    </section>
+
+    <!-- FEATURED / PRESS -->
+    <section class="bg-[#EBF0FF] border-b border-gray-200 px-4 py-10 flex flex-col items-center gap-8">
+        <p class="text-[16px] font-bold text-[#3E009F] text-center">Bold has been featured in:</p>
+
+        <!-- Press logos -->
+        <div class="flex flex-col items-center gap-4 w-full">
+            <img src="https://www.figma.com/api/mcp/asset/9172565a-7d62-485b-a236-45bde6c7161d" class="h-9 object-contain" alt="MedCity News + Forbes" />
+            <div class="flex items-center gap-8 opacity-80">
+                <img src="https://www.figma.com/api/mcp/asset/f2c0671a-44e2-4767-b2b9-787594b67616" class="h-5 object-contain" alt="TechCrunch" />
+                <img src="https://www.figma.com/api/mcp/asset/5324095b-0475-47ca-b52f-d943e168933e" class="h-6 object-contain" alt="The New York Times" />
+            </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="flex flex-col items-center gap-3">
+            <div class="flex">
+                <img src="https://www.figma.com/api/mcp/asset/2f824d0e-e1df-4a1d-94db-32e30c98c986" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover -mr-3 z-10" style="width:60px;height:60px;" alt="Member" />
+                <img src="https://www.figma.com/api/mcp/asset/9a355257-463d-4ba7-89ce-e7402f7fcec2" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover -mr-3 z-20" style="width:60px;height:60px;" alt="Member" />
+                <img src="https://www.figma.com/api/mcp/asset/c544b245-7a82-4d67-8198-39c8b8930337" class="w-15 h-15 rounded-full border-2 border-[#fafafa] object-cover z-30" style="width:60px;height:60px;" alt="Member" />
+            </div>
+            <p class="text-[18px] text-gray-600 text-center leading-[24px]">
+                Tens of thousands of adults 65 and older are building healthy habits with <strong>Bold</strong> from the comfort of their home, and that number is growing. <strong>Join them today!</strong>
+            </p>
+        </div>
+
+        <a href="#" onclick="goToFlow(event)" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm">
+            Book your first appointment
+        </a>
+    </section>
+
+    <!-- FAQ -->
+    <section class="bg-white px-4 py-18" style="padding-top:72px;padding-bottom:72px;">
+        <div class="flex flex-col gap-4">
+            <h2 class="text-[32px] font-bold text-gray-900 text-center leading-[40px] mb-2">Frequently asked questions</h2>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">What conditions does Bold Care help with?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care can help with the following conditions: Diabetes, Heart disease or high blood pressure, Obesity and weight management, Arthritis, Emotional support, Cognitive health, and General healthy aging support.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Who is eligible for Bold Care?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">You are eligible for Bold if you live in California, Texas, Pennsylvania or Illinois and are an <strong>Original Medicare</strong> member or a member of one of our supported <strong>Medicare Advantage partners</strong> such as Aetna, Anthem, Blue Cross, Blue Shield, and UnitedHealthcare. <strong>UnitedHealthcare offers $0 copay</strong> for in-network telehealth providers, which includes Bold Care Clinicians.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Will I have any co-pay or co-insurance fees associated with my appointments?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care directly bills Medicare and other insurance plans — no surprise bills. During sign-up, we confirm your eligibility before your first appointment. Most Bold Care patients pay little to nothing out of pocket. Questions? Call us at <strong class="text-[#5200D4]">(424) 577-5266</strong>.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Is Bold available where I live?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care is currently available to members who reside in California, Texas, Pennsylvania or Illinois. Additional states will be added in the coming months.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Does Bold Care offer primary care?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">No, Bold is a complement to your primary care provider, not a replacement. Members use Bold Care to receive support in establishing and maintaining lifestyle changes between doctor visits.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Does Bold Care provide prescriptions?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">No, Bold Care Clinicians do not prescribe prescriptions. Our members appreciate our <strong>root cause approach</strong>, which takes a holistic view of who you are and what you need, <strong>beyond additional medication.</strong></p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">What is included in my personalized Care Plan?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">Your Care Plan includes: activities to manage stress, ways to increase physical activity, strategies to maintain a healthy weight, nutritional guidance, and behaviors to promote restful sleep. <strong>Bold Care Plans are grounded in evidence and the latest healthy aging research.</strong></p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Who are Bold Care Clinicians?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">Bold Care Clinicians are board-certified doctors and nurse practitioners who are experts in healthy aging.</p>
+            </div>
+
+            <div class="bg-[#FAFAFA] rounded-xl p-6 flex flex-col gap-2">
+                <h3 class="text-[20px] font-bold text-ink leading-[24px]">Any further questions?</h3>
+                <p class="text-[16px] text-gray-600 leading-[24px]">You can reach Bold Monday–Friday, 5am–5pm PT by phone at <strong class="text-[#5200D4]">(855) 528-0851 (TTY: 711)</strong> or email us at <strong class="text-[#5200D4]">hello@agebold.com</strong>.</p>
+            </div>
+
+            <a href="#" onclick="goToFlow(event)" class="w-full block bg-[#5200D4] text-white text-[16px] font-semibold text-center py-3 rounded-xl hover:bg-purple-800 transition-all active:scale-[0.98] shadow-sm mt-2">
+                Book your first appointment
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 px-4 py-12 flex flex-col gap-12">
+        <!-- Logo + tagline -->
+        <div class="flex flex-col gap-4">
+            <div class="text-2xl font-extrabold italic tracking-widest text-[#5200D4] uppercase">Bold</div>
+            <p class="text-[16px] text-gray-500 leading-[24px]">Find better balance, build strength, and reduce pain with easy-to-follow online video workouts personalized for you.</p>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <p class="text-[16px] font-bold text-ink">Stay up to date</p>
+                <p class="text-[16px] text-gray-500">Receive exercise tips, product updates, event invites, and more!</p>
+            </div>
+            <input type="email" placeholder="Enter your email" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[16px] text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#5200D4] shadow-sm" />
+            <button class="w-full bg-[#5200D4] text-white font-bold text-[16px] py-3 rounded-lg hover:bg-purple-800 transition-all">Subscribe</button>
+        </div>
+
+        <!-- Links -->
+        <div class="flex gap-12">
+            <div class="flex flex-col gap-4">
+                <p class="text-[16px] font-bold text-ink">Company</p>
+                <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+                    <span>About Bold</span><span>Science</span><span>Careers</span><span>Trainers</span><span>Blog</span><span>Press</span>
+                </div>
+            </div>
+            <div class="flex flex-col gap-4">
+                <p class="text-[16px] font-bold text-ink">Product</p>
+                <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+                    <span>Sign up</span><span>How's my health?</span><span>Partnerships</span><span>FAQ</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4">
+            <p class="text-[16px] font-bold text-ink">Connect</p>
+            <div class="flex flex-col gap-3 text-[16px] font-semibold text-[#5200D4]">
+                <span>Contact us</span><span>Facebook</span><span>Instagram</span>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="border-t border-gray-200 pt-8 flex flex-col gap-4">
+            <div class="flex gap-4 text-[16px] text-gray-500">
+                <span>Terms</span><span>Privacy</span><span>Disclaimers</span>
+            </div>
+            <p class="text-[16px] text-gray-500">© 2025 Age Bold Inc.</p>
+        </div>
+    </footer>
+</div>
+<!-- === /LANDING PAGE === -->
+
+<!-- === ENROLLMENT FLOW (REACT) === -->
+<div id="root" class="w-full max-w-[400px] bg-[#F9FAFB] min-h-screen sm:rounded-[2.5rem] sm:shadow-2xl overflow-hidden relative border-x sm:border border-gray-200" style="display: none;"></div>
+
+<!-- Switch Logic & Landing Page JS -->
+<script>
+    // Switches view from Landing Page to the React Flow
+    function goToFlow(e) {
+        if (e) e.preventDefault();
+        document.getElementById('landing-page').style.display = 'none';
+        document.getElementById('root').style.display = 'block';
+        window.scrollTo(0, 0); // Reset scroll to top
+    }
+
+    // Carousel script from landing page
+    function scrollCarousel(dir) {
+        const track = document.getElementById('pillarTrack');
+        track.scrollBy({ left: dir * 296, behavior: 'smooth' });
+    }
+</script>
+
+<script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    // Gemini API Configuration
+    const apiKey = "";
+    const GEMINI_MODEL = "gemini-2.5-flash-preview-09-2025";
+
+    const callGemini = async (prompt, systemInstruction = "") => {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+        const payload = {
+            contents: [{ parts: [{ text: prompt }] }],
+            systemInstruction: { parts: [{ text: systemInstruction }] }
+        };
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) return null;
+            const data = await response.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text;
+        } catch (e) { return null; }
+    };
+
+    // --- Shared Components --- //
+
+    const HipaaFooter = () => (
+        <div className="flex items-center gap-3 px-5 py-4">
+            <img src="https://www.figma.com/api/mcp/asset/080fdd79-2f7f-4e99-9c1a-d33ae8d172c1" alt="HIPAA Compliant" className="w-11 h-11 shrink-0 object-contain" />
+            <p className="text-[14px] text-[#acacac] leading-snug">Bold is HIPAA compliant. Your information is safe and protected.</p>
+        </div>
+    );
+
+    const Icon = ({ name, className = "", filled = false }) => (
+        <span className={`material-symbols-outlined ${filled ? 'icon-filled' : ''} ${className}`}>
+            {name}
+        </span>
+    );
+
+    const Header = ({ onBack, progress, hideBack }) => (
+        <div className="sticky top-0 z-50 bg-white relative shrink-0">
+            <header className="px-4 py-4 flex items-center border-b border-gray-100">
+                {!hideBack ? (
+                    <button onClick={onBack} className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 active:scale-95 transition-all text-gray-600">
+                        <Icon name="chevron_left" />
+                    </button>
+                ) : (
+                    <div className="w-10 h-10"></div>
+                )}
+                <div className="flex-1 text-center pr-10">
+                    <img src="./screens/logoblack.png" alt="BOLD" style={{height:24, width:'auto'}} />
+                </div>
+            </header>
+            {progress > 0 && (
+                <div className="absolute bottom-0 left-0 h-[3px] w-full bg-gray-100">
+                    <div className="h-full bg-brand-purple transition-all duration-500 ease-out rounded-r-full" style={{ width: `${progress}%` }}></div>
+                </div>
+            )}
+        </div>
+    );
+
+    const ActionButton = ({ icon, label, onClick }) => (
+        <button onClick={onClick} className="flex flex-col items-center gap-1 group">
+            <div className="w-12 h-12 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 group-hover:bg-gray-50 group-active:scale-95 transition-all shadow-sm">
+                <Icon name={icon} />
+            </div>
+            <span className="text-[12px] text-center text-[#171717] leading-[16px] whitespace-pre-line">{label}</span>
+        </button>
+    );
+
+    const AccordionItem = ({ question, answer, isOpen, onClick }) => (
+        <div className="border-b border-gray-100 last:border-0">
+            <button onClick={onClick} className="w-full py-4 px-1 flex justify-between items-center text-left hover:bg-gray-50 transition-colors">
+                <span className="text-sm font-medium text-gray-800 pr-4">{question}</span>
+                <Icon name="expand_more" className={`text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <div className={`accordion-content ${isOpen ? 'open' : ''}`}>
+                <div className="pb-4 px-1 text-sm text-gray-600">{answer}</div>
+            </div>
+        </div>
+    );
+
+    const ResourceCard = ({ image, category, title, description }) => (
+        <div className="bg-white rounded-2xl overflow-hidden shadow-card border border-gray-100 cursor-pointer hover:shadow-md transition-shadow">
+            <div className="h-40 w-full overflow-hidden">
+                <img src={image} alt={title} className="w-full h-full object-cover" />
+            </div>
+            <div className="p-4">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 mb-2">
+                    <Icon name="description" className="text-[16px] text-blue-500" />
+                    {category}
+                </div>
+                <h3 className="font-bold text-[15px] leading-tight mb-2 text-gray-900">{title}</h3>
+                <p className="text-sm text-gray-500 line-clamp-2">{description}</p>
+            </div>
+        </div>
+    );
+
+    const FooterLink = ({ title }) => (
+        <button className="w-full py-4 px-2 flex justify-between items-center text-left border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors group">
+            <span className="text-sm font-medium text-gray-800">{title}</span>
+            <Icon name="arrow_outward" className="text-gray-400 group-hover:text-gray-900 transition-colors" />
+        </button>
+    );
+
+    // --- Screens --- //
+
+    const US_STATES = [
+        "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
+        "Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa",
+        "Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan",
+        "Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire",
+        "New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio",
+        "Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota",
+        "Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia",
+        "Wisconsin","Wyoming"
+    ];
+
+    const CoverageScreen = ({ onContinue }) => {
+        const [state, setState] = useState('');
+        const [dob, setDob] = useState('');
+        const [showWhy, setShowWhy] = useState(false);
+
+        const formatDob = (val) => {
+            const digits = val.replace(/\D/g, '').slice(0, 8);
+            if (digits.length <= 2) return digits;
+            if (digits.length <= 4) return `${digits.slice(0,2)}/${digits.slice(2)}`;
+            return `${digits.slice(0,2)}/${digits.slice(2,4)}/${digits.slice(4)}`;
+        };
+
+        const canContinue = state && dob.length === 10;
+
+        return (
+            <main className="flex flex-col flex-1 bg-[#FAFAFA] overflow-hidden relative">
+                <div className="flex-1 overflow-y-auto px-5 pt-6 pb-8 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 leading-snug mb-5">Help us confirm your coverage</h2>
+
+                    {/* State of residence */}
+                    <div className="mb-5">
+                        <label className="block text-[16px] font-semibold text-gray-900 mb-2">State of residence</label>
+                        <div className="relative">
+                            <select
+                                value={state}
+                                onChange={e => setState(e.target.value)}
+                                className="w-full appearance-none bg-white border border-gray-200 rounded-xl px-4 h-[44px] text-[16px] outline-none focus:ring-2 focus:ring-brand-purple shadow-sm text-gray-900"
+                                style={{ color: state ? '#111827' : '#ACACAC' }}
+                            >
+                                <option value="" disabled hidden>Select your state</option>
+                                {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                                <Icon name="expand_more" className="text-gray-400 text-[20px]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Date of birth */}
+                    <div className="mb-5">
+                        <label className="block text-[16px] font-semibold text-gray-900 mb-2">Date of birth</label>
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            value={dob}
+                            onChange={e => setDob(formatDob(e.target.value))}
+                            placeholder="MM/DD/YYYY"
+                            className="w-full bg-white border border-gray-200 rounded-xl px-4 h-[44px] text-[16px] outline-none focus:ring-2 focus:ring-brand-purple shadow-sm"
+                        />
+                    </div>
+
+                    {/* Why are we asking this? */}
+                    <button onClick={() => setShowWhy(true)} className="flex items-center gap-2 text-[#5200D4] text-[16px] font-semibold underline underline-offset-2 active:opacity-70 transition-opacity">
+                        <Icon name="help" className="text-[#5200D4] text-[20px]" filled={true} />
+                        Why are we asking this?
+                    </button>
+                </div>
+
+                {/* HIPAA footer */}
+                <HipaaFooter />
+
+                {/* Continue */}
+                <div className="px-5 pb-6 bg-gradient-to-b from-transparent to-[#F5F5F5] shrink-0">
+                    <button
+                        onClick={() => canContinue && onContinue(state, dob)}
+                        disabled={!canContinue}
+                        className="w-full bg-[#5200D4] text-white font-bold text-[16px] py-4 rounded-xl disabled:opacity-50 active:scale-[0.98] transition-all shadow-sm"
+                    >
+                        Continue
+                    </button>
+                </div>
+
+                {/* Why modal */}
+                {showWhy && (
+                    <div className="fixed inset-0 z-[120] flex justify-center items-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setShowWhy(false)}>
+                        <div className="relative w-full max-w-[400px] bg-white rounded-[28px] p-8 shadow-2xl text-center" onClick={e => e.stopPropagation()}>
+                            <button onClick={() => setShowWhy(false)} className="absolute top-4 right-4 text-gray-400 p-1"><Icon name="close" /></button>
+                            <div className="w-16 h-16 bg-brand-lightPurple rounded-full flex items-center justify-center mx-auto mb-6 text-brand-purple">
+                                <Icon name="verified_user" className="text-[32px]" />
+                            </div>
+                            <h2 className="text-xl font-bold mb-4 text-gray-900 leading-tight">Why we ask for this</h2>
+                            <p className="text-gray-600 text-[15px] leading-relaxed mb-3">We use your state of residence and date of birth to verify your insurance eligibility and confirm your coverage with UnitedHealthcare.</p>
+                            <p className="text-gray-600 text-[15px] leading-relaxed">This information is never shared without your consent and is protected under HIPAA.</p>
+                        </div>
+                    </div>
+                )}
+            </main>
+        );
+    };
+
+    const EligibilityScreen = ({ onContinue }) => {
+        const [isVisible, setIsVisible] = useState(false);
+        const firstName = localStorage.getItem('boldFirstName') || 'Kathleen';
+        const lastName = localStorage.getItem('boldLastName') || 'K';
+        const displayName = firstName + (lastName ? ' ' + lastName.charAt(0).toUpperCase() + '.' : '');
+        useEffect(() => {
+            const timer = setTimeout(() => setIsVisible(true), 400);
+            return () => clearTimeout(timer);
+        }, []);
+
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 px-5 pt-6">
+                    <h2 className="text-[32px] font-bold text-gray-900 leading-tight mb-3">You are covered!</h2>
+                    <p className="text-[15px] text-gray-700 leading-relaxed mb-8">UHC offers $0 copay for patients to talk with in-network telehealth providers, which includes Bold clinicians. <a href="#" className="text-blue-600 underline font-medium">Learn more</a></p>
+                    <div className="relative bg-[#F0FDF4] border-[1.5px] border-[#13C296] rounded-2xl p-6 shadow-sm overflow-hidden h-[210px]">
+                        <div className="flex justify-between items-start mb-8">
+                            <span className="text-[#0D9488] font-bold text-[18px] tracking-tight">UnitedHealthcare</span>
+                        </div>
+                        <div className={`space-y-1 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                            <h3 className="text-[28px] font-bold text-gray-900">{displayName}</h3>
+                            <div className="flex flex-col">
+                                <span className="text-[13px] text-gray-500 font-medium uppercase tracking-wider">Member ID:</span>
+                                <span className="text-[16px] text-gray-900 font-semibold tracking-wide">*********789</span>
+                            </div>
+                        </div>
+                        <div className={`absolute bottom-5 right-5 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                            <Icon name="verified" className="text-[#13C296] text-[48px]" filled={true} />
+                        </div>
+                    </div>
+                </div>
+                <div className="shrink-0 px-5 pt-4 pb-6 bg-white relative z-10 border-t border-gray-50">
+                    <button onClick={onContinue} className="w-full bg-[#5200D4] text-white font-bold text-[16px] py-4 rounded-xl active:scale-[0.98] transition-all shadow-sm">Continue</button>
+                </div>
+            </main>
+        );
+    };
+
+    const IntakeFocusScreen = ({ selectedAreas, onToggle, onContinue }) => {
+        const options = ["Energy and fatigue", "Weight management", "Nutrition and healthy eating", "Sleep and recovery", "Physical activity", "Stress management and mood", "General healthy aging"];
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 overflow-y-auto px-5 pt-6 pb-8 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 leading-snug mb-1">Which areas would you like to focus on?</h2>
+                    <p className="text-[15px] text-gray-700 mb-6">Select all that apply.</p>
+                    <div className="space-y-3">
+                        {options.map((opt, idx) => {
+                            const isSelected = selectedAreas.includes(opt);
+                            return (
+                                <button key={idx} onClick={() => onToggle(opt)} className={`w-full flex items-center gap-3 p-4 border rounded-xl transition-all text-left ${isSelected ? 'border-[#5200D4] bg-[#F3E8FF]/30' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+                                    <div className={`shrink-0 relative flex items-center justify-center w-5 h-5 rounded-[4px] border ${isSelected ? 'bg-[#5200D4] border-[#5200D4]' : 'border-gray-300 bg-white'}`}>
+                                        {isSelected && <Icon name="check" className="text-white text-[16px] absolute" />}
+                                    </div>
+                                    <span className={`text-[14px] leading-snug ${isSelected ? 'font-bold text-[#5200D4]' : 'text-gray-800 font-medium'}`}>{opt}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div className="shrink-0 px-5 pt-4 pb-6 bg-white border-t border-gray-50">
+                    <button onClick={onContinue} disabled={selectedAreas.length === 0} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl disabled:opacity-50 active:scale-[0.98] transition-all shadow-sm">Continue</button>
+                </div>
+            </main>
+        );
+    };
+
+    const PrimaryFocusScreen = ({ options, selectedPrimary, onSelect, onContinue }) => {
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 overflow-y-auto px-5 pt-6 pb-8 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 leading-snug mb-2">Of the areas you selected, which one is most important to you right now?</h2>
+                    <p className="text-[15px] text-gray-700 mb-6">Choose one to help us personalize your first visit.</p>
+                    <div className="space-y-3">
+                        {options.map((opt, idx) => {
+                            const isSelected = selectedPrimary === opt;
+                            return (
+                                <button key={idx} onClick={() => onSelect(opt)} className={`w-full flex items-center gap-3 p-4 border rounded-xl transition-all text-left ${isSelected ? 'border-[#5200D4] bg-[#F3E8FF]/30' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+                                    <div className={`shrink-0 relative flex items-center justify-center w-5 h-5 rounded-full border ${isSelected ? 'border-[#5200D4]' : 'border-gray-300 bg-white'}`}>
+                                        {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#5200D4]" />}
+                                    </div>
+                                    <span className={`text-[14px] leading-snug ${isSelected ? 'font-bold text-[#5200D4]' : 'text-gray-800 font-medium'}`}>{opt}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div className="px-5 pb-6 bg-white border-t border-gray-50">
+                    <button onClick={onContinue} disabled={!selectedPrimary} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl disabled:opacity-50 active:scale-[0.98] transition-all">Continue</button>
+                </div>
+            </main>
+        );
+    };
+
+    const ConcernScreen = ({ focusArea, initialValue, onContinue, onSkip }) => {
+        const [text, setText] = useState(initialValue || '');
+
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 overflow-y-auto px-6 pt-6 pb-4 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 leading-snug mb-2 pr-4">What's the one thing you most want to discuss with your clinician about {focusArea}?</h2>
+                    <p className="text-[15px] text-gray-700 mb-8 leading-relaxed">This helps your clinician focus the visit on what matters most to you.</p>
+                    
+                    <div className="relative border border-gray-300 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-purple transition-all shadow-sm">
+                        <textarea 
+                            value={text} 
+                            onChange={(e) => setText(e.target.value)} 
+                            placeholder="What would you like to talk about further?" 
+                            maxLength={2000} 
+                            className="w-full h-[220px] p-5 text-[16px] text-gray-900 placeholder-[#A3A3A3] outline-none resize-none bg-white" 
+                        />
+                        <div className="absolute bottom-4 left-5 text-[12px] text-gray-400 font-medium">
+                            {text.length}/2000
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="px-5 pt-4 pb-6 bg-white shrink-0">
+                    <HipaaFooter />
+
+                    <button 
+                        onClick={() => onContinue(text)} 
+                        disabled={text.trim().length === 0} 
+                        className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl disabled:opacity-50 active:scale-[0.98] transition-all shadow-sm mb-3"
+                    >
+                        Continue
+                    </button>
+                    <button onClick={onSkip} className="w-full py-2 text-[15px] font-bold text-gray-900 hover:text-gray-600 transition-all">Skip</button>
+                </div>
+            </main>
+        );
+    };
+
+    const IntakeScreen = ({ onContinue }) => {
+        const [selected, setSelected] = useState([]);
+        const options = ["Weight-loss surgery in the past year", "Stage 4 or 5 kidney disease", "Ongoing treatment for cancer", "Challenges with alcohol or drug use", "Eating disorder history", "Currently pregnant or breastfeeding", "None of the above"];
+        const toggle = (o) => {
+            if (o === 'None of the above') setSelected(['None of the above']);
+            else {
+                let next = selected.filter(x => x !== 'None of the above');
+                if (next.includes(o)) next = next.filter(x => x !== o);
+                else next.push(o);
+                setSelected(next);
+            }
+        };
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 overflow-y-auto px-5 pt-6 pb-8 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 leading-snug mb-1">Do any of the following apply to you?</h2>
+                    <p className="text-[15px] text-gray-700 mb-6">Select all that apply.</p>
+                    <div className="space-y-3">
+                        {options.map((o, i) => (
+                            <button key={i} onClick={() => toggle(o)} className={`w-full flex items-center gap-3 p-4 border rounded-xl transition-all text-left ${selected.includes(o) ? 'border-[#5200D4] bg-[#F3E8FF]/30' : 'border-gray-200 bg-white'}`}>
+                                <div className={`shrink-0 flex items-center justify-center w-5 h-5 rounded-[4px] border ${selected.includes(o) ? 'bg-[#5200D4] border-[#5200D4]' : 'border-gray-300 bg-white'}`}>
+                                    {selected.includes(o) && <Icon name="check" className="text-white text-[16px]" />}
+                                </div>
+                                <span className="text-[14px] text-gray-800">{o}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="px-5 pt-4 pb-6 bg-white border-t border-gray-50">
+                    <button onClick={() => onContinue(selected)} disabled={selected.length === 0} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-all">Continue</button>
+                </div>
+            </main>
+        );
+    };
+
+    const LoaderScreen = ({ focusArea, onFinish }) => {
+        const [step, setStep] = useState(0);
+        useEffect(() => {
+            const timers = [
+                setTimeout(() => setStep(1), 600),
+                setTimeout(() => setStep(2), 1400),
+                setTimeout(() => setStep(3), 2400),
+                setTimeout(() => onFinish(), 3400)
+            ];
+            return () => timers.forEach(t => clearTimeout(t));
+        }, [onFinish]);
+        return (
+            <main className="flex flex-col flex-1 bg-white px-8 pt-[120px] h-screen">
+                <h2 className="text-[28px] font-bold text-gray-900 leading-tight mb-12">Matching you with the right Bold Care Clinician</h2>
+                <div className="space-y-6">
+                    <div className="flex items-center gap-3 h-8"><span className="text-[17px] font-bold text-gray-900">Licensed CA</span>{step >= 1 && <Icon name="check_circle" className="text-[#5200D4]" filled={true} />}</div>
+                    <div className={`flex items-center gap-3 h-8 transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'}`}><span className="text-[17px] font-bold text-gray-900 capitalize">Focused on {focusArea}</span>{step >= 2 && <Icon name="check_circle" className="text-[#5200D4]" filled={true} />}</div>
+                    <div className={`flex items-center gap-3 h-8 transition-opacity duration-500 ${step >= 2 ? 'opacity-100' : 'opacity-0'}`}><span className={`text-[17px] ${step >= 3 ? 'font-bold text-gray-900' : 'text-[#A3A3A3]'}`}>Covered by your insurance</span>{step >= 3 && <Icon name="check_circle" className="text-[#5200D4]" filled={true} />}</div>
+                </div>
+            </main>
+        );
+    };
+
+    const ProviderScreen = ({ focusArea, onContinue, onViewProfile, onOpenFaq1, onOpenFaq2 }) => (
+        <main className="flex flex-col flex-1 bg-[#fafafa] overflow-hidden">
+            <div className="flex-1 overflow-y-auto px-4 pt-4 pb-8 doc-scroll space-y-4">
+                <div>
+                    <h2 className="text-[24px] font-semibold text-gray-900 mb-1 leading-[32px]">Meet your Bold Care Clinician</h2>
+                    <p className="text-[16px] text-gray-700 leading-[24px]">We’ve paired you with the right clinician to help you reach your goals.</p>
+                </div>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="flex gap-4 items-center p-4">
+                        <div className="w-[100px] h-[100px] rounded-full border border-gray-200 overflow-hidden shrink-0">
+                            <img src="https://www.figma.com/api/mcp/asset/980b55fb-3127-4a10-b1ac-5fdef015a440" alt="Dr. Desai" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <div className="inline-flex items-center gap-1 bg-[#e6f8f6] border border-[#00887a] px-2.5 py-1 rounded-full mb-2">
+                                <img src="https://www.figma.com/api/mcp/asset/033cb529-142e-48f4-a439-5e821082cdb0" className="w-4 h-4" alt="" />
+                                <span className="text-[14px] font-semibold text-[#00887a] whitespace-nowrap">Frequently rebooked</span>
+                            </div>
+                            <p className="font-semibold text-[18px] text-gray-900 leading-[24px]">Dr. Mitul S. Desai, MD</p>
+                            <p className="text-[14px] text-gray-600 leading-[22px]">Internal Medicine</p>
+                            <p className="text-[14px] text-gray-600 leading-[22px]">21 years of experience</p>
+                            <div className="flex items-center gap-1 mt-1">
+                                <img src="https://www.figma.com/api/mcp/asset/f3238a22-d368-442e-b8c0-06f292d6b429" className="w-4 h-4" alt="" />
+                                <span className="text-[14px] font-semibold text-gray-900">5.00</span>
+                                <span className="text-[14px] text-[#525252]">(4 verified reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="px-4 pb-4 flex flex-col gap-3">
+                        <div className="bg-[#ebf0ff] rounded-lg p-3">
+                            <div className="flex items-start gap-2 mb-1">
+                                <Icon name="verified" className="text-[#264dbf] text-[24px] shrink-0" filled={true} />
+                                <span className="font-semibold text-[16px] text-[#264dbf] leading-[24px]">A great match for {focusArea}</span>
+                            </div>
+                            <p className="text-[16px] text-[#264dbf] leading-[24px]">Dr. Desai combines internal and obesity medicine training with compassionate support for weight goals.</p>
+                        </div>
+                        <button onClick={onViewProfile} className="w-full py-2.5 rounded-xl border border-gray-200 text-[16px] font-semibold text-gray-900 bg-white shadow-sm hover:bg-gray-50 active:scale-95 transition-all">View profile</button>
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl shadow-sm p-4">
+                    <p className="font-semibold text-[16px] text-gray-900 mb-3 leading-[24px]">What to expect in our appointment</p>
+                    <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                            <Icon name="check_circle" className="text-[#171717] text-[24px] shrink-0 mt-0.5" filled={true} />
+                            <p className="text-[16px] text-gray-900 leading-[24px]">We’ll discuss your goals, identify the causes of health conditions in your routine</p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <Icon name="check_circle" className="text-[#171717] text-[24px] shrink-0 mt-0.5" filled={true} />
+                            <p className="text-[16px] text-gray-900 leading-[24px]">We’ll create an actionable care plan with clear next steps for healthy aging</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-white rounded-2xl shadow-sm p-4">
+                    <p className="font-semibold text-[16px] text-gray-900 mb-4 leading-[24px]">Frequently asked questions</p>
+                    <div className="space-y-4">
+                        <button onClick={onOpenFaq1} className="flex items-start gap-1 text-left w-full">
+                            <Icon name="help" className="text-[#5200d4] text-[20px] shrink-0 mt-0.5" filled={true} />
+                            <span className="text-[16px] font-medium text-[#5200d4] underline underline-offset-2 leading-[24px]">Learn more about your care clinician</span>
+                        </button>
+                        <button onClick={onOpenFaq2} className="flex items-start gap-1 text-left w-full">
+                            <Icon name="help" className="text-[#5200d4] text-[20px] shrink-0 mt-0.5" filled={true} />
+                            <span className="text-[16px] font-medium text-[#5200d4] underline underline-offset-2 leading-[24px]">Bold Care complements your primary care</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div className="px-4 pt-4 pb-6 border-t border-gray-100 bg-white">
+                <button onClick={onContinue} className="w-full bg-[#5200D4] text-white font-semibold py-4 rounded-xl shadow-sm text-[16px]">Schedule appointment</button>
+            </div>
+        </main>
+    );
+
+    const ScheduleScreen = ({ callType, setCallType, onContinue }) => {
+        const [selected, setSelected] = useState(null);
+        const days = [
+            { d: "Tue, Aug 12", t: ["9:00am", "9:45am", "10:30am", "11:15am", "1:00pm", "1:45pm"] },
+            { d: "Wed, Aug 13", t: ["9:00am", "9:45am", "10:30am", "11:15am"] }
+        ];
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 overflow-y-auto px-5 pt-6 pb-8 doc-scroll">
+                    <h2 className="text-[24px] font-bold text-gray-900 mb-1">Schedule your first visit</h2>
+                    <p className="text-[15px] text-gray-800 mb-2">45-min {callType === 'zoom' ? 'Zoom video call' : 'phone call'} with Dr. Desai</p>
+                    <button onClick={() => setCallType(callType === 'zoom' ? 'phone' : 'zoom')} className="text-[#5200D4] font-semibold underline text-sm mb-8">Switch to {callType === 'zoom' ? 'phone call' : 'Zoom video call'}</button>
+                    <div className="space-y-8">
+                        {days.map((day, idx) => (
+                            <div key={idx}>
+                                <h3 className="font-bold mb-4">{day.d}</h3>
+                                <div className="grid grid-cols-3 gap-3">
+                                    {day.t.map((t, i) => (
+                                        <button key={i} onClick={() => setSelected(`${day.d}-${t}`)} className={`py-3 rounded-xl border flex items-center justify-center gap-1 transition-all ${selected === `${day.d}-${t}` ? 'border-brand-purple bg-brand-lightPurple' : 'border-gray-200'}`}>
+                                            <span className="font-semibold text-sm">{t}</span><span className="text-[11px] text-gray-400 font-medium">PT</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="px-5 pt-4 pb-6 border-t border-gray-50 bg-white">
+                    <button onClick={onContinue} disabled={!selected} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl disabled:opacity-50">Schedule appointment</button>
+                </div>
+            </main>
+        );
+    };
+
+    const DocumentScreen = ({ title, subtitle, headerIcon, content, checkboxLabel, onContinue }) => {
+        const [agreed, setAgreed] = useState(false);
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="px-5 pt-6 mb-4 shrink-0">
+                    {headerIcon && <div className="w-16 h-16 bg-[#EBF0FF] rounded-full flex items-center justify-center mb-4">{headerIcon}</div>}
+                    <h2 className="text-[20px] font-semibold text-gray-900 mb-1">{title}</h2>
+                    <p className="text-[16px] text-gray-600 leading-relaxed">{subtitle}</p>
+                </div>
+                <div className="flex-1 px-5 mb-4 overflow-hidden">
+                    <div className="h-full border border-gray-200 rounded-2xl p-5 overflow-y-auto doc-scroll bg-white text-[16px] text-gray-600 leading-relaxed">{content}</div>
+                </div>
+                <div className="px-5 pb-6 bg-white shrink-0">
+                    <label className="flex items-start gap-3 p-4 bg-brand-lightPurple rounded-xl mb-4 cursor-pointer border border-purple-100">
+                        <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} className="mt-1 w-5 h-5 accent-brand-purple shrink-0" />
+                        <span className="text-[14px] font-medium text-gray-800 leading-snug">{checkboxLabel || 'I accept and agree to the terms provided above.'}</span>
+                    </label>
+                    <button onClick={onContinue} disabled={!agreed} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl disabled:opacity-50 active:scale-[0.98] transition-all">Continue</button>
+                </div>
+            </main>
+        );
+    };
+
+    const PhoneNumberScreen = ({ onContinue }) => {
+        const [val, setVal] = useState('');
+        return (
+            <main className="flex flex-col flex-1 bg-white overflow-hidden">
+                <div className="flex-1 px-5 pt-6">
+                    <h2 className="text-[24px] font-bold text-gray-900 mb-6">What's the best number to reach you?</h2>
+                    <input type="tel" value={val} onChange={e => setVal(e.target.value)} placeholder="(555) 555-5555" className="w-full border border-gray-300 rounded-xl px-4 py-4 text-lg mb-6 outline-none focus:ring-2 focus:ring-brand-purple shadow-sm" />
+                    <HipaaFooter />
+                </div>
+                <div className="px-5 pb-6"><button onClick={onContinue} className="w-full bg-[#5200D4] text-white font-bold py-4 rounded-xl shadow-sm">Continue</button></div>
+            </main>
+        );
+    };
+
+    const AppointmentReservedScreen = ({ callType, onViewProfile }) => {
+        const [openFaq, setOpenFaq] = useState(null);
+        const [activeCallType, setActiveCallType] = useState(callType);
+        const [isCoverageModalOpen, setIsCoverageModalOpen] = useState(false);
+        const faqs = [
+            { q: "Is this appointment covered by my insurance?", a: "Most appointments are covered. A Care Coordinator will confirm your exact benefits before the visit." },
+            { q: "What will I owe after this visit?", a: "Depending on your plan, you may have a standard co-pay. We will communicate any expected costs upfront." },
+            { q: "When will I receive a bill?", a: "If there is a balance, bills are typically sent 1-2 weeks after your insurance processes the claim." },
+            { q: "Do I need a referral for this visit?", a: "No, a referral is not required to see our specialists." },
+            { q: "What if my insurance doesn't cover it?", a: "We offer affordable self-pay options. Our team will discuss these with you if needed." }
+        ];
+
+        return (
+            <React.Fragment>
+            <main className="flex flex-col flex-1 bg-[#fafafa] overflow-y-auto pb-12 doc-scroll">
+
+                {/* Yellow banner */}
+                <div className="bg-[#ffe68d] px-4 py-4 flex items-center gap-2 cursor-pointer" onClick={() => setIsCoverageModalOpen(true)}>
+                    <div className="flex-1 flex flex-col gap-1">
+                        <div className="flex items-center gap-1">
+                            <Icon name="phone" className="text-[20px] text-[#5200d4]" fill={true} />
+                            <span className="font-semibold text-[18px] text-[#171717]">What comes next</span>
+                        </div>
+                        <p className="text-[16px] text-[#171717] leading-[24px]">
+                            A Bold Care Coordinator will call you within 48 hours. Save this number so you don't miss it: <a href="tel:4245775266" className="text-[#5200d4] underline decoration-solid">(424) 577-5266</a>
+                        </p>
+                    </div>
+                    <Icon name="chevron_right" className="text-[#171717] text-[20px] shrink-0" />
+                </div>
+
+                <div className="px-4 flex flex-col gap-6 pt-6">
+
+                    {/* Greeting */}
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="relative flex items-center justify-center" style={{width:77, height:77}}>
+                            <div className="absolute bg-[#eee6fb] rounded-full" style={{width:85, height:85}}></div>
+                            <Icon name="verified_user" className="text-[#5200d4] text-[48px] relative z-10" filled={true} />
+                        </div>
+                        <h2 className="font-semibold text-[32px] text-[#171717] text-center leading-[40px]">
+                            Appointment<br/>reserved
+                        </h2>
+                    </div>
+
+                    {/* Appointment card */}
+                    <div className="bg-[#eee6fb] rounded-[16px] shadow-sm">
+                        <div className="flex items-center gap-2 px-4 pt-2.5 pb-2">
+                            <Icon name="schedule" className="text-[#171717] text-[16px]" />
+                            <span className="font-semibold text-[14px] text-[#171717]">Pending coverage confirmation</span>
+                        </div>
+                        <div className="bg-white rounded-[16px] overflow-hidden shadow-sm">
+                            <div className="flex flex-col items-center gap-4 px-4 pt-8 pb-8 relative">
+                                <button
+                                    onClick={onViewProfile}
+                                    className="absolute top-4 right-4 bg-white border border-gray-200 rounded-xl px-3 py-1.5 flex items-center gap-1 text-[14px] font-semibold text-gray-800 shadow-sm hover:bg-gray-50 z-10"
+                                >
+                                    Profile <Icon name="arrow_outward" className="text-[14px]" />
+                                </button>
+                                <div className="w-[100px] h-[100px] rounded-full border-2 border-gray-200 overflow-hidden">
+                                    <img
+                                        src="https://www.figma.com/api/mcp/asset/9835bdd9-558a-4551-a0d5-8a9c92339605"
+                                        alt="Dr. Desai"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <p className="font-semibold text-[20px] text-[#171717] text-center leading-[24px]">
+                                    45-min {callType === 'zoom' ? 'Zoom video call' : 'phone call'} with<br/>Dr. Mitul S. Desai, MD
+                                </p>
+                                <div className="flex flex-col gap-1">
+                                    <div className="flex items-center gap-2 h-6">
+                                        <Icon name="calendar_today" className="text-[20px] text-[#171717]" />
+                                        <span className="text-[16px] text-[#171717]">Monday, November 3</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 h-6">
+                                        <Icon name="schedule" className="text-[#171717] text-[20px]" />
+                                        <span className="text-[16px] text-[#171717]">9:00am - 9:45am (PT)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-[#f5f5f5] px-4 py-4 flex flex-col gap-4 items-center">
+                                <p className="text-[14px] text-[#171717] text-center leading-[22px]">
+                                    {activeCallType === 'zoom' ? 'A Zoom link will be sent to your email.' : (
+                                        <span>Dr. Desai will call you from <a href="tel:4245775266" className="text-[#5200d4] underline">(424) 577-5266</a></span>
+                                    )}
+                                </p>
+                                <div className="flex items-center justify-center gap-[48px]">
+                                    <ActionButton icon="person_add" label={"Add to\ncontacts"} />
+                                    <ActionButton icon="event" label={"Add to\ncalendar"} />
+                                    <ActionButton
+                                        icon={activeCallType === 'zoom' ? 'call' : 'videocam'}
+                                        label={activeCallType === 'zoom' ? "Switch to\nphone call" : "Switch to\nZoom call"}
+                                        onClick={() => setActiveCallType(activeCallType === 'zoom' ? 'phone' : 'zoom')}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* While you wait */}
+                    <div className="flex flex-col gap-10 mt-20">
+
+                    <h2 className="font-semibold text-[24px] text-black leading-[32px] tracking-[-0.5px]">While you wait</h2>
+
+                    {/* Learn more about Bold Care – FAQ list */}
+                    <div className="flex flex-col gap-4">
+                        <h3 className="font-semibold text-[18px] text-black leading-[24px]">Learn more about Bold Care</h3>
+                        <div className="bg-white rounded-[16px] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.1),0px_1px_2px_0px_rgba(16,24,40,0.06)] overflow-hidden">
+                            {[
+                                "What to expect in our appointment",
+                                "What conditions does Bold Care help with?",
+                                "Will I have any co-pay or co-insurance fees associated with my appointments?",
+                                "Does Bold Care offer primary care?",
+                                "What is included in my personalized Care Plan?",
+                                "Who are Bold Care Clinicians?"
+                            ].map((q, idx) => (
+                                <button key={idx} className={`w-full flex items-center gap-2 px-3 py-4 text-left hover:bg-gray-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand ${idx > 0 ? 'border-t border-[#e5e5e5]' : ''}`}>
+                                    <span className="flex-1 text-[16px] text-[#171717] leading-[24px]">{q}</span>
+                                    <Icon name="chevron_right" className="text-[20px] text-[#171717] shrink-0" aria-hidden="true" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Learn more about weight management */}
+                    <div className="flex flex-col gap-4">
+                        <h3 className="font-semibold text-[18px] text-black leading-[24px]">Learn more about weight management</h3>
+                        <div className="bg-white rounded-[16px] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.1),0px_1px_2px_0px_rgba(16,24,40,0.06)] overflow-hidden cursor-pointer hover:shadow-md transition-shadow">
+                            <div className="flex items-stretch">
+                                <div className="flex-1 min-w-0 flex flex-col gap-1 py-3 pl-3 pr-2">
+                                    <div className="flex items-center gap-2">
+                                        <img src="https://www.figma.com/api/mcp/asset/41b62e86-53df-4705-8da2-9dfdf2c6ada2" alt="" className="w-4 shrink-0" style={{height:'15.87px'}} />
+                                        <span className="text-[14px] text-[#171717] leading-[22px]">Resources</span>
+                                    </div>
+                                    <p className="font-semibold text-[16px] text-[#171717] leading-[24px]">Weight management for seniors: What you need to know</p>
+                                </div>
+                                <div className="w-[151px] shrink-0 self-stretch rounded-tr-[16px] rounded-br-[16px] overflow-hidden">
+                                    <img src="https://www.figma.com/api/mcp/asset/1e7e1184-36c6-4834-8245-b32004933d6a" alt="Senior woman reading in a living room" className="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Coordinator card */}
+                    <div className="bg-[#eee6fb] rounded-[16px] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.1),0px_1px_2px_0px_rgba(16,24,40,0.06)] overflow-hidden">
+                        <div className="px-4 py-2 flex items-center gap-2">
+                            <Icon name="headset_mic" className="text-[16px] text-[#3e009f]" aria-hidden="true" />
+                            <span className="text-[12px] font-semibold tracking-[0.25px] text-[#3e009f] uppercase">We are here to help</span>
+                        </div>
+                        <div className="bg-white rounded-[16px] overflow-hidden">
+                            <div className="flex flex-col gap-2 px-4 pt-4 pb-4">
+                                <div className="flex items-center gap-2 w-full">
+                                    <div className="flex items-center w-[81px] h-[60px] px-2 shrink-0">
+                                        <div className="relative" style={{width:68, height:44}}>
+                                            <img className="w-[44px] h-[44px] rounded-full border-2 border-[#fafafa] absolute left-0 top-0 z-0" src="https://www.figma.com/api/mcp/asset/e91cbfcd-c312-4247-a913-b670f5be9717" alt="" />
+                                            <img className="w-[44px] h-[44px] rounded-full border-2 border-white absolute left-[24px] top-0 z-10" src="https://www.figma.com/api/mcp/asset/7a40cbd1-3149-4fdc-91ea-591d8739ded9" alt="" />
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="font-semibold text-[18px] text-black leading-[24px]">Bold care coordinator call</h4>
+                                    </div>
+                                </div>
+                                <p className="text-[16px] text-[#140d26] leading-[24px] w-full">
+                                    Care coordinator helps you make sure you attend your appointment confidently.
+                                </p>
+                                <a href="tel:4245775266" className="w-full py-3 px-4 rounded-xl border border-[#e5e5e5] text-[16px] font-semibold text-[#140d26] bg-white text-center hover:bg-gray-50 active:scale-[0.98] transition-all shadow-sm block focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand">
+                                    Call (424) 577-5266
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer links */}
+                    <div className="bg-white rounded-[16px] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.1),0px_1px_2px_0px_rgba(16,24,40,0.06)] overflow-hidden">
+                        <FooterLink title="Access your secure patient portal" />
+                        <FooterLink title="Bold resources" />
+                        <FooterLink title="Privacy policy" />
+                    </div>
+
+                    </div>{/* end While you wait gap-10 */}
+
+                </div>
+            </main>
+
+            {isCoverageModalOpen && (
+                <div className="fixed inset-0 z-[130] flex justify-center items-end bg-black/40" onClick={() => setIsCoverageModalOpen(false)}>
+                    <div className="w-full max-w-[400px] bg-white rounded-t-2xl relative shadow-2xl animate-slideUp" onClick={e => e.stopPropagation()}>
+                        <button onClick={() => setIsCoverageModalOpen(false)} className="absolute top-2 right-2 w-9 h-9 bg-white rounded-xl shadow-md flex items-center justify-center z-10">
+                            <Icon name="close" className="text-[20px] text-gray-600" />
+                        </button>
+                        <div className="flex justify-center relative h-[137px] overflow-hidden">
+                            <img src="https://www.figma.com/api/mcp/asset/908b45c0-d987-45e6-9703-dcf3f658f0bc" alt="" className="w-[112px] h-[112px] rounded-full object-cover border-2 border-white shadow-sm absolute left-[calc(50%-80px)] top-6 z-10" />
+                            <img src="https://www.figma.com/api/mcp/asset/cc7ce0e0-db22-4fa6-ac0b-51a53398ff21" alt="" className="w-[81px] h-[81px] rounded-full object-cover border-2 border-white shadow-sm absolute left-[calc(50%-4px)] top-[52px] z-0" />
+                            <div className="absolute left-[calc(50%+36px)] top-[22px] z-20 bg-white rounded-full flex items-center justify-center shadow-sm w-[48px] h-[48px]">
+                                <Icon name="verified" className="text-[#13C296] text-[40px]" filled={true} />
+                            </div>
+                        </div>
+                        <div className="px-4 pt-4 pb-2 flex flex-col gap-4">
+                            <h2 className="font-semibold text-[28px] text-[#171717] leading-[34px]">Let's confirm your coverage</h2>
+                            <p className="text-[16px] text-[#171717] leading-[24px]">
+                                We need more info to 100% confirm your coverage. A Bold Care Coordinator will call from{' '}
+                                <a href="tel:4245775266" className="text-[#5200d4] underline">(424) 577-5266</a>
+                                {' '}in 48hr
+                            </p>
+                            <div className="bg-[#ede9fe] rounded-2xl p-3">
+                                <p className="text-[16px] text-gray-900 leading-[24px]">
+                                    Bold bills Medicare and insurance plans directly. <strong>Your appointment is on hold</strong> until we confirm your coverage.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="px-4 pt-2 pb-6 bg-gradient-to-b from-transparent to-[#f5f5f5] mt-2">
+                            <button onClick={() => setIsCoverageModalOpen(false)} className="w-full bg-[#5200d4] text-white font-semibold text-[16px] py-3 rounded-xl hover:bg-[#4200aa] active:scale-[0.98] transition-all">
+                                I see
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            </React.Fragment>
+        );
+    };
+
+    // --- Provider Profile Modal --- //
+
+    const PROFILE_IMGS = {
+        header: "https://www.figma.com/api/mcp/asset/2f6f6f86-46e3-46a7-a7f1-34aae09fb410",
+        closeX: "https://www.figma.com/api/mcp/asset/b504be51-d023-4da5-812a-4d0cef5c29f3",
+        video:  "https://www.figma.com/api/mcp/asset/5542d5f0-5efd-41a2-a1ce-dd232f0e8509",
+        star:   "https://www.figma.com/api/mcp/asset/48a444fb-4a94-41d9-aa92-2ed06fac5c61",
+    };
+
+    const REVIEWS = [
+        { text: "The doctor was thorough and took the time to explain my condition. I felt informed and empowered.", date: "Jan 10", reviewer: "M. T. 72yr" },
+        { text: "Everyone was so knowledgeable! They answered all my questions and even followed up with additional resources.", date: "Dec 25 2025", reviewer: "D. H. 77yr" },
+    ];
+
+    const ProviderProfileModal = ({ onClose, onWorkWith }) => (
+        <div className="fixed inset-0 z-[120] flex justify-center items-end bg-black/50" onClick={onClose}>
+            <div
+                className="w-full max-w-[400px] bg-white rounded-t-[16px] relative shadow-2xl animate-slideUp"
+                style={{ maxHeight: '92vh' }}
+                onClick={e => e.stopPropagation()}
+            >
+                {/* Close button stays visible above scroll */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-2 right-2 z-20 w-10 h-10 bg-white rounded-[12px] flex items-center justify-center shadow-[0_0_8px_0_rgba(0,0,0,0.16)]"
+                >
+                    <img src={PROFILE_IMGS.closeX} alt="close" className="w-6 h-6" />
+                </button>
+
+                {/* Scrollable body — header image scrolls with content */}
+                <div className="overflow-y-auto doc-scroll rounded-t-[16px]" style={{ maxHeight: '92vh', paddingBottom: '96px' }}>
+                    <div className="h-[254px] overflow-hidden rounded-t-[16px]">
+                        <img src={PROFILE_IMGS.header} alt="Dr. Mitul Desai" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="px-5 pt-5">
+                        <h2 className="font-semibold text-[28px] text-black leading-[34px]">Meet Dr. Mitul Desai, MD</h2>
+                    </div>
+
+                    <div className="border-t border-gray-200 mt-4 px-5 pt-5 flex flex-col gap-10 pb-6">
+                        {/* Video embed */}
+                        <div>
+                            <img src={PROFILE_IMGS.video} alt="Appointment preview" className="w-full rounded-lg" />
+                            <p className="text-[16px] font-semibold text-[#5f5f5f] underline mt-2 leading-[24px]">What to expect in our appointment together</p>
+                        </div>
+
+                        {/* Bio */}
+                        <p className="text-[16px] text-black leading-[24px]">As a double board-certified physician in Internal Medicine and Obesity Medicine, I have over 20 years of clinical experience in primary care and preventive health. Together, we will collaborate to address and prevent age-related issues with a focus on healthy lifestyle management.</p>
+
+                        {/* Years of experience */}
+                        <div className="flex flex-col gap-4">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Years of experience</h3>
+                            <p className="text-[16px] text-black leading-[24px]">21 years of experience</p>
+                        </div>
+
+                        {/* What to expect */}
+                        <div className="flex flex-col gap-4">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">What to expect in our visits together</h3>
+                            <p className="text-[16px] text-black leading-[24px]">We will discuss your medical history and your future health goals. Together, we will devise a plan to address current medical conditions, create health-promoting habits, and adopt positive lifestyle behaviors.</p>
+                        </div>
+
+                        {/* Education */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Education</h3>
+                            <ul className="list-disc pl-6 text-[16px] text-black leading-[24px] space-y-2">
+                                <li>MD (Doctor of Medicine), Rush Medical College, Chicago, IL</li>
+                                <li>B.S. Honors Biology (Bachelor of Science), University of Michigan, Ann Arbor, MI</li>
+                            </ul>
+                        </div>
+
+                        {/* Specialties */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Specialties</h3>
+                            <p className="text-[16px] text-black leading-[24px]">Nutrition, physical activity, sleep, stress management, social connections, avoidance of harmful substances</p>
+                        </div>
+
+                        {/* Certifications */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Certifications</h3>
+                            <ul className="list-disc pl-6 text-[16px] text-black leading-[24px] space-y-2">
+                                <li>Diplomate American Board of Obesity Medicine</li>
+                                <li>Diplomate American Board of Internal Medicine</li>
+                            </ul>
+                        </div>
+
+                        {/* Languages */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Languages</h3>
+                            <p className="text-[16px] text-black leading-[24px]">English, Spanish, Gujarati</p>
+                        </div>
+
+                        {/* Healthy aging tip */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Healthy aging tip</h3>
+                            <p className="text-[16px] text-black leading-[24px]">Get moving! Reaching your movement goal of 150 minutes per week may seem overwhelming, but start small. Park your car further from a store's entrance, take the stairs instead of the elevator, or walk around the block with a friend. Take one step at a time!</p>
+                        </div>
+
+                        {/* Member reviews */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-[28px] text-black leading-[34px]">Member reviews</h3>
+                            <p className="text-[16px] text-black leading-[24px]">Your trust is our top concern. Providers can't pay to alter or remove any reviews.</p>
+                            {REVIEWS.map((r, i) => (
+                                <div key={i} className="bg-[#fffae8] rounded-[16px] p-4 flex flex-col gap-3 relative">
+                                    <div>
+                                        <span className="text-[48px] font-bold text-[#80660d] leading-none">"</span>
+                                        <span className="absolute top-4 right-4 text-[12px] font-semibold text-[#80660d]">{r.date}</span>
+                                        <p className="text-[16px] text-[#171717] leading-[24px]">{r.text}</p>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex gap-0.5">
+                                            {[...Array(5)].map((_, j) => (
+                                                <img key={j} src={PROFILE_IMGS.star} alt="★" className="w-5 h-5" />
+                                            ))}
+                                        </div>
+                                        <span className="text-[16px] text-[#171717]">{r.reviewer}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sticky CTA */}
+                <div className="absolute bottom-0 left-0 w-full bg-white border-t border-gray-100 px-4 py-6 shrink-0">
+                    <button onClick={onWorkWith} className="w-full bg-[#5200D4] text-white font-semibold py-4 rounded-xl text-[16px]">
+                        Work with Dr. Desai
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    // --- Main App Logic --- //
+
+    const App = () => {
+        const [view, setView] = useState('coverage');
+        const [areas, setAreas] = useState([]);
+        const [primary, setPrimary] = useState('');
+        const [concern, setConcern] = useState('');
+        const [callType, setCallType] = useState('phone');
+        
+        const [isProfileOpen, setIsProfileOpen] = useState(false);
+        const [isFaq1Open, setIsFaq1Open] = useState(false);
+        const [isFaq2Open, setIsFaq2Open] = useState(false);
+
+        const handleBack = () => {
+            const flow = ['coverage', 'eligibility', 'focusSelection', 'primaryFocusSelection', 'concern', 'intake', 'provider', 'schedule', 'hipaa', 'consent', 'phoneNumber', 'appointmentReserved'];
+            const idx = flow.indexOf(view);
+            if (idx > 0) setView(flow[idx-1]);
+        };
+
+        const getProgress = () => {
+            const steps = ['coverage', 'eligibility', 'focusSelection', 'primaryFocusSelection', 'concern', 'intake', 'loader', 'provider', 'schedule', 'hipaa', 'consent', 'phoneNumber', 'appointmentReserved'];
+            const currentIdx = steps.indexOf(view);
+            if (currentIdx === -1 || view === 'appointmentReserved') return 0;
+            return (currentIdx + 1) * (100 / steps.length);
+        };
+
+        return (
+            <div className="flex flex-col flex-1 bg-white h-screen overflow-hidden relative">
+                {view !== 'loader' && <Header onBack={handleBack} progress={getProgress()} hideBack={view === 'coverage'} />}
+                
+                {view === 'coverage' && <CoverageScreen onContinue={() => setView('eligibility')} />}
+
+                {view === 'eligibility' && <EligibilityScreen onContinue={() => setView('focusSelection')} />}
+                
+                {view === 'focusSelection' && (
+                    <IntakeFocusScreen selectedAreas={areas} onToggle={a => areas.includes(a) ? setAreas(areas.filter(x=>x!==a)) : setAreas([...areas,a])} onContinue={() => areas.length > 1 ? setView('primaryFocusSelection') : (setPrimary(areas[0] || 'your health'), setView('concern'))} />
+                )}
+                
+                {view === 'primaryFocusSelection' && <PrimaryFocusScreen options={areas} selectedPrimary={primary} onSelect={setPrimary} onContinue={() => setView('concern')} />}
+                
+                {view === 'concern' && <ConcernScreen focusArea={primary.toLowerCase()} initialValue={concern} onContinue={t => {setConcern(t); setView('intake');}} onSkip={() => setView('intake')} />}
+                
+                {view === 'intake' && <IntakeScreen onContinue={(sel) => setView('loader')} />}
+                
+                {view === 'loader' && <LoaderScreen focusArea={primary.toLowerCase()} onFinish={() => setView('provider')} />}
+                
+                {view === 'provider' && (
+                    <ProviderScreen focusArea={primary.toLowerCase()} onContinue={() => setView('schedule')} onViewProfile={() => setIsProfileOpen(true)} onOpenFaq1={() => setIsFaq1Open(true)} onOpenFaq2={() => setIsFaq2Open(true)} />
+                )}
+                
+                {view === 'schedule' && <ScheduleScreen callType={callType} setCallType={setCallType} onContinue={() => setView('hipaa')} />}
+                
+                {view === 'hipaa' && <DocumentScreen
+                    title="Your privacy matters"
+                    subtitle="Bold is HIPAA compliant. We're committed to protecting your personal information."
+                    headerIcon={<Icon name="security" className="text-[#5200D4] text-[32px]" />}
+                    checkboxLabel="I acknowledge the HIPAA notice of privacy practices"
+                    onContinue={() => setView('consent')}
+                    content={<div className="space-y-3">
+                        <div className="flex justify-center mb-2">
+                            <img src="https://www.figma.com/api/mcp/asset/ce5dac50-b051-4400-a944-5bcf1e919e8b" alt="HIPAA Compliance" className="h-12 object-contain" />
+                        </div>
+                        <h3 className="font-semibold text-gray-800 text-[15px]">Our Privacy Obligations</h3>
+                        <p>The law requires us to maintain the privacy of certain health information called "Protected Health Information" or "PHI". Protected Health Information is the information that you provide us or that we create or receive about your health care. The law also requires us to provide you with this Notice of our legal duties and privacy practices. When we use or disclose (share) your Protected Health Information, we are required to follow the terms of this Notice or other notice in effect at the time we use or share the PHI. Finally, the law provides you with certain rights described in this Notice. Furthermore, we are required to notify you following a breach of unsecured PHI.</p>
+                        <p>This Notice describes the privacy practices of Practice. It applies to the health services you receive from the Practice. The Practice will be referred to herein as "we" or "us." We will share your health information among ourselves to carry out our treatment, payment, and health care operations.</p>
+                        <p className="font-semibold text-gray-800">Ways We Can Use and Share Your PHI Without Your Written Permission (Authorization)</p>
+                        <p>In many situations, we can use and share your PHI for activities that are common in many hospitals and clinics. In certain other situations, which we will describe under "Uses and Disclosures Requiring Your Written Permission (Authorization)."</p>
+                        <p>In some circumstances, we must have your written permission (authorization) to use and/or share your PHI. We do not need any type of permission from you for the following uses and disclosures:</p>
+                        <p className="font-semibold text-gray-800">THIS NOTICE DESCRIBES HOW MEDICAL INFORMATION ABOUT YOU MAY BE USED AND SHARED AND HOW YOU CAN GET ACCESS TO THIS INFORMATION. PLEASE REVIEW IT CAREFULLY.</p>
+                        <p className="font-semibold text-gray-800">Uses and Disclosures for Treatment, Payment and Health Care Operations</p>
+                        <p>We may use and share your PHI to provide "Treatment," obtain "Payment" for your Treatment, and perform our "Health Care Operations." These three terms are defined as:</p>
+                        <p>Definitions • <strong>Treatment.</strong> We use and share your PHI to provide care and other services to you — for example, to diagnose and treat your injury or illness. In addition, we may contact you to provide appointment reminders or information about treatment options. We may tell you about other health-related benefits and services that might interest you. We may also share PHI with other doctors, nurses, and others involved in your care.</p>
+                        <p>• <strong>Payment.</strong> We may use and share your PHI to receive payment for services that we provide to you. As an example, we may share your PHI with the person who you told us is primarily responsible for paying for your treatment, such as your spouse or parent.</p>
+                        <p>• <strong>Health Care Operations.</strong> We may use and share your PHI for our health care operations, which include management, planning, and activities that improve the quality and lower the cost of the care that we deliver. For example, we may use PHI to review the quality and skill of our Clinicians. However, you have the right to restrict disclosure to a health plan for healthcare services for which you pay in full out of pocket (excluding a deductible).</p>
+                        <p>• <strong>Business Associates.</strong> In addition, we may share PHI with certain others who help us with our activities, including those we hire to perform services. All such Business Associates are required to sign an agreement that protects your PHI.</p>
+                        <p className="font-semibold text-gray-800">Your Other Health Care Providers</p>
+                        <p>We may also share PHI with your doctor and other health care providers when they need it to provide Treatment to you, to obtain Payment for the care they give to you, to perform certain Health Care Operations, such as reviewing the quality and skill of health care professionals, or to review their actions in following the law.</p>
+                        <p className="font-semibold text-gray-800">Disclosure to Relatives, Close Friends and Your Other Caregivers</p>
+                        <p>We may share your PHI with your family member/relative, a close personal friend, or another person who you identify in writing to us if we: (1) first provide you with the chance to object to the disclosure and you do not object; (2) reasonably infer that you do not object to the disclosure; or (3) obtain your written permission to share your PHI with these individuals.</p>
+                        <p className="font-semibold text-gray-800">Public Health Activities</p>
+                        <p>We are required or are permitted by law to report PHI to certain government agencies and others. For example, we may share your PHI to report health information to public health authorities, to report abuse and neglect, to report information about products and services to the U.S. Food and Drug Administration, and to prevent or lessen a serious and imminent threat to a person or the public's health or safety.</p>
+                        <p className="font-semibold text-gray-800">Health Oversight Activities</p>
+                        <p>We may share your PHI with a health oversight agency that oversees the health care system and ensures the rules of government health programs, such as Medicare or Medicaid, are being followed.</p>
+                        <p className="font-semibold text-gray-800">Judicial and Administrative Proceedings</p>
+                        <p>We may share your PHI in the course of a judicial or administrative proceeding in response to a legal order or other lawful process.</p>
+                        <p className="font-semibold text-gray-800">Law Enforcement Purposes</p>
+                        <p>We may share your PHI with the police or other law enforcement officials as required or permitted by law or in compliance with a court order or a subpoena.</p>
+                        <p className="font-semibold text-gray-800">Research</p>
+                        <p>We may use or share your PHI if the group that oversees our research, the Institutional Review Board/Privacy Board, approves a waiver of permission (authorization) for disclosure or for a researcher to begin the research process.</p>
+                        <p className="font-semibold text-gray-800">Uses and Disclosures Requiring Your Written Permission (Authorization)</p>
+                        <p>For any purpose other than the ones described above, we may only use or share your PHI when you grant us your written permission (authorization). We must also obtain your written permission prior to using your PHI to send you any marketing materials paid for by a third party. In addition, we may not sell your PHI without your written authorization.</p>
+                        <p className="font-semibold text-gray-800">Your Rights Regarding Your Protected Health Information</p>
+                        <p>If you want more information about your privacy rights, are concerned that we have violated your privacy rights, or disagree with a decision that we made about access to your PHI, you may contact our HIPAA Privacy Officer. You may also file written complaints with the Office for Civil Rights ("OCR") of the U.S. Department of Health and Human Services.</p>
+                        <p>• <strong>Right to Receive Confidential Communications.</strong> You may ask us to send PHI to a different location than the address that you gave us, or in a special way, or to contact you at a different phone number.</p>
+                        <p>• <strong>Right to Inspect and Copy Your Health Information.</strong> You may request copies (for a reasonable fee) and/or access to your medical record file, billing records, and other records.</p>
+                        <p>• <strong>Right to Amend Your Records.</strong> You have the right to request that we amend PHI maintained in medical record files, billing records, and other records used to make decisions about your Treatment.</p>
+                        <p>• <strong>Right to Request Restrictions.</strong> You have the right to ask us to restrict or limit the PHI we use or disclose about you for treatment, payment, or health care operations.</p>
+                        <p className="font-semibold text-gray-800">Effective Date</p>
+                        <p>This Notice is effective as of August 4, 2025.</p>
+                        <p className="font-semibold text-gray-800">Questions or Concerns</p>
+                        <p>You may contact the HIPAA Privacy Officer for additional information: Data Privacy Officer. email: privacy@agebold.com · telephone: (833) 701-1545 · address: 8549 Wilshire Blvd #5080, Beverly Hills, CA 90211</p>
+                    </div>}
+                />}
+                
+                {view === 'consent' && <DocumentScreen
+                    title="Consent for care"
+                    subtitle="This document outlines your care, rights, and consent to treatment from Bold clinicians."
+                    headerIcon={<Icon name="security" className="text-[#5200D4] text-[32px]" />}
+                    checkboxLabel="I accept and agree to the New Patient Agreement and Informed Consent"
+                    onContinue={() => setView('phoneNumber')}
+                    content={<div className="space-y-3">
+                        <h3 className="font-semibold text-gray-800 text-[15px]">New patient agreement</h3>
+                        <p>Age Bold's clinical care is provided by Mighty Health Medical Services of New Jersey, P.C.; Mighty Health Medical Services, P.A.; Bradley J. E. Professional Corporation, and New York City Health Medical, P.C. ("Provider Group") and its contractual affiliates. Age Bold connects you to a Provider Group physician or nurse practitioner to provide medical care and treatment. Age Bold does not provide any medical services, does not practice medicine, and does not influence the practice of medicine or any licensed profession provided by Provider Group's clinicians, each of whom are responsible for his or her services and compliance with the requirements applicable to his or her profession and license.</p>
+                        <p>This New Patient Agreement (the "Agreement"), effective as of the date of the Patient's signature (the "Effective Date"), is made by and between Age Bold Provider Group, P.A., a Florida professional corporation and its contractual affiliates ("Practice"), and the undersigned patient (the "Patient," "You" or "I"). You are a patient of the Practice who receives certain medical services from its clinicians using telehealth technologies ("Medical Services").</p>
+                        <p className="font-semibold text-gray-800">Term, Termination, and Cancellation</p>
+                        <p>This Agreement will commence on the Effective Date and will extend until after the consult(s).</p>
+                        <p className="font-semibold text-gray-800">Other Providers</p>
+                        <p>You acknowledge that the signing of this Agreement is strictly voluntary. This Agreement does not restrict or limit your ability to receive professional services from other health care professionals.</p>
+                        <p className="font-semibold text-gray-800">Insurance or Other Medical Coverage</p>
+                        <p>This Agreement and the Practice's provision of Medical Services are not substitutes for health insurance or other health plan coverage. You acknowledge that this Agreement is not a contract that provides health insurance for you. While You remain ultimately responsible for all charges for Medical Services, the Practice will, as a courtesy, submit claims to your health insurance on your behalf. The Practice in no way provides any representations that any Medical Services will be eligible for coverage under any insurance policy held by You.</p>
+                        <p className="font-semibold text-gray-800">Severability</p>
+                        <p>If for any reason any provision of this Agreement shall be deemed legally invalid or unenforceable, the validity of the remainder of the Agreement shall not be affected, and that provision shall be deemed modified to the minimum extent necessary to make it consistent with applicable law.</p>
+                        <p className="font-semibold text-gray-800">Modifications, Termination, Interruption, and Disruptions</p>
+                        <p>You understand, agree and acknowledge that we may modify, suspend, disrupt or discontinue the Age Bold platform, any part of the platform or the use of the platform, whether to all clients or to You specifically, at any time with or without notice to You. You agree and acknowledge that Provider Group will not be liable for any of the aforementioned actions or for the failure to provide any future Medical Services to You.</p>
+                        <p className="font-semibold text-gray-800">Amendment</p>
+                        <p>We may change this Agreement by posting modifications on the Age Bold platform. Unless otherwise specified by us, all modifications shall be effective upon posting. By using the Age Bold platform and the Medical Services after the changes become effective, You agree to be bound by such changes to the Agreement.</p>
+                        <p className="font-semibold text-gray-800">Assignment</p>
+                        <p>This Agreement, and any rights You may have under it, may not be assigned or transferred by You.</p>
+                        <p className="font-semibold text-gray-800">Governing Law</p>
+                        <p>This Agreement shall be governed and construed under the laws of California.</p>
+                        <p className="font-semibold text-gray-800">Entire Agreement</p>
+                        <p>This Agreement contains the entire agreement between the parties regarding the subject matter of this Agreement, and supersedes all prior oral and written understandings and agreements. If any provision of this Agreement is held by a court of competent jurisdiction to be illegal, invalid, unenforceable, or otherwise contrary to law, the remaining provisions of this Agreement will remain in full force and effect.</p>
+                        <p>Medical Services Patient Warning. Patient understands and agrees that email and the internet should never be used to access medical care in the event of an emergency. Patient agrees that in such situations they shall call 911 or the nearest emergency medical assistance provider.</p>
+                        <p className="font-semibold text-gray-800">Informed Consent — Background on Telemedicine</p>
+                        <p>Telemedicine involves the use of electronic communications technologies to enable the transfer of medical/health and other information between a health care provider and patient who are in different locations. Electronic systems incorporate network and software security protocols to protect your confidentiality and the confidentiality of your data, including PHI.</p>
+                        <p className="font-semibold text-gray-800">Expected Benefits of receiving Medical Services via Telemedicine</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                            <li>Improved access to medical care by enabling you to consult with your Clinician remotely.</li>
+                            <li>More efficient medical evaluation and management.</li>
+                            <li>Obtaining the expertise of a distant specialist.</li>
+                        </ul>
+                        <p className="font-semibold text-gray-800">Possible Risks of Receiving Medical Services via Telemedicine</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                            <li>In rare cases, information transmitted may not be sufficient to allow for appropriate medical decision making by the Clinician.</li>
+                            <li>Delays in medical evaluation and treatment could occur due to deficiencies or failures of the equipment.</li>
+                            <li>In very rare instances, security protocols could fail, causing a breach of privacy of personal medical information, including PHI.</li>
+                            <li>In rare cases, a lack of access to complete medical records may result in adverse drug interactions or other judgment errors.</li>
+                            <li>There may be other risks that are currently not known.</li>
+                        </ul>
+                        <p className="font-semibold text-gray-800">BY CLICKING ACCEPT, I ACKNOWLEDGE THAT I UNDERSTAND AND AGREE WITH THE FOLLOWING:</p>
+                        <ol className="list-decimal pl-5 space-y-2">
+                            <li>I give my informed consent to receive medical services including telemedicine from Practice, and its primary care practitioners and specialists ("Clinicians") for myself or for the patient for whom I am the parent or legal guardian.</li>
+                            <li>Age Bold, Inc. ("Age Bold") is a separate entity that is independent from the Practice, is not licensed to practice medicine, and has been contracted by the Practice to furnish administrative services.</li>
+                            <li>It is up to the Practice Clinician to determine whether my needs are appropriate for a telemedicine encounter.</li>
+                            <li>I will not be prescribed any controlled substance, and there is no guarantee that I will receive a prescription for any medication.</li>
+                            <li>A variety of alternative methods of medical care may be available to me, and that I may choose one or more of these at any time.</li>
+                            <li>I have the right to withhold or withdraw my consent to the use of telemedicine in the course of my care at any time, without affecting my right to future care or treatment.</li>
+                            <li>I understand that if I am experiencing a medical emergency, that I will be directed to dial 9-1-1 immediately.</li>
+                            <li>I have the right to inspect all information obtained and recorded in the course of a telemedicine interaction, including my medical record, and may receive copies of this information for a reasonable fee.</li>
+                            <li>The laws that protect privacy and the confidentiality of medical information, particularly PHI, also apply to telemedicine, and that no information obtained in the use of telemedicine that identifies me will be disclosed to researchers or other entities without my express written consent.</li>
+                            <li>There is a risk of technical failures during the telemedicine encounter beyond the control of Practice and Age Bold. I agree to hold harmless Practice and Age Bold for delays in evaluation or for information lost due to such technical failures.</li>
+                            <li>I have been offered a copy of this consent form.</li>
+                        </ol>
+                        <p className="font-semibold text-gray-800">Patient Informed Consent for AI Scribe Notice</p>
+                        <p>The Practice and Age Bold utilize a note taking tool called AI Scribe to accurately and efficiently capture the details of discussions and the outcomes of appointments. Your consent is required for the Practice to use this technology. By signing this consent form, you are agreeing to allow your clinician to use AI Scribe during your consultation.</p>
+                        <p className="font-semibold text-gray-800">Disclosures</p>
+                        <p>All Clinicians that provide Medical Services on the Age Bold platform hold professional licenses issued by the professional licensing boards in the states where they practice. You can report a complaint relating to services provided by any Clinician by contacting the professional licensing board in the state where the services were received.</p>
+                        <p>You can find the contact information for each of the state professional licensing boards governing medicine on the Federation of State Medical Boards website at: <span className="text-brand-purple underline">fsmb.org/state-medical-boards/contacts</span></p>
+                        <p>Any patient medical records created as a result of your use of the site will be securely maintained by the Practice for a period that is no less than the minimum number of years such records are required to be maintained under state and federal law.</p>
+                        <p>Please report any violations of these New Patient Agreement and Informed Consent to: <span className="text-brand-purple underline">privacy@agebold.com</span></p>
+                    </div>}
+                />}
+                
+                {view === 'phoneNumber' && <PhoneNumberScreen onContinue={() => setView('appointmentReserved')} />}
+                
+                {view === 'appointmentReserved' && <AppointmentReservedScreen callType={callType} onViewProfile={() => setIsProfileOpen(true)} />}
+
+                {/* Modals */}
+                {isProfileOpen && (
+                    <ProviderProfileModal
+                        onClose={() => setIsProfileOpen(false)}
+                        onWorkWith={() => { setIsProfileOpen(false); setView('schedule'); }}
+                    />
+                )}
+
+                {isFaq1Open && (
+                    <div className="fixed inset-0 z-[120] flex justify-center items-center bg-black/40 backdrop-blur-sm px-4">
+                        <div className="relative w-full max-w-[360px] bg-white rounded-[28px] p-8 shadow-2xl text-center">
+                            <button onClick={() => setIsFaq1Open(false)} className="absolute top-4 right-4 text-gray-400 p-1"><Icon name="close" /></button>
+                            <div className="w-16 h-16 bg-brand-lightPurple rounded-full flex items-center justify-center mx-auto mb-6 text-brand-purple"><Icon name="volunteer_activism" className="text-[32px]" /></div>
+                            <h2 className="text-xl font-bold mb-4 text-gray-900 leading-tight">Learn more about your Care Clinician</h2>
+                            <p className="text-gray-600 text-[15px] leading-relaxed mb-4">Bold Care helps match you with the best care clinician based on your focus, so you can achieve your goal more easily.</p>
+                            <p className="text-gray-600 text-[15px] leading-relaxed">You can choose to switch care clinicians if you find it's not a good fit after your first visit. All are in your control.</p>
+                        </div>
+                    </div>
+                )}
+
+                {isFaq2Open && (
+                    <div className="fixed inset-0 z-[120] flex justify-center items-center bg-black/40 backdrop-blur-sm px-4">
+                        <div className="relative w-full max-w-[360px] bg-white rounded-[28px] p-8 shadow-2xl text-center">
+                            <button onClick={() => setIsFaq2Open(false)} className="absolute top-4 right-4 text-gray-400 p-1"><Icon name="close" /></button>
+                            <div className="w-16 h-16 bg-brand-lightPurple rounded-full flex items-center justify-center mx-auto mb-6 text-brand-purple"><Icon name="groups" className="text-[32px]" /></div>
+                            <h2 className="text-xl font-bold mb-4 text-gray-900 leading-tight">Bold Care complements your primary care</h2>
+                            <p className="text-gray-600 text-[15px] leading-relaxed mb-6">Bold care providers assist you with nutrition, exercise, sleep, and the development of healthy habits, all aimed at improving your well-being <strong>without additional medications.</strong></p>
+                            <div className="mb-2 text-sm font-bold text-brand-purple underline">Call us (424) 577-5266</div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
+
+</body>
+</html>
