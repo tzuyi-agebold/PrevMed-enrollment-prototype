@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop: PrevMed x Fitness — Member Experience</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            purple: {
+              brand: '#5200D4',
+              dark: '#29006A',
+              mid: '#3E009F',
+              light: '#EBF0FF',
+              pale: '#F3E8FF',
+            },
+            yellow: { brand: '#FFCC1A' },
+            ink: '#140D26',
+            brand: {
+              purple: '#7C3AED',
+              lightPurple: '#F3E8FF',
+              yellow: '#FEF3C7',
+              yellowBorder: '#FDE68A',
+              green: '#E6FFFA',
+              text: '#111827',
+              muted: '#6B7280',
+            },
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    .slide { display: none; min-height: 100vh; }
+    .slide.active { display: flex; }
+    .slide-number { position: fixed; bottom: 24px; right: 32px; font-size: 14px; color: #6B7280; z-index: 50; }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #5200D4; z-index: 50; transition: width 0.3s ease; }
+    .timer-badge { position: fixed; top: 16px; right: 32px; z-index: 50; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-in { animation: fadeIn 0.4s ease-out forwards; }
+  </style>
+</head>
+<body class="font-sans bg-white text-ink antialiased">
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Slide number -->
+  <div class="slide-number font-medium" id="slideNumber"></div>
+
+  <!-- Timer badge -->
+  <div class="timer-badge">
+    <button id="timerBtn" onclick="toggleTimer()" aria-label="Toggle workshop timer"
+      class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-brand-muted text-[13px] font-medium rounded-full px-3 py-1.5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand">
+      <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">timer</span>
+      <span id="timerDisplay">40:00</span>
+    </button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 0: Title -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 text-center" data-time="">
+    <div class="max-w-2xl mx-auto animate-in">
+      <div class="inline-flex items-center gap-2 bg-purple-pale text-purple-brand text-[13px] font-semibold px-4 py-1.5 rounded-full mb-8">
+        <span class="material-symbols-outlined" style="font-size:18px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">exercise</span>
+        Workshop
+      </div>
+      <h1 class="text-[42px] font-bold text-purple-dark leading-tight mb-4">
+        PrevMed x Fitness
+      </h1>
+      <p class="text-[20px] text-brand-muted leading-relaxed mb-8">
+        Mapping the member experience across two user flows
+      </p>
+      <div class="flex items-center justify-center gap-6 text-[14px] text-brand-muted">
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:18px; font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">schedule</span>
+          40 min
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:18px; font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">groups</span>
+          Product + Design
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:18px; font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">map</span>
+          Flow Mapping
+        </span>
+      </div>
+      <div class="mt-16 text-[14px] text-gray-400">
+        Press <kbd class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded font-mono text-[13px]">&rarr;</kbd> or <kbd class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded font-mono text-[13px]">Space</kbd> to advance
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 1: Agenda -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Agenda</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-10">40 minutes, 3 parts</h2>
+      <div class="space-y-4">
+        <div class="flex items-start gap-4 bg-purple-light rounded-2xl p-5">
+          <div class="w-10 h-10 rounded-xl bg-purple-brand text-white flex items-center justify-center text-[16px] font-bold shrink-0">1</div>
+          <div>
+            <p class="text-[16px] font-semibold text-ink">Vision & Context</p>
+            <p class="text-[14px] text-brand-muted mt-0.5">Bold + PrevMed vision, AI care plan, two user flows</p>
+          </div>
+          <span class="ml-auto text-[14px] font-medium text-purple-brand shrink-0">8 min</span>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-2xl p-5">
+          <div class="w-10 h-10 rounded-xl bg-purple-brand text-white flex items-center justify-center text-[16px] font-bold shrink-0">2</div>
+          <div>
+            <p class="text-[16px] font-semibold text-ink">Flow Mapping</p>
+            <p class="text-[14px] text-brand-muted mt-0.5">Map 3 moments for each flow: Arrive, First Screen, Return</p>
+          </div>
+          <span class="ml-auto text-[14px] font-medium text-purple-brand shrink-0">22 min</span>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-2xl p-5">
+          <div class="w-10 h-10 rounded-xl bg-purple-brand text-white flex items-center justify-center text-[16px] font-bold shrink-0">3</div>
+          <div>
+            <p class="text-[16px] font-semibold text-ink">Align & Close</p>
+            <p class="text-[14px] text-brand-muted mt-0.5">Compare flows, set principles, assign next steps</p>
+          </div>
+          <span class="ml-auto text-[14px] font-medium text-purple-brand shrink-0">10 min</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 2: Part 1 divider -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 bg-purple-dark text-center" data-time="8">
+    <div class="max-w-xl mx-auto animate-in">
+      <p class="text-yellow-brand text-[14px] font-semibold uppercase tracking-wider mb-4">Part 1 &middot; 8 min</p>
+      <h2 class="text-[38px] font-bold text-white leading-tight mb-4">Vision & Context</h2>
+      <p class="text-[18px] text-purple-light/80 leading-relaxed">
+        Where we're going and who we're designing for.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 3: Warm-up -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 text-center" data-time="2">
+    <div class="max-w-xl mx-auto animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Warm-up &middot; 2 min</p>
+      <h2 class="text-[36px] font-bold text-purple-dark leading-tight mb-6">
+        What would make you trust<br/>a health app enough to<br/>use it every week?
+      </h2>
+      <p class="text-[18px] text-brand-muted leading-relaxed mb-10">
+        One sentence each. Quick round-robin.
+      </p>
+      <div class="bg-purple-pale rounded-2xl p-6 text-left">
+        <p class="text-[15px] text-purple-dark leading-relaxed italic">
+          "We're designing for trust and habit &mdash; not features."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 4: Bold + PrevMed Vision -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-3xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Vision &middot; 3 min</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-8">
+        Bold + PrevMed = Personalized healthy aging
+      </h2>
+
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <!-- Bold -->
+        <div class="bg-purple-light rounded-2xl p-5">
+          <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Bold's mission</p>
+          <p class="text-[18px] font-bold text-purple-dark mb-3">Health span = Lifespan</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-white rounded-xl p-3 text-center">
+              <span class="material-symbols-outlined text-purple-brand block mb-1" style="font-size:24px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24" aria-hidden="true">fitness_center</span>
+              <p class="text-[13px] font-medium text-ink">Move</p>
+            </div>
+            <div class="bg-white rounded-xl p-3 text-center">
+              <span class="material-symbols-outlined text-purple-brand block mb-1" style="font-size:24px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24" aria-hidden="true">school</span>
+              <p class="text-[13px] font-medium text-ink">Learn</p>
+            </div>
+            <div class="bg-white rounded-xl p-3 text-center">
+              <span class="material-symbols-outlined text-purple-brand block mb-1" style="font-size:24px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24" aria-hidden="true">groups</span>
+              <p class="text-[13px] font-medium text-ink">Connect</p>
+            </div>
+            <div class="bg-white rounded-xl p-3 text-center">
+              <span class="material-symbols-outlined text-purple-brand block mb-1" style="font-size:24px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24" aria-hidden="true">stethoscope</span>
+              <p class="text-[13px] font-medium text-ink">Get Care</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PrevMed -->
+        <div class="bg-brand-yellow rounded-2xl p-5 border border-brand-yellowBorder">
+          <p class="text-[13px] font-semibold text-amber-700 uppercase tracking-wider mb-3">PrevMed's role</p>
+          <p class="text-[18px] font-bold text-ink mb-3">Provider visit &rarr; AI care plan</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 bg-white rounded-xl px-3 py-2">
+              <span class="material-symbols-outlined text-purple-brand" style="font-size:20px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">fitness_center</span>
+              <p class="text-[13px] font-medium text-ink">Workouts</p>
+            </div>
+            <div class="flex items-center gap-2 bg-white rounded-xl px-3 py-2">
+              <span class="material-symbols-outlined text-purple-brand" style="font-size:20px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">restaurant</span>
+              <p class="text-[13px] font-medium text-ink">Nutrition</p>
+            </div>
+            <div class="flex items-center gap-2 bg-white rounded-xl px-3 py-2">
+              <span class="material-symbols-outlined text-purple-brand" style="font-size:20px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20" aria-hidden="true">menu_book</span>
+              <p class="text-[13px] font-medium text-ink">Education</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <p class="text-[15px] text-brand-muted">
+          <span class="font-semibold text-ink">The care plan is the bridge</span> &mdash; a personalized guide that unfolds over time, not a one-time prescription.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 5: Two User Flows -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-3xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Two Flows &middot; 3 min</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-8">Two paths, one platform</h2>
+
+      <!-- Flow A -->
+      <div class="bg-purple-light rounded-2xl p-5 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-purple-brand text-white flex items-center justify-center text-[15px] font-bold shrink-0">A</div>
+          <div>
+            <p class="text-[16px] font-semibold text-ink">PrevMed &rarr; Fitness</p>
+            <p class="text-[13px] text-brand-muted">New member, no Bold history</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">PrevMed visit</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">AI care plan</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">Fitness link</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-purple-brand text-white rounded-lg px-3 py-2 text-[13px] font-semibold">Bold platform</div>
+        </div>
+        <p class="text-[13px] text-purple-dark mt-3 font-medium">Everything is new &mdash; Bold, fitness content, the platform</p>
+      </div>
+
+      <!-- Flow B -->
+      <div class="bg-brand-yellow rounded-2xl p-5 border border-brand-yellowBorder mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center text-[15px] font-bold shrink-0">B</div>
+          <div>
+            <p class="text-[16px] font-semibold text-ink">Fitness &rarr; Care Plan</p>
+            <p class="text-[13px] text-brand-muted">Existing Bold user, gets a PrevMed visit</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">Using Bold fitness</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">PrevMed visit</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-white rounded-lg px-3 py-2 text-[13px] font-medium text-ink">AI care plan</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="bg-amber-600 text-white rounded-lg px-3 py-2 text-[13px] font-semibold">Bold + clinical context</div>
+        </div>
+        <p class="text-[13px] text-amber-800 mt-3 font-medium">Already knows Bold &mdash; now has clinical guidance layered on</p>
+      </div>
+
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <p class="text-[15px] font-semibold text-ink">Should these feel like the same experience, or different ones?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 6: Part 2 divider -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 bg-purple-dark text-center" data-time="22">
+    <div class="max-w-xl mx-auto animate-in">
+      <p class="text-yellow-brand text-[14px] font-semibold uppercase tracking-wider mb-4">Part 2 &middot; 22 min</p>
+      <h2 class="text-[38px] font-bold text-white leading-tight mb-4">Flow Mapping</h2>
+      <p class="text-[18px] text-purple-light/80 leading-relaxed">
+        3 moments per flow: <strong>Arrive</strong>, <strong>First Screen</strong>, <strong>Return</strong><br/>
+        What would make each moment great?
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 7: Flow A header -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 bg-purple-light text-center" data-time="10">
+    <div class="max-w-xl mx-auto animate-in">
+      <div class="w-14 h-14 rounded-2xl bg-purple-brand text-white flex items-center justify-center text-[24px] font-bold mx-auto mb-6">A</div>
+      <h2 class="text-[34px] font-bold text-purple-dark leading-tight mb-3">PrevMed &rarr; Fitness</h2>
+      <p class="text-[18px] text-brand-muted leading-relaxed mb-2">New member, cold start</p>
+      <p class="text-[14px] text-purple-brand font-medium">10 min &middot; 3 moments</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 8: Flow A — Arrive -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-brand text-white flex items-center justify-center text-[14px] font-bold shrink-0">A</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-purple-mid text-white flex items-center justify-center text-[14px] font-bold shrink-0">1</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider">Moment 1 &middot; 3 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">The Handoff</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">AI care plan is generated. Fitness is one component alongside nutrition and education. How does the member get from care plan to fitness?</p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Channel</p>
+          <p class="text-[14px] text-ink leading-relaxed">Magic link? Text? Email? Section within the care plan itself?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Message</p>
+          <p class="text-[14px] text-ink leading-relaxed">What does the link say? How does it set expectations?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Context</p>
+          <p class="text-[14px] text-ink leading-relaxed">Does she know what Bold is? Does she know this is part of her care plan?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">Seamless, trust-building, clear about what's on the other side</p>
+        </div>
+      </div>
+
+      <div class="bg-purple-pale rounded-2xl p-5">
+        <p class="text-[15px] text-purple-dark leading-relaxed">
+          <span class="font-semibold">Prompt:</span> Margaret has never heard of Bold. Her AI care plan says "fitness program." What makes her click?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 9: Flow A — First Screen -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="4">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-brand text-white flex items-center justify-center text-[14px] font-bold shrink-0">A</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-purple-mid text-white flex items-center justify-center text-[14px] font-bold shrink-0">2</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider">Moment 2 &middot; 4 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">Landing on Bold</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">Brand new. No account, no history, no context. In 5 seconds she needs to know: <em>this is for me, my doctor set this up, here's what to do first.</em></p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">She sees</p>
+          <p class="text-[14px] text-ink leading-relaxed">Her care plan program? A welcome? The full Bold library?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">She does</p>
+          <p class="text-[14px] text-ink leading-relaxed">Press play immediately? Browse? Set preferences?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">System does</p>
+          <p class="text-[14px] text-ink leading-relaxed">Shows care plan context? Provider name? Skips onboarding?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">Feels personal, safe, and impossible to get wrong</p>
+        </div>
+      </div>
+
+      <!-- Access model options -->
+      <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-5">
+        <p class="text-[14px] font-semibold text-ink mb-3">Key decision: Access model</p>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded bg-gray-200 text-gray-600 flex items-center justify-center text-[13px] font-bold shrink-0">A</span>
+            <p class="text-[14px] text-ink">Care-plan program only &mdash; focused, clinically directed</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded bg-gray-200 text-gray-600 flex items-center justify-center text-[13px] font-bold shrink-0">B</span>
+            <p class="text-[14px] text-ink">Full library, care plan highlighted &mdash; freedom + structure</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded bg-gray-200 text-gray-600 flex items-center justify-center text-[13px] font-bold shrink-0">C</span>
+            <p class="text-[14px] text-ink">Welcome flow &rarr; program, with "explore more" path</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 10: Flow A — Return -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-brand text-white flex items-center justify-center text-[14px] font-bold shrink-0">A</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-purple-mid text-white flex items-center justify-center text-[14px] font-bold shrink-0">3</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider">Moment 3 &middot; 3 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">Coming Back</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">She finished her first session days ago. The question: does she return?</p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Re-entry</p>
+          <p class="text-[14px] text-ink leading-relaxed">Via care plan? A text? Does she now have a Bold "home"?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Continuity</p>
+          <p class="text-[14px] text-ink leading-relaxed">Picks up where she left off? Sees progress?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Care plan tie-back</p>
+          <p class="text-[14px] text-ink leading-relaxed">Progress against care plan goals? Provider visibility?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">Warm nudge that doesn't feel like a nag</p>
+        </div>
+      </div>
+
+      <div class="bg-purple-pale rounded-2xl p-5">
+        <p class="text-[15px] text-purple-dark leading-relaxed">
+          <span class="font-semibold">Prompt:</span> 3 days later. What's the one thing that brings Margaret back?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 11: Flow B header -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 text-center" style="background-color: #FEF3C7;" data-time="10">
+    <div class="max-w-xl mx-auto animate-in">
+      <div class="w-14 h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-[24px] font-bold mx-auto mb-6">B</div>
+      <h2 class="text-[34px] font-bold text-ink leading-tight mb-3">Fitness &rarr; Care Plan</h2>
+      <p class="text-[18px] text-brand-muted leading-relaxed mb-2">Existing Bold user, gets clinical guidance</p>
+      <p class="text-[14px] text-amber-700 font-medium">10 min &middot; 3 moments</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 12: Flow B — Arrive -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-[14px] font-bold shrink-0">B</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-amber-700 text-white flex items-center justify-center text-[14px] font-bold shrink-0">1</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-amber-700 uppercase tracking-wider">Moment 1 &middot; 3 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">The Upgrade Moment</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">She's been using Bold for fitness. She does a PrevMed visit. Now she has an AI care plan. What changes?</p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Discovery</p>
+          <p class="text-[14px] text-ink leading-relaxed">How does she learn about the care plan? Bold surfaces it? Provider tells her?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">What changes</p>
+          <p class="text-[14px] text-ink leading-relaxed">New features unlocked? Program adjustments? Nutrition added?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Framing</p>
+          <p class="text-[14px] text-ink leading-relaxed">Does it feel like an upgrade or a disruption to her routine?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">Feels like her experience just got smarter, not more complicated</p>
+        </div>
+      </div>
+
+      <div class="bg-brand-yellow border border-brand-yellowBorder rounded-2xl p-5">
+        <p class="text-[15px] text-ink leading-relaxed">
+          <span class="font-semibold">Prompt:</span> She's been doing seated strength for 3 months. Her provider says "I've built you a care plan." What does that unlock?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 13: Flow B — First Screen -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="4">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-[14px] font-bold shrink-0">B</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-amber-700 text-white flex items-center justify-center text-[14px] font-bold shrink-0">2</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-amber-700 uppercase tracking-wider">Moment 2 &middot; 4 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">Bold + Care Plan</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">She returns to a platform she already knows &mdash; but now it's different. How do we show clinical guidance without disrupting what she already loves?</p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">She sees</p>
+          <p class="text-[14px] text-ink leading-relaxed">New care plan section? Reorganized programs? Provider note?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">She does</p>
+          <p class="text-[14px] text-ink leading-relaxed">Explores what's new? Continues her routine? Adjusts preferences?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">System does</p>
+          <p class="text-[14px] text-ink leading-relaxed">Adjusts Today's Plan based on care plan? Adds nutrition content?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">Her existing experience is enhanced, not replaced</p>
+        </div>
+      </div>
+
+      <div class="bg-brand-yellow border border-brand-yellowBorder rounded-2xl p-5">
+        <p class="text-[15px] text-ink leading-relaxed">
+          <span class="font-semibold">Prompt:</span> She opens Bold expecting her usual Today's Plan. What's new &mdash; and does it feel like an upgrade or a disruption?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 14: Flow B — Return -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-[14px] font-bold shrink-0">B</div>
+          <span class="material-symbols-outlined text-gray-300" style="font-size:18px" aria-hidden="true">arrow_forward</span>
+          <div class="w-8 h-8 rounded-lg bg-amber-700 text-white flex items-center justify-center text-[14px] font-bold shrink-0">3</div>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-amber-700 uppercase tracking-wider">Moment 3 &middot; 3 min</p>
+          <h2 class="text-[28px] font-bold text-purple-dark leading-tight">Enriched Routine</h2>
+        </div>
+      </div>
+      <p class="text-[16px] text-brand-muted mb-6 leading-relaxed">Week 3 with a care plan. How is her Bold experience meaningfully different from before?</p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Integration</p>
+          <p class="text-[14px] text-ink leading-relaxed">Care plan goals alongside regular activity? Blended or separate?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Progress</p>
+          <p class="text-[14px] text-ink leading-relaxed">Does she see care plan progress? Does her provider?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Holistic view</p>
+          <p class="text-[14px] text-ink leading-relaxed">Fitness + nutrition + education &mdash; unified or separate tracks?</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider mb-2">Great looks like</p>
+          <p class="text-[14px] text-ink leading-relaxed">She feels more supported, not more managed</p>
+        </div>
+      </div>
+
+      <div class="bg-brand-yellow border border-brand-yellowBorder rounded-2xl p-5">
+        <p class="text-[15px] text-ink leading-relaxed">
+          <span class="font-semibold">Prompt:</span> Week 3 with a care plan. How is her Bold experience meaningfully different from before she had one?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 15: Part 3 divider -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 bg-purple-dark text-center" data-time="10">
+    <div class="max-w-xl mx-auto animate-in">
+      <p class="text-yellow-brand text-[14px] font-semibold uppercase tracking-wider mb-4">Part 3 &middot; 10 min</p>
+      <h2 class="text-[38px] font-bold text-white leading-tight mb-4">Align & Close</h2>
+      <p class="text-[18px] text-purple-light/80 leading-relaxed">
+        Compare flows, set principles, assign next steps.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 16: Compare Flows -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="4">
+    <div class="max-w-3xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Compare &middot; 4 min</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-2">One experience or two?</h2>
+      <p class="text-[15px] text-brand-muted mb-8">Look across both flows. Where do they converge, and where must they differ?</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr>
+              <th class="text-[13px] font-semibold text-brand-muted uppercase tracking-wider pb-3 pr-4 w-32"></th>
+              <th class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider pb-3 pr-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded bg-purple-brand text-white flex items-center justify-center text-[11px] font-bold">A</div>
+                  PrevMed &rarr; Fitness
+                </div>
+              </th>
+              <th class="text-[13px] font-semibold text-amber-700 uppercase tracking-wider pb-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded bg-amber-600 text-white flex items-center justify-center text-[11px] font-bold">B</div>
+                  Fitness &rarr; Care Plan
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-gray-100">
+              <td class="py-4 pr-4 text-[14px] font-semibold text-ink align-top">Arrive</td>
+              <td class="py-4 pr-4 text-[14px] text-brand-muted align-top">Cold start &mdash; needs context, trust, framing</td>
+              <td class="py-4 text-[14px] text-brand-muted align-top">Already engaged &mdash; needs to learn what's new</td>
+            </tr>
+            <tr class="border-t border-gray-100">
+              <td class="py-4 pr-4 text-[14px] font-semibold text-ink align-top">First screen</td>
+              <td class="py-4 pr-4 text-[14px] text-brand-muted align-top">Welcome + care plan program + ???</td>
+              <td class="py-4 text-[14px] text-brand-muted align-top">Familiar home + care plan layer + ???</td>
+            </tr>
+            <tr class="border-t border-gray-100">
+              <td class="py-4 pr-4 text-[14px] font-semibold text-ink align-top">Return</td>
+              <td class="py-4 pr-4 text-[14px] text-brand-muted align-top">Needs a reason to come back</td>
+              <td class="py-4 text-[14px] text-brand-muted align-top">Already has a routine &mdash; care plan enriches it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 grid grid-cols-2 gap-4">
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+          <p class="text-[14px] font-semibold text-green-800 mb-1">Where they converge</p>
+          <p class="text-[13px] text-green-700">Same care plan integration? Same content library? Same progress tracking?</p>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4">
+          <p class="text-[14px] font-semibold text-orange-800 mb-1">Where they must differ</p>
+          <p class="text-[13px] text-orange-700">Onboarding vs. none? Context-setting vs. seamless upgrade?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 17: Design Principles -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Principles &middot; 3 min</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-2">What must be true for both flows?</h2>
+      <p class="text-[15px] text-brand-muted mb-8">Quick-fire: 3 non-negotiable design principles.</p>
+
+      <div class="space-y-4">
+        <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-purple-pale text-purple-brand flex items-center justify-center text-[18px] font-bold shrink-0">1</div>
+          <p class="text-[16px] text-brand-muted italic">e.g., "Care plan is always visible and connected to the provider"</p>
+        </div>
+        <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-purple-pale text-purple-brand flex items-center justify-center text-[18px] font-bold shrink-0">2</div>
+          <p class="text-[16px] text-brand-muted italic">e.g., "First action is zero-friction &mdash; just press play"</p>
+        </div>
+        <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-purple-pale text-purple-brand flex items-center justify-center text-[18px] font-bold shrink-0">3</div>
+          <p class="text-[16px] text-brand-muted italic">e.g., "Provider trust is front and center in every touchpoint"</p>
+        </div>
+      </div>
+
+      <p class="text-[14px] text-brand-muted mt-6 text-center">These become our design guardrails.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 18: Next Steps -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8" data-time="3">
+    <div class="max-w-2xl mx-auto w-full animate-in">
+      <p class="text-[13px] font-semibold text-purple-brand uppercase tracking-wider mb-3">Next Steps &middot; 3 min</p>
+      <h2 class="text-[32px] font-bold text-purple-dark leading-tight mb-8">What happens next</h2>
+
+      <div class="space-y-3">
+        <div class="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-4">
+          <div class="w-6 h-6 rounded border-2 border-purple-brand shrink-0 mt-0.5"></div>
+          <div>
+            <p class="text-[15px] font-semibold text-ink">Map detailed screens for Flow A landing</p>
+            <p class="text-[13px] text-brand-muted">Highest impact &mdash; the cold-start first screen</p>
+          </div>
+          <span class="ml-auto text-[13px] text-brand-muted shrink-0">Owner: ___</span>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-4">
+          <div class="w-6 h-6 rounded border-2 border-purple-brand shrink-0 mt-0.5"></div>
+          <div>
+            <p class="text-[15px] font-semibold text-ink">Define how care plan surfaces for Flow B</p>
+            <p class="text-[13px] text-brand-muted">Existing users &mdash; upgrade without disruption</p>
+          </div>
+          <span class="ml-auto text-[13px] text-brand-muted shrink-0">Owner: ___</span>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-4">
+          <div class="w-6 h-6 rounded border-2 border-purple-brand shrink-0 mt-0.5"></div>
+          <div>
+            <p class="text-[15px] font-semibold text-ink">Decide access model</p>
+            <p class="text-[13px] text-brand-muted">Care plan only vs. guided full access</p>
+          </div>
+          <span class="ml-auto text-[13px] text-brand-muted shrink-0">Owner: ___</span>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-4">
+          <div class="w-6 h-6 rounded border-2 border-purple-brand shrink-0 mt-0.5"></div>
+          <div>
+            <p class="text-[15px] font-semibold text-ink">Align with eng on AI care plan data</p>
+            <p class="text-[13px] text-brand-muted">What data is available to the fitness experience?</p>
+          </div>
+          <span class="ml-auto text-[13px] text-brand-muted shrink-0">Owner: ___</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SLIDE 19: Close -->
+  <!-- ============================================ -->
+  <section class="slide flex-col items-center justify-center px-8 bg-purple-dark text-center" data-time="">
+    <div class="max-w-xl mx-auto animate-in">
+      <span class="material-symbols-outlined text-yellow-brand mb-6 block" style="font-size:48px; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 48" aria-hidden="true">exercise</span>
+      <h2 class="text-[38px] font-bold text-white leading-tight mb-4">Two paths,<br/>one great experience.</h2>
+      <p class="text-[18px] text-purple-light/80 leading-relaxed">
+        PrevMed x Fitness
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- Navigation & Timer Script -->
+  <!-- ============================================ -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    let timerInterval = null;
+    let timerSeconds = 2400; // 40 min
+    let timerRunning = false;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      current = index;
+      document.getElementById('slideNumber').textContent = `${current + 1} / ${slides.length}`;
+      document.getElementById('progressBar').style.width = `${((current + 1) / slides.length) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) showSlide(current + 1);
+    }
+
+    function prevSlide() {
+      if (current > 0) showSlide(current - 1);
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      document.getElementById('timerDisplay').textContent =
+        `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerBtn').classList.add('bg-red-100', 'text-red-600');
+      }
+    }
+
+    function toggleTimer() {
+      if (timerRunning) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+      } else {
+        timerRunning = true;
+        timerInterval = setInterval(() => {
+          timerSeconds--;
+          updateTimerDisplay();
+        }, 1000);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+      if (e.key === 'End') { e.preventDefault(); showSlide(slides.length - 1); }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (diff < -50) nextSlide();
+      if (diff > 50) prevSlide();
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weight Management for Adults 65+ — Bold Health</title>
+  <meta name="description" content="Bold helps adults 65+ reach a healthier weight through personalized support between doctor visits. Covered by Medicare. Starting with habits, not a prescription." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#7C3AED',
+              lightPurple: '#F3E8FF',
+              yellow: '#FEF3C7',
+              yellowBorder: '#FDE68A',
+              green: '#E6FFFA',
+              text: '#111827',
+              muted: '#6B7280',
+            },
+            purple: {
+              brand: '#5200D4',
+              dark: '#29006A',
+              mid: '#3E009F',
+              light: '#EBF0FF',
+              pale: '#F3E8FF',
+            },
+            yellow: { brand: '#FFCC1A' },
+            ink: '#140D26',
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          boxShadow: {
+            card: '0 2px 8px -2px rgba(0,0,0,0.05), 0 4px 12px -2px rgba(0,0,0,0.02)',
+            'card-hover': '0 8px 24px -4px rgba(0,0,0,0.1), 0 4px 12px -2px rgba(0,0,0,0.04)',
+          },
+          keyframes: {
+            slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            revealIn: { '0%': { opacity: '0', transform: 'translateY(12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          },
+          animation: {
+            slideUp: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            revealIn: 'revealIn 0.6s ease-out forwards',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    /* Hide scrollbar for horizontal scroll on condition cards */
+    .scroll-snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .scroll-snap-x::-webkit-scrollbar { display: none; }
+    .scroll-snap-x { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-white font-sans text-ink antialiased">
+
+<div id="root"></div>
+
+<script type="text/babel">
+/* ─────────────────────────────────────────────
+   Figma asset URLs — use directly as returned by Figma MCP
+   ───────────────────────────────────────────── */
+const IMG = {
+  lines:            'https://www.figma.com/api/mcp/asset/f00174e1-4ace-48a7-96fb-3ac944ea53e4',
+  text:             'https://www.figma.com/api/mcp/asset/ff4d3328-cc39-40d4-a9c6-cdcfda893e0b',
+  hero:             'https://www.figma.com/api/mcp/asset/f56abe73-78d2-4cfc-b319-45c583b060b5',
+  weightMain:       'https://www.figma.com/api/mcp/asset/ba34d781-7eac-47bd-be3b-6b91581eb3de',
+  pain:             'https://www.figma.com/api/mcp/asset/a871d746-8874-4398-a275-c8066fe434de',
+  energy:           'https://www.figma.com/api/mcp/asset/cecd2aa7-5e68-4e3f-a942-d9e426c3b906',
+  sleep:            'https://www.figma.com/api/mcp/asset/76fbc3bf-128d-4498-b6c8-154812f67009',
+  nutrition:        'https://www.figma.com/api/mcp/asset/a8cea333-e455-4df5-8eb5-3ab7ad6eb46f',
+  visits:           'https://www.figma.com/api/mcp/asset/a96a0e07-8a61-4700-bf8d-40edee810222',
+  provider1:        'https://www.figma.com/api/mcp/asset/07b46293-db61-4918-8cd5-92cbf54d309c',
+  provider2:        'https://www.figma.com/api/mcp/asset/24193718-09cd-4856-a572-ab96f4b98ceb',
+  provider3:        'https://www.figma.com/api/mcp/asset/dba188c8-929d-4b88-9fd7-b078b722c7c6',
+  pressLogos:       'https://www.figma.com/api/mcp/asset/1dbaec7b-bc03-4044-9b64-59255eaecd64',
+  stepCheck:        'https://www.figma.com/api/mcp/asset/68386ab0-b343-4cc3-aec2-d2724ea6e275',
+  stepVideo:        'https://www.figma.com/api/mcp/asset/faede0da-20d3-4335-91cb-4d852e03658b',
+  stepExercise:     'https://www.figma.com/api/mcp/asset/99c67c9c-00bb-44b2-8d94-de765f173434',
+};
+
+/* ─────────────────────────────────────────────
+   Icon — Material Symbols wrapper
+   ───────────────────────────────────────────── */
+const Icon = ({ name, className = '', fill = false, size = 24 }) => (
+  <span
+    className={`material-symbols-outlined select-none ${className}`}
+    style={{ fontVariationSettings: `'FILL' ${fill ? 1 : 0}, 'wght' 400, 'GRAD' 0, 'opsz' ${size}` }}
+    aria-hidden="true"
+  >{name}</span>
+);
+
+/* ─────────────────────────────────────────────
+   BoldLogo — 2-part logo from Figma
+   ───────────────────────────────────────────── */
+const BoldLogo = ({ inverted = false }) => (
+  <div className="relative h-[42px] w-[140px]" aria-label="Bold Health">
+    <div className="absolute left-0 top-0 bottom-0" style={{ right: '69.76%' }}>
+      <img
+        alt=""
+        className={`w-full h-full object-contain ${inverted ? 'brightness-0 invert' : ''}`}
+        src={IMG.lines}
+      />
+    </div>
+    <div className="absolute" style={{ top: '20.94%', right: 0, bottom: '20.53%', left: '36.57%' }}>
+      <img
+        alt=""
+        className={`w-full h-full object-contain ${inverted ? 'brightness-0 invert' : ''}`}
+        src={IMG.text}
+      />
+    </div>
+  </div>
+);
+
+/* ─────────────────────────────────────────────
+   NavBar
+   ───────────────────────────────────────────── */
+const NavBar = ({ onCheckCoverage }) => (
+  <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 px-5 lg:px-20 h-[72px] flex items-center justify-between">
+    <a href="/" aria-label="Bold Health — home">
+      <BoldLogo />
+    </a>
+    <div className="flex items-center gap-3">
+      <button
+        className="hidden sm:block text-[14px] font-medium text-brand-muted hover:text-ink transition-colors px-4 py-2 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand"
+      >
+        Sign in
+      </button>
+      <button
+        onClick={onCheckCoverage}
+        className="bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[14px] font-semibold px-5 py-2.5 rounded-xl transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+      >
+        Check coverage
+      </button>
+    </div>
+  </nav>
+);
+
+/* ─────────────────────────────────────────────
+   HeroSection
+   ───────────────────────────────────────────── */
+const HeroSection = ({ onCheckCoverage }) => {
+  const [form, setForm] = React.useState({ firstName: '', lastName: '', email: '', dob: '' });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onCheckCoverage();
+  };
+
+  return (
+    <section className="bg-white py-8 px-5 lg:px-20">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-purple-light rounded-3xl overflow-hidden">
+          <div className="flex flex-col lg:flex-row min-h-[520px]">
+
+            {/* Left — copy + form */}
+            <div className="flex-1 p-8 lg:p-12 flex flex-col gap-6 justify-center">
+
+              {/* Medicare badge */}
+              <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 text-[13px] font-semibold text-purple-brand w-fit shadow-card">
+                <Icon name="verified" className="text-[16px]" fill />
+                Covered by Medicare
+              </div>
+
+              {/* h1 */}
+              <h1 className="text-[30px] lg:text-[48px] font-bold text-purple-dark leading-tight tracking-tight">
+                Sustainable weight management.{' '}
+                <span className="text-purple-brand">Supported by care</span> — not just a pill.
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-[16px] text-brand-muted leading-relaxed max-w-lg">
+                Bold helps adults 65+ reach a healthier weight through personalized support between doctor visits — starting with your habits, not a prescription.
+              </p>
+
+              {/* Lead capture form */}
+              <div id="coverage-form" className="bg-white rounded-2xl shadow-card p-6">
+                <p className="text-[15px] font-semibold text-ink mb-4">Check if you're covered</p>
+                <form onSubmit={handleSubmit} aria-label="Check your Medicare coverage" noValidate>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                    <div>
+                      <label htmlFor="firstName" className="block text-[13px] font-medium text-ink mb-1">
+                        First name <span className="text-red-500" aria-hidden="true">*</span>
+                        <span className="sr-only">(required)</span>
+                      </label>
+                      <input
+                        id="firstName" type="text" autoComplete="given-name"
+                        aria-required="true"
+                        value={form.firstName}
+                        onChange={e => setForm({ ...form, firstName: e.target.value })}
+                        placeholder="First name"
+                        className="w-full border border-gray-200 rounded-xl px-4 h-11 text-[15px] text-ink placeholder-gray-400 outline-none focus:ring-2 focus:ring-purple-brand focus:border-purple-brand transition shadow-sm"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="lastName" className="block text-[13px] font-medium text-ink mb-1">
+                        Last name <span className="text-red-500" aria-hidden="true">*</span>
+                        <span className="sr-only">(required)</span>
+                      </label>
+                      <input
+                        id="lastName" type="text" autoComplete="family-name"
+                        aria-required="true"
+                        value={form.lastName}
+                        onChange={e => setForm({ ...form, lastName: e.target.value })}
+                        placeholder="Last name"
+                        className="w-full border border-gray-200 rounded-xl px-4 h-11 text-[15px] text-ink placeholder-gray-400 outline-none focus:ring-2 focus:ring-purple-brand focus:border-purple-brand transition shadow-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="email" className="block text-[13px] font-medium text-ink mb-1">
+                      Email <span className="text-red-500" aria-hidden="true">*</span>
+                      <span className="sr-only">(required)</span>
+                    </label>
+                    <input
+                      id="email" type="email" autoComplete="email"
+                      aria-required="true"
+                      value={form.email}
+                      onChange={e => setForm({ ...form, email: e.target.value })}
+                      placeholder="you@email.com"
+                      className="w-full border border-gray-200 rounded-xl px-4 h-11 text-[15px] text-ink placeholder-gray-400 outline-none focus:ring-2 focus:ring-purple-brand focus:border-purple-brand transition shadow-sm"
+                    />
+                  </div>
+
+                  <div className="mb-5">
+                    <label htmlFor="dob" className="block text-[13px] font-medium text-ink mb-1">
+                      Date of birth <span className="text-red-500" aria-hidden="true">*</span>
+                      <span className="sr-only">(required)</span>
+                    </label>
+                    <input
+                      id="dob" type="date" autoComplete="bday"
+                      aria-required="true"
+                      aria-describedby="dob-hint"
+                      value={form.dob}
+                      onChange={e => setForm({ ...form, dob: e.target.value })}
+                      className="w-full border border-gray-200 rounded-xl px-4 h-11 text-[15px] text-ink outline-none focus:ring-2 focus:ring-purple-brand focus:border-purple-brand transition shadow-sm"
+                    />
+                    <p id="dob-hint" className="text-[12px] text-brand-muted mt-1">We use this to verify your Medicare eligibility</p>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[16px] font-semibold rounded-2xl h-14 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+                  >
+                    Check my coverage
+                  </button>
+                  <p className="text-center text-[12px] text-brand-muted mt-3 flex items-center justify-center gap-1">
+                    <Icon name="lock" className="text-[14px]" />
+                    Most patients pay $0 with Medicare
+                  </p>
+                </form>
+              </div>
+            </div>
+
+            {/* Right — hero image */}
+            <div className="hidden lg:block lg:w-[42%] relative">
+              <img
+                src={IMG.hero}
+                alt="A smiling older adult woman in a comfortable home environment, representing healthy aging"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-light/30 to-transparent pointer-events-none" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ─────────────────────────────────────────────
+   ConditionChipsSection
+   ───────────────────────────────────────────── */
+const CONDITIONS = [
+  { label: 'Weight management', img: IMG.weightMain, featured: true },
+  { label: 'Joint & back pain', img: IMG.pain },
+  { label: 'Energy & fatigue', img: IMG.energy },
+  { label: 'Sleep & recovery', img: IMG.sleep },
+  { label: 'Nutrition', img: IMG.nutrition },
+];
+
+const ConditionChipsSection = () => (
+  <section className="bg-white py-16 px-5 lg:px-20" aria-labelledby="conditions-heading">
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-10">
+        <h2 id="conditions-heading" className="text-[26px] lg:text-[36px] font-bold text-ink leading-tight mb-3">
+          Weight isn't always just about food.
+        </h2>
+        <p className="text-[16px] text-brand-muted leading-relaxed max-w-2xl mx-auto">
+          Bold addresses the whole picture — because chronic pain, poor sleep, and low energy all affect your weight.
+        </p>
+      </div>
+
+      <div className="flex gap-4 overflow-x-auto pb-3 scroll-snap-x lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0">
+        {CONDITIONS.map(c => (
+          <div
+            key={c.label}
+            className={`relative flex-none w-44 h-52 lg:w-auto lg:aspect-[3/4] rounded-2xl overflow-hidden snap-start ${c.featured ? 'ring-2 ring-offset-2 ring-purple-brand' : ''}`}
+          >
+            <img src={c.img} alt={c.label} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            {c.featured && (
+              <div className="absolute top-3 left-3 bg-purple-brand text-white text-[11px] font-bold px-2.5 py-1 rounded-full tracking-wide">
+                Primary focus
+              </div>
+            )}
+            <p className="absolute bottom-4 left-4 right-4 text-white text-[14px] font-semibold leading-snug">
+              {c.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   ValuePropSection
+   ───────────────────────────────────────────── */
+const ValuePropSection = ({ onCheckCoverage }) => (
+  <section className="bg-[#fafafa] py-16 px-5 lg:px-20" aria-labelledby="valueprop-heading">
+    <div className="max-w-6xl mx-auto">
+      <div className="flex flex-col lg:flex-row gap-12 items-center">
+
+        <div className="w-full lg:w-[45%] rounded-2xl overflow-hidden aspect-square">
+          <img
+            src={IMG.visits}
+            alt="A patient having a virtual health appointment with their Bold provider from the comfort of home"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="flex-1 flex flex-col gap-6">
+          <h2 id="valueprop-heading" className="text-[26px] lg:text-[40px] font-bold text-ink leading-tight">
+            Most patients pay little to no cost with Medicare
+          </h2>
+          <p className="text-[16px] text-brand-muted leading-relaxed">
+            Meet with a board-certified provider for a 45-minute virtual visit. Together, you'll build a Healthy Aging Care Plan to manage your weight, reduce pain, and boost energy — without new prescriptions.
+          </p>
+
+          <ul className="flex flex-col gap-3" aria-label="What's included">
+            {[
+              '45-min virtual visit with a board-certified provider',
+              'Personalized Healthy Aging Care Plan',
+              'Habit-based support — no new prescriptions required',
+              'Ongoing check-ins between doctor visits',
+            ].map(item => (
+              <li key={item} className="flex items-start gap-3 text-[15px] text-ink">
+                <Icon name="check_circle" className="text-purple-brand text-[20px] mt-0.5 shrink-0" fill />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <button
+            onClick={onCheckCoverage}
+            className="bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[16px] font-semibold px-8 py-4 rounded-2xl w-full sm:w-fit transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+          >
+            Check my coverage
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   ProviderSection
+   ───────────────────────────────────────────── */
+const PROVIDERS = [
+  { name: 'Dr. Sarah Chen', specialty: 'Internal Medicine · Weight Management', img: IMG.provider1 },
+  { name: 'Dr. Marcus Webb', specialty: 'Geriatrics · Chronic Pain', img: IMG.provider2 },
+  { name: 'Dr. Amara Osei', specialty: 'Family Medicine · Healthy Aging', img: IMG.provider3 },
+];
+
+const ProviderSection = ({ onBookProvider }) => (
+  <section className="bg-white py-16 px-5 lg:px-20" aria-labelledby="providers-heading">
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-10">
+        <h2 id="providers-heading" className="text-[26px] lg:text-[36px] font-bold text-ink leading-tight mb-3">
+          Your personal healthy aging expert
+        </h2>
+        <p className="text-[16px] text-brand-muted leading-relaxed max-w-xl mx-auto">
+          Bold matches you with a board-certified provider who specializes in adults 65+ and understands how weight, pain, and energy are connected.
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-5 mb-8">
+        {PROVIDERS.map(p => (
+          <div key={p.name} className="flex-1 bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
+            <div className="aspect-[4/3] overflow-hidden">
+              <img
+                src={p.img}
+                alt={`Photo of ${p.name}, ${p.specialty}`}
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div className="p-5">
+              <p className="text-[15px] font-semibold text-ink">{p.name}</p>
+              <p className="text-[13px] text-brand-muted mt-1">{p.specialty}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={onBookProvider}
+          className="border-2 border-purple-brand text-purple-brand text-[15px] font-semibold px-8 py-3.5 rounded-2xl hover:bg-purple-light transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+        >
+          Book with a provider
+        </button>
+      </div>
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   HowItWorksSection
+   ───────────────────────────────────────────── */
+const STEPS = [
+  {
+    icon: IMG.stepCheck,
+    iconAlt: 'Checkmark badge icon',
+    step: 'Step 1',
+    title: 'Check your coverage',
+    desc: '2 minutes to confirm your Medicare plan covers Bold visits — at no cost to you.',
+  },
+  {
+    icon: IMG.stepVideo,
+    iconAlt: 'Video call icon',
+    step: 'Step 2',
+    title: 'Schedule a virtual visit',
+    desc: '45 minutes with a board-certified provider — from your home, no waiting room.',
+  },
+  {
+    icon: IMG.stepExercise,
+    iconAlt: 'Person doing gentle exercise icon',
+    step: 'Step 3',
+    title: 'Build your care plan',
+    desc: 'Get a personalized weight management plan based on your health, habits, and goals.',
+  },
+];
+
+const HowItWorksSection = ({ onQualify }) => (
+  <section className="bg-[#fafafa] py-16 px-5 lg:px-20" aria-labelledby="hiw-heading">
+    <div className="max-w-6xl mx-auto">
+
+      <div className="mb-10">
+        <div className="inline-flex items-center gap-2 mb-4">
+          <Icon name="checklist" className="text-purple-brand text-[20px]" />
+          <span className="text-[12px] font-bold text-purple-brand tracking-[2px] uppercase">Getting started</span>
+        </div>
+        <h2 id="hiw-heading" className="text-[26px] lg:text-[40px] font-bold text-ink leading-tight mb-3">
+          How Bold works
+        </h2>
+        <p className="text-[16px] text-brand-muted leading-relaxed max-w-2xl">
+          Verify your coverage with a Bold Care Coordinator and get matched with your weight management provider. You can meet as often as you want.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+        {STEPS.map((s, i) => (
+          <div key={i} className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
+            <div className="h-44 bg-purple-light flex items-center justify-center p-6">
+              <img src={s.icon} alt={s.iconAlt} className="h-20 w-20 object-contain" />
+            </div>
+            <div className="p-5">
+              <div className="text-[11px] font-bold text-purple-brand tracking-widest uppercase mb-2">{s.step}</div>
+              <p className="text-[16px] font-semibold text-ink mb-2">{s.title}</p>
+              <p className="text-[14px] text-brand-muted leading-relaxed">{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={onQualify}
+          className="bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[16px] font-semibold px-10 py-4 rounded-2xl transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+        >
+          Find out if I qualify
+        </button>
+      </div>
+
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   TestimonialSection
+   ───────────────────────────────────────────── */
+const TESTIMONIALS = [
+  {
+    quote: "I'd been told to lose weight for my knee pain for years, but no one helped me figure out how. Bold gave me a plan I could actually follow — and my knees hurt less now too.",
+    name: 'Margaret',
+    age: 71,
+    result: 'Lost 18 lbs in 4 months',
+    img: IMG.provider1,
+  },
+  {
+    quote: "I was on Ozempic but not making the habit changes to make it last. Bold's providers helped me understand what to eat, how to move, and how to actually keep the weight off.",
+    name: 'James',
+    age: 68,
+    result: 'Medicare covered, $0 out of pocket',
+    img: IMG.provider2,
+  },
+  {
+    quote: "My doctor is great but I see her twice a year. Bold is who I call between visits. They know my history, my goals, and actually check in on me.",
+    name: 'Dorothy',
+    age: 74,
+    result: 'Managing weight + diabetes',
+    img: IMG.provider3,
+  },
+];
+
+const TestimonialCard = ({ t }) => (
+  <article className="bg-white rounded-2xl shadow-card border border-gray-100 p-6 flex flex-col gap-4 h-full">
+    <Icon name="format_quote" className="text-purple-brand text-[36px]" fill />
+    <p className="text-[15px] text-ink leading-relaxed flex-1">"{t.quote}"</p>
+    <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+      <img
+        src={t.img}
+        alt={`Photo of ${t.name}`}
+        className="w-11 h-11 rounded-full object-cover shrink-0"
+      />
+      <div>
+        <p className="text-[14px] font-semibold text-ink">{t.name}, {t.age}</p>
+        <p className="text-[13px] text-purple-brand font-medium">{t.result}</p>
+      </div>
+    </div>
+  </article>
+);
+
+const TestimonialSection = () => {
+  const [active, setActive] = React.useState(0);
+
+  return (
+    <section className="bg-white py-16 px-5 lg:px-20" aria-labelledby="testimonials-heading">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 id="testimonials-heading" className="text-[26px] lg:text-[36px] font-bold text-ink leading-tight mb-3">
+            Real people. Real results.
+          </h2>
+          <p className="text-[16px] text-brand-muted">
+            Adults 65+ managing weight and chronic pain with Bold.
+          </p>
+        </div>
+
+        {/* Desktop — 3 columns */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-5">
+          {TESTIMONIALS.map((t, i) => <TestimonialCard key={i} t={t} />)}
+        </div>
+
+        {/* Mobile — carousel */}
+        <div className="sm:hidden">
+          <TestimonialCard t={TESTIMONIALS[active]} />
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={() => setActive((active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              aria-label="Previous testimonial"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand"
+            >
+              <Icon name="chevron_left" />
+            </button>
+            <div className="flex gap-2" role="group" aria-label="Testimonial navigation">
+              {TESTIMONIALS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  aria-pressed={i === active}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand ${i === active ? 'bg-purple-brand w-6' : 'bg-gray-300'}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setActive((active + 1) % TESTIMONIALS.length)}
+              aria-label="Next testimonial"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-brand"
+            >
+              <Icon name="chevron_right" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ─────────────────────────────────────────────
+   DifferentiatorSection
+   ───────────────────────────────────────────── */
+const DIFF_ROWS = [
+  { feature: 'Built for adults 65+',    bold: 'Providers specializing in older adult care',   others: 'Designed for general population' },
+  { feature: 'Covered by Medicare',     bold: 'Most patients pay $0',                          others: 'Usually cash-pay or varies' },
+  { feature: 'Starts with habits',      bold: 'Lifestyle-first — no new prescriptions required', others: 'Often medication-first' },
+  { feature: 'Connects to your PCP',    bold: 'Your doctor stays in the loop after every visit', others: 'Isolated from your care team' },
+  { feature: 'One-on-one care',         bold: 'Dedicated provider matched to your needs',       others: 'Generic coaching or AI chatbot' },
+];
+
+const DifferentiatorSection = ({ onCheckCoverage }) => (
+  <section className="bg-[#fafafa] py-16 px-5 lg:px-20" aria-labelledby="diff-heading">
+    <div className="max-w-5xl mx-auto">
+      <div className="mb-10">
+        <div className="inline-flex items-center gap-2 mb-4">
+          <Icon name="star" className="text-purple-brand text-[20px]" fill />
+          <span className="text-[12px] font-bold text-purple-brand tracking-[2px] uppercase">Why Bold</span>
+        </div>
+        <h2 id="diff-heading" className="text-[26px] lg:text-[40px] font-bold text-ink leading-tight mb-3">
+          This isn't a diet app.<br className="hidden lg:block" /> And it's not more pills.
+        </h2>
+        <p className="text-[16px] text-brand-muted leading-relaxed max-w-2xl">
+          Bold is built differently — because you deserve care that's designed for where you are in life.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden mb-8">
+        {/* Table header */}
+        <div className="grid grid-cols-3 bg-purple-brand text-white text-center">
+          <div className="p-4 text-[12px] font-semibold text-white/70 text-left">Feature</div>
+          <div className="p-4 text-[14px] font-bold border-l border-white/20">
+            <span className="flex items-center justify-center gap-1.5">
+              <Icon name="verified" className="text-[16px]" fill /> Bold
+            </span>
+          </div>
+          <div className="p-4 text-[14px] font-semibold border-l border-white/20 opacity-70">Others</div>
+        </div>
+
+        {DIFF_ROWS.map((row, i) => (
+          <div
+            key={i}
+            className={`grid grid-cols-3 text-center ${i < DIFF_ROWS.length - 1 ? 'border-b border-gray-100' : ''} ${i % 2 === 1 ? 'bg-[#fafafa]' : 'bg-white'}`}
+          >
+            <div className="p-4 text-[13px] font-semibold text-ink text-left">{row.feature}</div>
+            <div className="p-4 text-[13px] text-ink border-l border-gray-100">
+              <div className="flex items-start gap-1.5 text-left">
+                <Icon name="check_circle" className="text-green-600 text-[16px] mt-0.5 shrink-0" fill />
+                <span>{row.bold}</span>
+              </div>
+            </div>
+            <div className="p-4 text-[13px] text-brand-muted border-l border-gray-100">
+              <div className="flex items-start gap-1.5 text-left">
+                <Icon name="remove_circle" className="text-gray-400 text-[16px] mt-0.5 shrink-0" />
+                <span>{row.others}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={onCheckCoverage}
+          className="bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[16px] font-semibold px-10 py-4 rounded-2xl transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+        >
+          Check my eligibility
+        </button>
+      </div>
+
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   TrustSafetySection
+   ───────────────────────────────────────────── */
+const TRUST_PILLARS = [
+  {
+    icon: 'verified_user',
+    title: 'Board-certified providers',
+    desc: 'All Bold providers are licensed, board-certified clinicians with specific expertise in older adult care — not general wellness coaches.',
+  },
+  {
+    icon: 'supervisor_account',
+    title: 'Works with your current doctor',
+    desc: "Bold doesn't replace your PCP — it supports them. After every visit, your Bold provider can send a care summary to your doctor so your care stays connected.",
+  },
+  {
+    icon: 'health_and_safety',
+    title: 'Safe, virtual, and Medicare-covered',
+    desc: 'All visits are virtual — no travel, no waiting rooms. And Bold is covered by Medicare, so most patients pay nothing out of pocket.',
+  },
+];
+
+const TrustSafetySection = () => (
+  <section className="bg-purple-light py-16 px-5 lg:px-20" aria-labelledby="trust-heading">
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-10">
+        <h2 id="trust-heading" className="text-[26px] lg:text-[36px] font-bold text-purple-dark leading-tight mb-3">
+          Designed specifically for adults 65+
+        </h2>
+        <p className="text-[16px] text-brand-muted leading-relaxed max-w-2xl mx-auto">
+          Bold is reviewed and trusted by physicians who refer their own patients.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {TRUST_PILLARS.map((p, i) => (
+          <div key={i} className="bg-white rounded-2xl shadow-card p-6 flex flex-col gap-4">
+            <div className="w-12 h-12 bg-purple-brand rounded-xl flex items-center justify-center shrink-0">
+              <Icon name={p.icon} className="text-white text-[24px]" fill />
+            </div>
+            <h3 className="text-[16px] font-semibold text-ink">{p.title}</h3>
+            <p className="text-[14px] text-brand-muted leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   PressSection
+   ───────────────────────────────────────────── */
+const PressSection = () => (
+  <section className="bg-white py-12 px-5 lg:px-20" aria-label="Press coverage">
+    <div className="max-w-6xl mx-auto text-center">
+      <p className="text-[12px] font-bold text-brand-muted tracking-[2px] uppercase mb-6">As seen in</p>
+      <img
+        src={IMG.pressLogos}
+        alt="Bold has been featured in MedCity News, Forbes, TechCrunch, and The Post"
+        className="max-h-10 mx-auto object-contain"
+      />
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────
+   FAQSection
+   ───────────────────────────────────────────── */
+const FAQS = [
+  {
+    q: "What exactly is Bold's weight management program?",
+    a: "Bold provides ongoing personalized support — including virtual visits with a board-certified provider, habit coaching, and a written Healthy Aging Care Plan — to help you reach and maintain a healthier weight. We address the root habits, not just prescribe medication.",
+  },
+  {
+    q: "Is this a GLP-1 or Ozempic program?",
+    a: "Bold is not a GLP-1 prescription service. We provide the support and habit-building that helps you get lasting results — whether you're already on medication or looking for an approach that doesn't start with a prescription.",
+  },
+  {
+    q: "What if I also have back or joint pain?",
+    a: "Bold providers are trained to address multiple conditions at once. Weight and chronic pain are closely linked — we build your care plan to address both, so you can move better and feel better.",
+  },
+  {
+    q: "Is this covered by Medicare?",
+    a: "Most Bold patients pay little to no out-of-pocket cost. Bold visits are covered by Medicare as preventive and chronic care management services. We'll confirm your specific coverage when you check eligibility.",
+  },
+  {
+    q: "How is this different from my regular doctor?",
+    a: "Your primary care doctor is essential — and Bold is designed to work alongside them. Bold provides the support between your PCP visits: more time, more check-ins, and a personalized plan that your PCP can see.",
+  },
+  {
+    q: "Am I eligible if I have multiple health conditions?",
+    a: "Yes. Bold specializes in adults 65+ who often have more than one health concern. The more complex your situation, the more you may benefit from dedicated between-visit support.",
+  },
+];
+
+const FAQSection = () => {
+  const [open, setOpen] = React.useState(null);
+
+  return (
+    <section className="bg-[#fafafa] py-16 px-5 lg:px-20" aria-labelledby="faq-heading">
+      <div className="max-w-3xl mx-auto">
+        <h2 id="faq-heading" className="text-[26px] lg:text-[36px] font-bold text-ink text-center mb-10">
+          Frequently asked questions
+        </h2>
+
+        <div className="flex flex-col gap-2">
+          {FAQS.map((faq, i) => {
+            const isOpen = open === i;
+            const panelId = `faq-panel-${i}`;
+            const btnId = `faq-btn-${i}`;
+            return (
+              <div key={i} className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
+                <h3>
+                  <button
+                    id={btnId}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    className="w-full flex items-center justify-between p-5 text-left gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand rounded-2xl"
+                  >
+                    <span className="text-[15px] font-semibold text-ink leading-snug">{faq.q}</span>
+                    <Icon
+                      name={isOpen ? 'expand_less' : 'expand_more'}
+                      className="text-brand-muted shrink-0 text-[24px]"
+                    />
+                  </button>
+                </h3>
+                {isOpen && (
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={btnId}
+                    className="px-5 pb-5"
+                  >
+                    <p className="text-[14px] text-brand-muted leading-relaxed">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ─────────────────────────────────────────────
+   StickyMobileCTA
+   ───────────────────────────────────────────── */
+const StickyMobileCTA = ({ onCheckCoverage }) => (
+  <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 px-5 py-4 sm:hidden">
+    <button
+      onClick={onCheckCoverage}
+      className="w-full bg-purple-brand hover:bg-purple-mid active:bg-purple-dark text-white text-[16px] font-semibold rounded-2xl h-14 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-brand"
+    >
+      Check my coverage — free
+    </button>
+  </div>
+);
+
+/* ─────────────────────────────────────────────
+   Footer
+   ───────────────────────────────────────────── */
+const Footer = () => (
+  <footer className="bg-purple-dark text-white py-12 px-5 lg:px-20">
+    <div className="max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+        <a href="/" aria-label="Bold Health home">
+          <BoldLogo inverted />
+        </a>
+        <nav aria-label="Footer links" className="flex gap-6 flex-wrap">
+          {['Privacy Policy', 'Terms of Service', 'Accessibility'].map(link => (
+            <a
+              key={link}
+              href="#"
+              className="text-[13px] text-white/70 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white rounded"
+            >
+              {link}
+            </a>
+          ))}
+        </nav>
+      </div>
+      <p className="text-[12px] text-white/40 leading-relaxed max-w-2xl">
+        © 2025 Bold Health. All rights reserved. Bold is not a replacement for your primary care physician. All services are subject to Medicare eligibility requirements. Results shown in testimonials are individual and not guaranteed.
+      </p>
+    </div>
+  </footer>
+);
+
+/* ─────────────────────────────────────────────
+   App
+   ───────────────────────────────────────────── */
+const App = () => {
+  const scrollToForm = () => {
+    const el = document.getElementById('coverage-form');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  return (
+    <div className="min-h-screen bg-white font-sans">
+      {/* Skip link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-purple-brand text-white px-4 py-2 rounded-xl z-[100] font-semibold text-[14px]"
+      >
+        Skip to main content
+      </a>
+
+      <NavBar onCheckCoverage={scrollToForm} />
+
+      <main id="main-content">
+        <HeroSection onCheckCoverage={scrollToForm} />
+        <ConditionChipsSection />
+        <ValuePropSection onCheckCoverage={scrollToForm} />
+        <ProviderSection onBookProvider={scrollToForm} />
+        <HowItWorksSection onQualify={scrollToForm} />
+        <TestimonialSection />
+        <DifferentiatorSection onCheckCoverage={scrollToForm} />
+        <TrustSafetySection />
+        <PressSection />
+        <FAQSection />
+      </main>
+
+      <Footer />
+      <StickyMobileCTA onCheckCoverage={scrollToForm} />
+
+      {/* Spacer for mobile sticky CTA */}
+      <div className="h-20 sm:hidden" aria-hidden="true" />
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
